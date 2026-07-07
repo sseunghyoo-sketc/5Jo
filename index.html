@@ -9,7 +9,7 @@
     <!-- FontAwesome Icons for Industrial look -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts: Inter & Gothic A1 -->
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;500;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2 family=Gothic+A1:wght@300;400;500;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -55,7 +55,6 @@
             background-size: 24px 24px;
         }
 
-        /* Neon & Clean Shadows matching image_26c044.png */
         .card-custom {
             background-color: #FFFFFF;
             border: 1.5px solid #E2E8F0;
@@ -105,8 +104,8 @@
 </head>
 <body class="min-h-screen flex flex-col antialiased">
 
-    <!-- Top System HUD Header (Light Mode) -->
-    <header class="border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0 z-50 py-3.5 px-6 flex flex-wrap justify-between items-center">
+    <!-- Top System HUD Header -->
+    <header class="border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0 z-40 py-3.5 px-6 flex flex-wrap justify-between items-center">
         <div class="flex items-center space-x-3">
             <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-blue-600 to-sky-500 flex items-center justify-center text-white font-black text-xl shadow-md">B</div>
             <div>
@@ -117,7 +116,6 @@
             </div>
         </div>
 
-        <!-- Real-time Status Center -->
         <div class="hidden lg:flex items-center space-x-6 text-xs font-mono text-slate-500">
             <div class="flex items-center space-x-2 border-l border-slate-200 pl-4">
                 <span class="text-slate-400">SYS_STATUS:</span>
@@ -133,7 +131,6 @@
             </div>
         </div>
 
-        <!-- Action Panel -->
         <div class="flex items-center space-x-3">
             <button onclick="resetSimulator()" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold font-sans transition-all flex items-center gap-1.5">
                 <i class="fa-solid fa-arrows-rotate"></i> 시스템 초기화
@@ -159,191 +156,106 @@
 
         <!-- Navigation Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" id="case-grid">
-            <!-- Page 1 Card -->
-            <div onclick="navigateToPage(1)" id="card-1" class="card-custom active p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
-                <div class="flex flex-col items-center gap-2">
-                    <span class="text-2xl">⚡</span>
-                    <span class="font-bold text-xs text-slate-700 tracking-tight">1. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span>
-                </div>
+            <!-- 10 Cards -->
+            <div onclick="navigateToPage(1)" id="card-1" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
+                <div class="flex flex-col items-center gap-2"><span class="text-2xl">⚡</span><span class="font-bold text-xs text-slate-700 tracking-tight">1. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span></div>
             </div>
-            <!-- Page 2 Card -->
             <div onclick="navigateToPage(2)" id="card-2" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
-                <div class="flex flex-col items-center gap-2">
-                    <span class="text-2xl">🌉</span>
-                    <span class="font-bold text-xs text-slate-700 tracking-tight">2. 세종 안성 고속도로 청용천교 붕괴</span>
-                </div>
+                <div class="flex flex-col items-center gap-2"><span class="text-2xl">🌉</span><span class="font-bold text-xs text-slate-700 tracking-tight">2. 세종 안성 고속도로 청용천교 붕괴</span></div>
             </div>
-            <!-- Page 3 Card -->
             <div onclick="navigateToPage(3)" id="card-3" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
-                <div class="flex flex-col items-center gap-2">
-                    <span class="text-2xl">⛏️</span>
-                    <span class="font-bold text-xs text-slate-700 tracking-tight">3. 실제 사례: 신안산선 광명 구간 터널 및 흙막이 지반 붕괴 사고</span>
-                </div>
+                <div class="flex flex-col items-center gap-2"><span class="text-2xl">⛏️</span><span class="font-bold text-xs text-slate-700 tracking-tight">3. 실제 사례: 신안산선 광명 구간 터널 및 흙막이 지반 붕괴 사고</span></div>
             </div>
-            <!-- Page 4 Card -->
             <div onclick="navigateToPage(4)" id="card-4" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
-                <div class="flex flex-col items-center gap-2">
-                    <span class="text-2xl">🏗️</span>
-                    <span class="font-bold text-xs text-slate-700 tracking-tight">4. 경기 고양 상가 신축 현장 철근다발 낙하 사망 사고</span>
-                </div>
+                <div class="flex flex-col items-center gap-2"><span class="text-2xl">🏗️</span><span class="font-bold text-xs text-slate-700 tracking-tight">4. 경기 고양 상가 신축 현장 철근다발 낙하 사망 사고</span></div>
             </div>
-            <!-- Page 5 Card -->
             <div onclick="navigateToPage(5)" id="card-5" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
-                <div class="flex flex-col items-center gap-2">
-                    <span class="text-2xl">🔥</span>
-                    <span class="font-bold text-xs text-slate-700 tracking-tight">5. 부산 기장군 리조트 신축 현장 대형 화재 사고</span>
-                </div>
+                <div class="flex flex-col items-center gap-2"><span class="text-2xl">🔥</span><span class="font-bold text-xs text-slate-700 tracking-tight">5. 부산 기장군 리조트 신축 현장 대형 화재 사고</span></div>
             </div>
-            <!-- Page 6 Card -->
             <div onclick="navigateToPage(6)" id="card-6" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
-                <div class="flex flex-col items-center gap-2">
-                    <span class="text-2xl">⚡</span>
-                    <span class="font-bold text-xs text-slate-700 tracking-tight">6. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span>
-                </div>
+                <div class="flex flex-col items-center gap-2"><span class="text-2xl">⚡</span><span class="font-bold text-xs text-slate-700 tracking-tight">6. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span></div>
             </div>
-            <!-- Page 7 Card -->
             <div onclick="navigateToPage(7)" id="card-7" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
-                <div class="flex flex-col items-center gap-2">
-                    <span class="text-2xl">🚜</span>
-                    <span class="font-bold text-xs text-slate-700 tracking-tight">7. 충남 아산시 하수관로 정비공사 현장</span>
-                </div>
+                <div class="flex flex-col items-center gap-2"><span class="text-2xl">🚜</span><span class="font-bold text-xs text-slate-700 tracking-tight">7. 충남 아산시 하수관로 정비공사 현장</span></div>
             </div>
-            <!-- Page 8 Card -->
             <div onclick="navigateToPage(8)" id="card-8" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
-                <div class="flex flex-col items-center gap-2">
-                    <span class="text-2xl">🪜</span>
-                    <span class="font-bold text-xs text-slate-700 tracking-tight">8. 김해 고소작업차 추락사고</span>
-                </div>
+                <div class="flex flex-col items-center gap-2"><span class="text-2xl">🪜</span><span class="font-bold text-xs text-slate-700 tracking-tight">8. 김해 고소작업차 추락사고</span></div>
             </div>
-            <!-- Page 9 Card -->
             <div onclick="navigateToPage(9)" id="card-9" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
-                <div class="flex flex-col items-center gap-2">
-                    <span class="text-2xl">☣️</span>
-                    <span class="font-bold text-xs text-slate-700 tracking-tight">9. 경기 파주 아파트 신축 현장 질식 사고</span>
-                </div>
+                <div class="flex flex-col items-center gap-2"><span class="text-2xl">☣️</span><span class="font-bold text-xs text-slate-700 tracking-tight">9. 경기 파주 아파트 신축 현장 질식 사고</span></div>
             </div>
-            <!-- Page 10 Card -->
             <div onclick="navigateToPage(10)" id="card-10" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px] bg-blue-50/30 hover:bg-blue-50">
-                <div class="flex flex-col items-center gap-2">
-                    <span class="text-2xl">🚨</span>
-                    <span class="font-bold text-xs text-blue-800 tracking-tight">10. 국내 건설업 사망재해 현황, 중대재해처벌법 도입 배경</span>
-                </div>
+                <div class="flex flex-col items-center gap-2"><span class="text-2xl">🚨</span><span class="font-bold text-xs text-blue-800 tracking-tight">10. 국내 건설업 사망재해 현황, 중대재해처벌법 도입 배경</span></div>
             </div>
         </div>
 
-        <!-- Double Panel -->
+        <!-- Center Panel: Only 3D View and Report module remain on dashboard -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            
-            <!-- Left Panel: Content Display -->
-            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-card flex flex-col justify-between min-h-[460px]" id="content-display">
-                <!-- 동적으로 로드된 콘텐츠가 들어가는 영역 (기본 1페이지 뷰 활성화) -->
-                <div id="page-content-target" class="page-content space-y-6">
-                    <div class="flex flex-col justify-between border-b border-slate-100 pb-4 gap-1">
-                        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2 py-0.5 rounded w-max">전기설비공사 | CASE 01</span>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-1">1. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</h3>
-                    </div>
-                    
-                    <div class="space-y-4 text-slate-600 text-sm leading-relaxed">
-                        <p class="font-bold text-slate-700 text-base">📌 사고 개요 및 핵심 위험 요인</p>
-                        <p>가설 작업장에서 바닥에 침투한 옥외 수분과 임시 배전반의 절연 노후화로 인해 전력이 외함을 타고 누전되었습니다. 이때 작업자가 절단 장비를 다루는 과정에서 고전압에 완전히 노출되어 감전되는 중대 재해가 발생하였습니다.</p>
-                        <div class="bg-red-50 border border-red-100 p-4 rounded-xl space-y-2">
-                            <h4 class="text-xs font-bold text-red-600 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation"></i> 치명적 위험 요인</h4>
-                            <ul class="text-xs text-red-700 list-disc list-inside space-y-1">
-                                <li>이동형 전기 기계·기구의 누전차단기 미연결 및 정격 차단성 미흡</li>
-                                <li>임시 분전반 내 접지선 파손 방치 및 비전문가의 임의 배선 조작</li>
-                            </ul>
+            <!-- Left Grid: 3D BIM Twin Viewer Box -->
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-4 shadow-card flex flex-col justify-between h-[360px] relative overflow-hidden perspective-container">
+                <div class="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+                <div class="absolute left-3 top-3 z-10 font-mono text-[9px] text-slate-400 bg-white/90 p-1.5 rounded-lg border border-slate-200 pointer-events-none space-y-0.5 shadow-sm">
+                    <p class="text-blue-600 font-bold">DIGITAL TWIN MODEL</p>
+                    <p>CAM_Y_ROT: <span id="rot-y-disp">25</span>°</p>
+                </div>
+
+                <div id="bim3d" class="bim-3d-model h-full w-full flex items-center justify-center" style="transform: rotateX(-15deg) rotateY(25deg);">
+                    <div class="relative w-64 h-36" style="transform-style: preserve-3d;">
+                        <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level4" style="width: 180px; height: 90px; transform: translate3d(25px, -30px, 0);" onclick="navigateToPage(9)">
+                            <span class="text-[8px] font-mono text-slate-400">LV_4 [CONFINED]</span>
+                        </div>
+                        <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level3" style="width: 200px; height: 100px; transform: translate3d(15px, 10px, 25px);" onclick="navigateToPage(4)">
+                            <span class="text-[8px] font-mono text-slate-400">LV_3 [HEAVY LIFT]</span>
+                        </div>
+                        <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level2" style="width: 220px; height: 110px; transform: translate3d(5px, 50px, 50px);" onclick="navigateToPage(1)">
+                            <span class="text-[8px] font-mono text-slate-400">LV_2 [POWER]</span>
+                        </div>
+                        <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level1" style="width: 240px; height: 120px; transform: translate3d(-5px, 90px, 75px);" onclick="navigateToPage(3)">
+                            <span class="text-[8px] font-mono text-slate-400">LV_1 [EARTHWORK]</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Common Dashboard Footer -->
-                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs" id="common-panel-footer">
-                    <span class="text-slate-400 font-mono">SYSTEM: PRE-AUDITED OK</span>
-                    <button onclick="navigateToPage(10)" class="text-blue-600 hover:text-blue-700 font-extrabold flex items-center gap-1">
-                        아차사고 실시간 제보 센터 연결 <i class="fa-solid fa-arrow-right"></i>
-                    </button>
+                <div class="absolute bottom-3 right-3 flex items-center gap-1 z-10">
+                    <button onclick="rotateBIM(-25)" class="h-6 w-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center shadow-sm"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                    <button onclick="resetBIMRotation()" class="px-2 h-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center font-bold shadow-sm">정면 정렬</button>
+                    <button onclick="rotateBIM(25)" class="h-6 w-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center shadow-sm"><i class="fa-solid fa-arrow-rotate-right"></i></button>
                 </div>
             </div>
 
-            <!-- Right Panel: Interactive 3D Model Viewport + Checklist -->
-            <div class="lg:col-span-5 flex flex-col gap-6">
-                
-                <!-- 3D BIM Twin Viewer Box -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-card flex flex-col justify-between h-[280px] relative overflow-hidden perspective-container">
-                    <div class="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
-                    <div class="absolute left-3 top-3 z-10 font-mono text-[9px] text-slate-400 bg-white/90 p-1.5 rounded-lg border border-slate-200 pointer-events-none space-y-0.5 shadow-sm">
-                        <p class="text-blue-600 font-bold">DIGITAL TWIN MODEL</p>
-                        <p>CAM_Y_ROT: <span id="rot-y-disp">25</span>°</p>
-                    </div>
-
-                    <!-- 3D CSS Core Frame Container -->
-                    <div id="bim3d" class="bim-3d-model h-full w-full flex items-center justify-center" style="transform: rotateX(-15deg) rotateY(25deg);">
-                        <div class="relative w-64 h-36" style="transform-style: preserve-3d;">
-                            <!-- Level 4 plate -->
-                            <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level4" style="width: 180px; height: 90px; transform: translate3d(25px, -30px, 0); border-color: rgba(14, 165, 233, 0.4);" onclick="navigateToPage(9)">
-                                <span class="text-[8px] font-mono text-slate-400">LV_4 [CONFINED & FIRE]</span>
-                                <span class="text-[9px] font-extrabold text-slate-700">CASE 09 / CASE 05</span>
+            <!-- Right Grid: Report Form -->
+            <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 shadow-card flex flex-col justify-between">
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl h-full flex flex-col justify-center">
+                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">실시간 아차사고 간편 신고 제보망</h4>
+                    <form id="near-miss-form" onsubmit="submitNearMiss(event)" class="space-y-3">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] text-slate-500 font-bold mb-1">작업 대상구분</label>
+                                <select id="report-phase" class="w-full bg-white text-slate-800 text-xs rounded-lg border border-slate-300 p-2 focus:border-blue-500 focus:outline-none">
+                                    <option value="Electric">전기설비 공정</option>
+                                    <option value="Temporary">가설 및 교량</option>
+                                    <option value="Earthwork">터널 및 지반</option>
+                                    <option value="Lifting">중량물 인양</option>
+                                    <option value="Finishing">마감 화재공정</option>
+                                </select>
                             </div>
-                            <!-- Level 3 plate -->
-                            <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level3" style="width: 200px; height: 100px; transform: translate3d(15px, 10px, 25px); border-color: rgba(14, 165, 233, 0.4);" onclick="navigateToPage(4)">
-                                <span class="text-[8px] font-mono text-slate-400">LV_3 [HEAVY LIFT & FALL]</span>
-                                <span class="text-[9px] font-extrabold text-slate-700">CASE 04 / CASE 08</span>
-                            </div>
-                            <!-- Level 2 plate -->
-                            <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level2" style="width: 220px; height: 110px; transform: translate3d(5px, 50px, 50px); border-color: rgba(14, 165, 233, 0.4);" onclick="navigateToPage(1)">
-                                <span class="text-[8px] font-mono text-slate-400">LV_2 [TEMPORARY / POWER]</span>
-                                <span class="text-[9px] font-extrabold text-slate-700">CASE 01 / CASE 06 / CASE 02</span>
-                            </div>
-                            <!-- Level 1 plate -->
-                            <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level1" style="width: 240px; height: 120px; transform: translate3d(-5px, 90px, 75px); border-color: rgba(14, 165, 233, 0.4);" onclick="navigateToPage(3)">
-                                <span class="text-[8px] font-mono text-slate-400">LV_1 [EARTH & MACHINERY]</span>
-                                <span class="text-[9px] font-extrabold text-slate-700">CASE 03 / CASE 07</span>
+                            <div>
+                                <label class="block text-[10px] text-slate-500 font-bold mb-1">제보자 직종</label>
+                                <select id="report-user" class="w-full bg-white text-slate-800 text-xs rounded-lg border border-slate-300 p-2 focus:border-blue-500 focus:outline-none">
+                                    <option value="Worker">현장 기능직</option>
+                                    <option value="Safety Manager">현장 안전감리원</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- 3D Rotation Controllers -->
-                    <div class="absolute bottom-3 right-3 flex items-center gap-1 z-10">
-                        <button onclick="rotateBIM(-25)" class="h-6 w-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center shadow-sm"><i class="fa-solid fa-arrow-rotate-left"></i></button>
-                        <button onclick="resetBIMRotation()" class="px-2 h-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center font-bold shadow-sm">정면 정렬</button>
-                        <button onclick="rotateBIM(25)" class="h-6 w-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center shadow-sm"><i class="fa-solid fa-arrow-rotate-right"></i></button>
-                    </div>
+                        <div>
+                            <label class="block text-[10px] text-slate-500 font-bold mb-1">관측 위해 사항 기술</label>
+                            <textarea id="report-desc" rows="2" required placeholder="위험 요소 발견 즉시 제보 바랍니다." class="w-full bg-white text-slate-800 text-xs rounded-lg border border-slate-300 p-2 focus:border-blue-500 focus:outline-none placeholder-slate-400"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg transition-all flex items-center justify-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-paper-plane"></i> 스마트 피드백 콘솔 전송
+                        </button>
+                    </form>
                 </div>
-
-                <!-- Dynamic Safety Checklist Verification -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-card flex-1 flex flex-col justify-between min-h-[195px]">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <h4 class="text-xs font-extrabold text-slate-700 uppercase tracking-widest flex items-center gap-1.5">
-                                <i class="fa-solid fa-list-check text-blue-600"></i> 디지털 안전 확보 진단
-                            </h4>
-                            <span class="text-[9px] font-mono text-slate-400">CHECKLIST CONTROLLER</span>
-                        </div>
-                        
-                        <!-- 동적 바인딩 타겟 체크리스트 영역 -->
-                        <div class="space-y-2.5 text-xs text-slate-600" id="checklist-host">
-                            <div id="checklist-target-zone" class="checklist-group space-y-2">
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(1)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>절단기 가동 배선 내 대지 전압 저감용 정격 누전차단기 유효 작동 검사</span>
-                                </label>
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(1)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>작업장 지면에 노출된 젖은 수분 제거 및 안전 절연 보호 장갑 필수 착용</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Evaluation dynamic result footer -->
-                    <div class="mt-4 pt-3 border-t border-slate-100 text-center flex items-center justify-between" id="checklist-result-bar">
-                        <span class="text-[10px] font-mono text-slate-400">STATUS: AUDITING</span>
-                        <span id="audit-status-badge" class="text-[11px] font-bold text-rose-500 font-sans flex items-center gap-1">
-                            <i class="fa-solid fa-circle-exclamation"></i> 미진단 상태
-                        </span>
-                    </div>
-                </div>
-
             </div>
         </div>
 
@@ -358,12 +270,65 @@
                 </div>
             </div>
         </div>
-
     </main>
 
-    <!-- Custom Light-themed Safety Status Verified Modal -->
+    <!-- [✨ 핵심 변경] FULL-SCREEN INTERACTIVE VIEWER OVERLAY -->
+    <div id="fullscreen-overlay" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md z-50 flex items-center justify-center p-4 md:p-8 hidden">
+        <div class="bg-white rounded-3xl w-full max-w-6xl max-h-[90vh] overflow-y-auto flex flex-col justify-between shadow-2xl border border-slate-200 animate-scaleUp">
+            
+            <!-- Header Grid -->
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-3xl">
+                <div id="overlay-header-node">
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2 py-0.5 rounded w-max">AUDIT CONSOLE</span>
+                    <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-1">사례 진단 가상 시스템</h3>
+                </div>
+                <button onclick="closeFullscreenOverlay()" class="h-10 w-10 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 flex items-center justify-center transition-all shadow-sm">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Body Grid: Left Content, Right Checklist -->
+            <div class="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 overflow-y-auto">
+                <!-- Content Box -->
+                <div class="lg:col-span-7 space-y-4" id="overlay-content-box">
+                    <!-- 5-x.html 내용물 동적 주입 -->
+                </div>
+
+                <!-- Checklist Box -->
+                <div class="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between h-max">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-xs font-extrabold text-slate-700 uppercase tracking-widest flex items-center gap-1.5">
+                                <i class="fa-solid fa-list-check text-blue-600"></i> 디지털 안전 확보 진단
+                            </h4>
+                        </div>
+                        <div class="space-y-3 text-xs text-slate-600" id="overlay-checklist-box">
+                            <!-- 5-x.html 체크리스트 동적 주입 -->
+                        </div>
+                    </div>
+
+                    <!-- Inner Status Bar -->
+                    <div class="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between" id="checklist-result-bar">
+                        <span class="text-[10px] font-mono text-slate-400">STATUS: AUDITING</span>
+                        <span id="audit-status-badge" class="text-[11px] font-bold text-rose-500 font-sans flex items-center gap-1">
+                            <i class="fa-solid fa-circle-exclamation"></i> 미진단 상태
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Section -->
+            <div class="p-4 border-t border-slate-100 text-right bg-slate-50/30 rounded-b-3xl">
+                <button onclick="closeFullscreenOverlay()" class="px-5 py-2 bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs rounded-xl transition-all shadow-md">
+                    닫기 및 대시보드 복귀
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mini Modal (Safety Status Verified) -->
     <div id="safety-modal" class="fixed inset-0 bg-slate-950/45 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white border border-slate-200 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl animate-scaleUp">
+        <div class="bg-white border border-slate-200 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl">
             <div class="mx-auto h-12 w-12 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 text-2xl">
                 <i class="fa-solid fa-shield-halved"></i>
             </div>
@@ -372,7 +337,7 @@
                 <p class="text-xs text-slate-500 mt-1 leading-relaxed" id="modal-desc">가상 안전체크 진단 검사가 완료되었습니다!</p>
             </div>
             <button onclick="closeSafetyModal()" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl transition-all shadow-md">
-                승인 및 대시보드 복귀
+                확인
             </button>
         </div>
     </div>
@@ -381,59 +346,41 @@
     <footer class="border-t border-slate-200 bg-white text-slate-400 py-4 px-6 text-center text-xs font-mono mt-auto">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
             <p>© 2026 BIM-SAFE Construction Safety Digital Twin. All Rights Reserved.</p>
-            <div class="flex gap-4">
-                <a href="#" onclick="navigateToPage(1)" class="hover:text-blue-600 transition-colors">HOME</a>
-                <span>|</span>
-                <a href="#" onclick="navigateToPage(10)" class="hover:text-blue-600 transition-colors">EMERGENCY SYSTEM</a>
-            </div>
         </div>
     </footer>
 
-    <!-- MAIN INTERACTIVE SCRIPTS -->
+    <!-- INTERACTIVE ENGINE SCRIPTS -->
     <script>
-        // System Clock Generator
         function updateTime() {
             const now = new Date();
-            const timeStr = now.toTimeString().split(' ')[0];
-            const clockEl = document.getElementById('system-time');
-            if (clockEl) clockEl.innerText = timeStr;
+            document.getElementById('system-time').innerText = now.toTimeString().split(' ')[0];
         }
         setInterval(updateTime, 1000);
         updateTime();
 
-        // 3D Model Rotation Logic
         let rotY = 25;
         const bim3D = document.getElementById('bim3d');
         const rotYDisp = document.getElementById('rot-y-disp');
 
         function rotateBIM(deg) {
             rotY += deg;
-            if (bim3D) {
-                bim3D.style.transform = `rotateX(-15deg) rotateY(${rotY}deg)`;
-            }
-            if (rotYDisp) {
-                rotYDisp.innerText = rotY % 360;
-            }
+            if (bim3D) bim3D.style.transform = `rotateX(-15deg) rotateY(${rotY}deg)`;
+            if (rotYDisp) rotYDisp.innerText = rotY % 360;
         }
 
         function resetBIMRotation() {
             rotY = 25;
-            if (bim3D) {
-                bim3D.style.transform = `rotateX(-15deg) rotateY(25deg)`;
-            }
-            if (rotYDisp) {
-                rotYDisp.innerText = '25';
-            }
+            if (bim3D) bim3D.style.transform = `rotateX(-15deg) rotateY(25deg)`;
+            if (rotYDisp) rotYDisp.innerText = '25';
         }
 
-        // Active Case Page State
         let currentPage = 1;
 
-        // 동적 비동기 네비게이터 함수 (5-1.html ~ 5-10.html 파일을 매핑 및 구조적 스왑)
+        // 메인 메뉴/플레이트 트리거 시 전체화면으로 바인딩을 수행하는 핵심 시스템 인터페이스
         async function navigateToPage(pageNum) {
             currentPage = pageNum;
 
-            // 1. 네비게이션 메뉴 카드 갱신
+            // 1. 네비게이션 액티브 토글
             for (let i = 1; i <= 10; i++) {
                 const card = document.getElementById(`card-${i}`);
                 if (card) {
@@ -442,7 +389,7 @@
                 }
             }
 
-            // 2. 3D 트윈 플레이트 클래스 부여 및 회전동기화
+            // 2. 3D Twin Plate 하이라이팅 연동
             document.querySelectorAll('.bim-plate').forEach(plate => plate.classList.remove('active-plate'));
             if (pageNum === 1 || pageNum === 2 || pageNum === 6) {
                 document.getElementById('plate-level2').classList.add('active-plate');
@@ -460,58 +407,64 @@
                 resetBIMRotation();
             }
 
-            // 3. 비동기 Fetch 통신 구동
+            // 3. 비동기 패치 구동 및 전체화면 오버레이 컨텍스트 스왑
             try {
                 const response = await fetch(`5-${pageNum}.html`);
-                if (!response.ok) throw new Error('서브 컨포넌트 수신 실패');
+                if (!response.ok) throw new Error('파일 로드 에러');
 
                 const htmlText = await response.text();
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(htmlText, 'text/html');
 
-                // 서브 파일에서 콘텐츠 영역 스왑
+                // 본문 꽂아넣기
                 const incomingContent = doc.querySelector('.page-content') || doc.body;
-                const targetZone = document.getElementById('page-content-target');
-                if (targetZone) targetZone.innerHTML = incomingContent.innerHTML;
+                document.getElementById('overlay-content-box').innerHTML = incomingContent.innerHTML;
 
-                // 서브 파일에서 체크리스트 레이아웃 바인딩
+                // 체크리스트 꽂아넣기
                 const incomingChecklist = doc.querySelector('.checklist-group') || doc.querySelector(`#check-list-${pageNum}`);
-                const checklistHost = document.getElementById('checklist-target-zone');
-                if (incomingChecklist && checklistHost) {
-                    checklistHost.innerHTML = incomingChecklist.innerHTML;
+                const overlayChecklistHost = document.getElementById('overlay-checklist-box');
+                
+                if (incomingChecklist && overlayChecklistHost) {
+                    overlayChecklistHost.innerHTML = incomingChecklist.innerHTML;
                     
-                    // 수집된 내부 체크박스 객체에 대한 트리거 핸들러 바인딩 재정의
-                    const checkboxes = checklistHost.querySelectorAll('input[type="checkbox"]');
+                    // 체크박스 트리거 함수 실시간 위임 바인딩
+                    const checkboxes = overlayChecklistHost.querySelectorAll('input[type="checkbox"]');
                     checkboxes.forEach(cb => {
                         cb.setAttribute('onchange', `evaluateChecklistStatus(${pageNum})`);
                     });
                 }
+
+                // 전체화면 오버레이 오픈
+                document.getElementById('fullscreen-overlay').classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // 백그라운드 스크롤 방지
+
             } catch (error) {
-                console.warn("비동기 데이터 바인딩 실패: 서버 환경 혹은 서브 노드 구조를 확인하십시오.");
+                console.warn("비동기 리소스 연동 실패. 파일 명세와 서버 가동 상태를 확인하십시오.");
             }
 
-            // 4. 진단 평가 상태 계산 호출
             evaluateChecklistStatus(pageNum);
         }
 
-        // 실시간 체크리스트 진단 검사 및 상태 평가 연산 함수
+        function closeFullscreenOverlay() {
+            document.getElementById('fullscreen-overlay').classList.add('hidden');
+            document.body.style.overflow = ''; // 스크롤 원복
+        }
+
         function evaluateChecklistStatus(pageNum) {
             const resultBar = document.getElementById('checklist-result-bar');
             const badge = document.getElementById('audit-status-badge');
             if (!resultBar || !badge) return;
 
             if (pageNum === 10) {
-                resultBar.classList.add('opacity-40');
                 badge.className = "text-[11px] font-bold text-slate-400 font-sans";
                 badge.innerHTML = `<i class="fa-solid fa-circle-minus"></i> 진단 대상 없음`;
                 return;
             }
 
-            resultBar.classList.remove('opacity-40');
-            const checklistHost = document.getElementById('checklist-target-zone');
-            if (!checklistHost) return;
+            const overlayChecklistHost = document.getElementById('overlay-checklist-box');
+            if (!overlayChecklistHost) return;
 
-            const checks = checklistHost.querySelectorAll('input[type="checkbox"]');
+            const checks = overlayChecklistHost.querySelectorAll('input[type="checkbox"]');
             if (checks.length === 0) return;
 
             let allPassed = true;
@@ -550,7 +503,6 @@
             document.getElementById('safety-modal').classList.add('hidden');
         }
 
-        // Live Log injector
         function injectLiveLog(category, text) {
             const board = document.getElementById('live-alert-board');
             const now = new Date();
@@ -558,7 +510,7 @@
             if (!board) return;
 
             const item = document.createElement('div');
-            item.className = "p-2 bg-blue-50/50 rounded-lg border border-blue-100/50 flex justify-between items-center text-xs text-blue-800 animate-fadeIn";
+            item.className = "p-2 bg-blue-50/50 rounded-lg border border-blue-100/50 flex justify-between items-center text-xs text-blue-800";
             item.innerHTML = `
                 <span class="flex items-center gap-1.5"><span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span> [${category}]</span>
                 <span class="font-bold flex-1 px-4 text-left">${text}</span>
@@ -567,7 +519,6 @@
             board.insertBefore(item, board.firstChild);
         }
 
-        // Near-Miss submission
         function submitNearMiss(event) {
             event.preventDefault();
             const phase = document.getElementById('report-phase').value;
@@ -580,23 +531,16 @@
             const modalDesc = document.getElementById('modal-desc');
             if (modalTitle && modalDesc) {
                 modalTitle.innerText = `스마트 민원 신고 완료`;
-                modalDesc.innerText = `[${phase}] 파트 현장 관리관에 관측 위험을 무선 전송하였습니다. 실시간 조치가 곧 진행됩니다.`;
+                modalDesc.innerText = `[${phase}] 파트 현장 관리관에 관측 위험을 무선 전송하였습니다.`;
             }
             document.getElementById('safety-modal').classList.remove('hidden');
             document.getElementById('report-desc').value = '';
         }
 
-        // Reset Simulator
         function resetSimulator() {
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             checkboxes.forEach(c => c.checked = false);
-            navigateToPage(1);
             injectLiveLog("SYSTEM", "시뮬레이터 상태 전면 공정 초기화 완료");
-        }
-
-        window.onload = function() {
-            // 최초 로드 시 1페이지 타겟 초기 연동 실행
-            navigateToPage(1);
         }
     </script>
 </body>
