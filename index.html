@@ -104,7 +104,7 @@
             <div class="text-xs font-mono bg-blue-955/50 border border-blue-800 rounded-xl px-4 py-2 text-blue-400 font-bold">
                 <span id="system-time">00:00:00</span>
             </div>
-            <!-- QR 코드 이미지 버튼 (클릭 시 팝업 열림) -->
+            <!-- QR 코드 이미지 버튼 -->
             <div onclick="openQrModal()" class="bg-white p-1 rounded-lg shadow-sm border border-slate-700/60 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
                 <img src="qrcode.png" alt="System QR" class="h-9 w-9 object-contain" onerror="this.style.display='none';">
             </div>
@@ -124,7 +124,7 @@
             </p>
         </div>
 
-        <!-- 1~10 Clickable Cards Grid (색상 및 스타일 완전 통일) -->
+        <!-- 1~10 Clickable Cards Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             <div onclick="navigateToPage(1)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">⚡</span>
@@ -168,11 +168,16 @@
             </div>
         </div>
 
-        <!-- [레이아웃 하단 이전] 11번 와이드 배치 (디자인 통일 및 시각 밸런스 확보) -->
-        <div class="pt-2">
-            <div onclick="openQrModal()" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[60px] w-full text-center">
+        <!-- [하단 시스템 배너 영역] 11번 QR 배너와 12번 자유 게시판을 나란히 배치 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <div onclick="openQrModal()" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[60px]">
                 <span class="text-2xl">📋</span>
                 <span class="font-extrabold text-xs text-slate-800 tracking-tight">11. QR 코드 피드백 & 설문조사 시스템 연동</span>
+            </div>
+            <!-- 추가된 12번 자유 게시판 칸 -->
+            <div onclick="openBoardPage()" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[60px]">
+                <span class="text-2xl">💬</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight">12. 자유 의견 교환 및 안전 소통 게시판</span>
             </div>
         </div>
         
@@ -249,6 +254,20 @@
             if (overlay && frame) {
                 frame.src = `5-${pageNum}.html`;
                 titleNode.innerText = `현재 분석 중인 재해 시스템 노드: [CASE 0${pageNum}]`;
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // 12번 자유 게시판 전용 실행 함수
+        function openBoardPage() {
+            const overlay = document.getElementById('fullscreen-overlay');
+            const frame = document.getElementById('fullscreen-frame');
+            const titleNode = document.getElementById('overlay-title-node');
+
+            if (overlay && frame) {
+                frame.src = `board.html`;
+                titleNode.innerText = `자유 의견 교환 및 안전 소통 게시판`;
                 overlay.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
             }
