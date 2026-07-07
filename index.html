@@ -39,7 +39,7 @@
             color: #1E293B;
             overflow-x: hidden;
             position: relative;
-            min-h: 100vh;
+            min-height: 100vh;
         }
 
         /* [배경 최적화] 건설 현장 고화질 전체 배경화면 */
@@ -168,17 +168,18 @@
             </div>
         </div>
 
-        <!-- [하단 시스템 배너 영역] 11번 QR 배너와 12번 자유 게시판을 나란히 배치 -->
+        <!-- [하단 시스템 배너 영역] -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
             <div onclick="openQrModal()" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[60px]">
                 <span class="text-2xl">📋</span>
                 <span class="font-extrabold text-xs text-slate-800 tracking-tight">11. QR 코드 피드백 & 설문조사 시스템 연동</span>
             </div>
-            <!-- 추가된 12번 자유 게시판 칸 -->
-            <div onclick="openBoardPage()" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[60px]">
+            
+            <!-- [수정 완료] 12번 자유 게시판 패들렛 직접 연동 (새 창으로 열기) -->
+            <a href="https://padlet.com/sseunghyoo/padlet-6nkmjbeyavcltsi6" target="_blank" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[60px]">
                 <span class="text-2xl">💬</span>
                 <span class="font-extrabold text-xs text-slate-800 tracking-tight">12. 자유 의견 교환 및 안전 소통 게시판</span>
-            </div>
+            </a>
         </div>
         
     </main>
@@ -254,20 +255,6 @@
             if (overlay && frame) {
                 frame.src = `5-${pageNum}.html`;
                 titleNode.innerText = `현재 분석 중인 재해 시스템 노드: [CASE 0${pageNum}]`;
-                overlay.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        // 12번 자유 게시판 전용 실행 함수
-        function openBoardPage() {
-            const overlay = document.getElementById('fullscreen-overlay');
-            const frame = document.getElementById('fullscreen-frame');
-            const titleNode = document.getElementById('overlay-title-node');
-
-            if (overlay && frame) {
-                frame.src = `board.html`;
-                titleNode.innerText = `자유 의견 교환 및 안전 소통 게시판`;
                 overlay.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
             }
