@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김해 고소작업차 추락사고 안전 분석 포트폴리오</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&display=swap');
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-slate-900 text-white shadow-lg backdrop-blur-md bg-opacity-95">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-amber-500 text-slate-950 p-2 rounded-lg font-bold flex items-center justify-center">
+                    <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <span class="font-extrabold text-lg tracking-tight">HSE Safety Portfolio</span>
+                    <span class="hidden sm:inline-block text-xs text-slate-400 ml-2">김해 고소작업차 추락사고 분석</span>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#overview" class="hover:text-amber-400 transition-colors">사고 개요</a>
+                <a href="#cause" class="hover:text-amber-400 transition-colors">원인 분석</a>
+                <a href="#countermeasures" class="hover:text-amber-400 transition-colors">대책 수립</a>
+                <a href="#legal" class="hover:text-amber-400 transition-colors">법적 쟁점</a>
+                <a href="#ai-consultant" class="bg-amber-500 text-slate-950 px-3 py-1.5 rounded-full hover:bg-amber-400 transition-colors flex items-center gap-1">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i> AI 안전 질의
+                </a>
+            </nav>
+            <!-- Mobile Menu Trigger -->
+            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-800 border-t border-slate-700 px-4 py-3 space-y-2">
+            <a href="#overview" class="block py-2 text-slate-300 hover:text-white">사고 개요</a>
+            <a href="#cause" class="block py-2 text-slate-300 hover:text-white">원인 분석</a>
+            <a href="#countermeasures" class="block py-2 text-slate-300 hover:text-white">대책 수립</a>
+            <a href="#legal" class="block py-2 text-slate-300 hover:text-white">법적 쟁점</a>
+            <a href="#ai-consultant" class="block py-2 text-amber-400 font-semibold">AI 안전 질의</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-950 text-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <!-- Grid pattern or technical sketch placeholder -->
+            <div class="absolute inset-0" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 24px 24px;"></div>
+        </div>
+        <div class="max-w-5xl mx-auto relative z-10">
+            <span class="inline-flex items-center gap-1.5 bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> Case Study Report
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300">
+                김해 외동 고소작업차 추락사고<br class="hidden sm:inline"> 안전보건 분석 및 재해예방 포트폴리오
+            </h1>
+            <p class="text-slate-300 text-base sm:text-lg max-w-3xl mb-8 leading-relaxed">
+                산업현장의 대표적인 기인물인 고소작업차(스카이차)의 오작동 및 안전장치 해제, 작업 프로세스 결함으로 발생한 추락재해의 원인을 과학적으로 규명하고, 중대재해처벌법 및 산업안전보건법에 근거한 예방 체계를 제시합니다.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="#overview" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-lg shadow-lg hover:shadow-amber-500/20 transition-all flex items-center gap-2">
+                    <i data-lucide="file-text" class="w-5 h-5"></i> 리포트 보기
+                </a>
+                <a href="#ai-consultant" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold px-6 py-3 rounded-lg transition-all flex items-center gap-2">
+                    <i data-lucide="bot" class="w-5 h-5"></i> AI 챗봇 컨설팅
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
+        
+        <!-- 사고 개요 (Overview) -->
+        <section id="overview" class="mb-16 scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
+                <i data-lucide="info" class="w-7 h-7 text-amber-500"></i>
+                <h2 class="text-2xl font-bold text-slate-900">1. 사고 개요 (Incident Overview)</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Details Table -->
+                <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-8">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i data-lucide="clipboard-list" class="text-amber-500"></i> 재해 요약표
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-slate-600">
+                            <tbody>
+                                <tr class="border-b border-slate-100">
+                                    <th class="py-3 px-4 bg-slate-50 font-semibold text-slate-700 w-1/4">재해 유형</th>
+                                    <td class="py-3 px-4 font-medium text-red-600">추락 (떨어짐) 및 낙하</td>
+                                </tr>
+                                <tr class="border-b border-slate-100">
+                                    <th class="py-3 px-4 bg-slate-50 font-semibold text-slate-700">발생 일시</th>
+                                    <td class="py-3 px-4">2020년대 중반 (경남 김해시 외동 상가건물 빌딩 외벽 작업 중)</td>
+                                </tr>
+                                <tr class="border-b border-slate-100">
+                                    <th class="py-3 px-4 bg-slate-50 font-semibold text-slate-700">기인물</th>
+                                    <td class="py-3 px-4 flex items-center gap-2">
+                                        <span class="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded font-bold">고속작업 차량</span> 고소작업차 (차량탑재형 고소작업대, 스카이 차량)
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-slate-100">
+                                    <th class="py-3 px-4 bg-slate-50 font-semibold text-slate-700">작업 내용</th>
+                                    <td class="py-3 px-4">상가 외벽 유리창 청소 및 외벽 마감 보수 작업</td>
+                                </tr>
+                                <tr class="border-b border-slate-100">
+                                    <th class="py-3 px-4 bg-slate-50 font-semibold text-slate-700">피해 상황</th>
+                                    <td class="py-3 px-4 font-semibold text-slate-900">탑승함에 있던 작업자 2명 추락 (사망 1명, 중상 1명)</td>
+                                </tr>
+                                <tr>
+                                    <th class="py-3 px-4 bg-slate-50 font-semibold text-slate-700">핵심 원인</th>
+                                    <td class="py-3 px-4 text-red-500 font-medium">안전대 미체결, 과부하 방지 및 붐 각도 제한 장치 무력화, 탑승함 결속 핀 불량</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-6 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            <strong>[상황 설명]</strong> 
+                            김해 외동의 상가건물 5층 높이에서 고소작업차 탑승함(버킷)을 이용하여 작업을 수행하던 중, 차량의 붐대 연결부 또는 탑승함 고정 하드웨어가 파손 및 이탈되며 탑승함이 급격히 기울어졌습니다. 안전대를 구조물 또는 붐대에 완전히 결속하지 않은 작업자들이 지상으로 떨어지는 전형적인 중대재해 유형입니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Quick Stats 카드 -->
+                <div class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-lg relative overflow-hidden">
+                    <div class="absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 opacity-10">
+                        <i data-lucide="shield-alert" class="w-48 h-48"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-amber-400 font-bold text-xs uppercase tracking-widest mb-2">Major Danger Point</h3>
+                        <p class="text-xl font-bold mb-6">스카이차 3대 중점 안전 수칙</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <span class="bg-red-500 text-white rounded-full p-1 text-xs mt-0.5">01</span>
+                                <div>
+                                    <p class="font-bold text-sm">안전고리 100% 체결</p>
+                                    <p class="text-xs text-slate-400">붐 마스트 또는 전용 생명줄에 체결 필수</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="bg-red-500 text-white rounded-full p-1 text-xs mt-0.5">02</span>
+                                <div>
+                                    <p class="font-bold text-sm">아우트리거 침하 방지</p>
+                                    <p class="text-xs text-slate-400">지반 보호용 받침목 배치 및 완벽 수평 확보</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="bg-red-500 text-white rounded-full p-1 text-xs mt-0.5">03</span>
+                                <div>
+                                    <p class="font-bold text-sm">임의 안전장치 해제 금지</p>
+                                    <p class="text-xs text-slate-400">과부하방지장치, 각도 제한센서 우회 금지</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-4 border-t border-slate-800 text-xs text-slate-400">
+                        한국산업안전보건공단 고소작업대 안전보건 기술지침(KOSHA GUIDE) 준용
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 원인 분석 (Cause Analysis) -->
+        <section id="cause" class="mb-16 scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
+                <i data-lucide="heart-crack" class="w-7 h-7 text-red-500"></i>
+                <h2 class="text-2xl font-bold text-slate-900">2. 원인 분석 (Cause Analysis)</h2>
+            </div>
+
+            <!-- 3M 기법 적용 분석 (Material, Man, Management) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 물적 원인 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="w-12 h-12 bg-red-50 text-red-500 rounded-xl flex items-center justify-center mb-4">
+                            <i data-lucide="wrench" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">물적 요인 (Material)</h3>
+                        <ul class="text-slate-600 text-sm space-y-2 leading-relaxed">
+                            <li class="flex items-start gap-1.5">
+                                <span class="text-red-500">•</span>
+                                <strong>안전장치 오작동 또는 바이패스:</strong> 규정 하중을 초과한 과부하 센서 무력화 작동.
+                            </li>
+                            <li class="flex items-start gap-1.5">
+                                <span class="text-red-500">•</span>
+                                <strong>기계적 금속 피로 균열:</strong> 붐 연결 핀 및 유압 실린더 지지대의 장기 사용으로 인한 피로 파괴.
+                            </li>
+                            <li class="flex items-start gap-1.5">
+                                <span class="text-red-500">•</span>
+                                <strong>아우트리거 설치 지반 부실:</strong> 김해 현장의 보도블록 연약지반 함몰로 인한 차량 기울어짐 발생 가능성.
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="text-xs text-red-500 font-semibold mt-4">안전 무력화 & 노후화 위험</span>
+                </div>
+
+                <!-- 인적 원인 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-xl flex items-center justify-center mb-4">
+                            <i data-lucide="user-x" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">인적 요인 (Man)</h3>
+                        <ul class="text-slate-600 text-sm space-y-2 leading-relaxed">
+                            <li class="flex items-start gap-1.5">
+                                <span class="text-orange-500">•</span>
+                                <strong>개인보호구(안전대) 미체결:</strong> 탑승함 높이가 상승해 있음에도 내부에서 구명줄을 체결하지 않고 이동 작업.
+                            </li>
+                            <li class="flex items-start gap-1.5">
+                                <span class="text-orange-500">•</span>
+                                <strong>신호수 및 조종원 간 의사소통 부재:</strong> 작업 반경 내 유효 시야 미확보 및 과격한 탑승함 제어.
+                            </li>
+                            <li class="flex items-start gap-1.5">
+                                <span class="text-orange-500">•</span>
+                                <strong>불안전한 행동:</strong> 더 높은 범위를 청소하기 위해 안전 난간 위에 올라서는 행동.
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="text-xs text-orange-500 font-semibold mt-4">개인 안전 의식 결여</span>
+                </div>
+
+                <!-- 관리적 원인 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="w-12 h-12 bg-amber-50 text-amber-500 rounded-xl flex items-center justify-center mb-4">
+                            <i data-lucide="folder-kanban" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">관리적 요인 (Management)</h3>
+                        <ul class="text-slate-600 text-sm space-y-2 leading-relaxed">
+                            <li class="flex items-start gap-1.5">
+                                <span class="text-amber-500">•</span>
+                                <strong>작업계획서 형식적 작성:</strong> 고소작업 차량에 특화된 추락 및 전도 방지 계획 구체성 결여.
+                            </li>
+                            <li class="flex items-start gap-1.5">
+                                <span class="text-amber-500">•</span>
+                                <strong>작업지휘자 배치 미흡:</strong> 현장 통제 및 위험 요소를 실시간으로 발견하고 제지할 관리자의 부재.
+                            </li>
+                            <li class="flex items-start gap-1.5">
+                                <span class="text-amber-500">•</span>
+                                <strong>안전 교육 부재:</strong> 스카이 차량 탑승자를 위한 비상시 탈출 및 하강 요령 사전 교육 부실.
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="text-xs text-amber-500 font-semibold mt-4">안전보건 관리체계 불량</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 방지 대책 (Preventive Countermeasures) -->
+        <section id="countermeasures" class="mb-16 scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
+                <i data-lucide="check-circle" class="w-7 h-7 text-emerald-500"></i>
+                <h2 class="text-2xl font-bold text-slate-900">3. 재해예방 안전대책 (Countermeasures)</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- 하드웨어적 대책 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> 설비 및 기계적 안전 확보 (Engineering Control)
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 p-3 bg-slate-50 rounded-xl">
+                            <div class="text-emerald-600 shrink-0"><i data-lucide="shield-check" class="w-6 h-6"></i></div>
+                            <div>
+                                <p class="font-bold text-slate-800 text-sm">안전 인터록(Interlock) 시스템 고도화</p>
+                                <p class="text-xs text-slate-500 mt-1">아우트리거가 완전히 펼쳐지지 않거나, 수평도가 어긋날 시 유압 작동을 전면 차단하는 전자동 연동 안전장치를 정기 점검합니다.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 p-3 bg-slate-50 rounded-xl">
+                            <div class="text-emerald-600 shrink-0"><i data-lucide="scan" class="w-6 h-6"></i></div>
+                            <div>
+                                <p class="font-bold text-slate-800 text-sm">비파괴 검사(NDT) 실시</p>
+                                <p class="text-xs text-slate-500 mt-1">고소작업차 주요 핀 조인트, 붐의 응력 집중부에 대해 연 1회 이상 초음파나 자분탐상 시험을 거쳐 내부 균열을 조기 예방합니다.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 p-3 bg-slate-50 rounded-xl">
+                            <div class="text-emerald-600 shrink-0"><i data-lucide="activity" class="w-6 h-6"></i></div>
+                            <div>
+                                <p class="font-bold text-slate-800 text-sm">IoT 기반 센서 연동 스마트 안전 장비</p>
+                                <p class="text-xs text-slate-500 mt-1">작업자의 안전대 고리가 고속작업차 내 앵커에 정상적으로 체결되었는지를 무선 신호로 확인하여 비체결 시 경보를 울립니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 관리적/인적 대책 -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> 운영 및 제도적 관리 강화 (Administrative Control)
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 p-3 bg-slate-50 rounded-xl">
+                            <div class="text-blue-600 shrink-0"><i data-lucide="book-open" class="w-6 h-6"></i></div>
+                            <div>
+                                <p class="font-bold text-slate-800 text-sm">철저한 고소작업 계획서 심의 및 TBM</p>
+                                <p class="text-xs text-slate-500 mt-1">작업 개시 전 반드시 기상 조건, 작업 반경 내 고압선 유무, 지반 지지력, 진입 차단막 설치를 포함한 '작업계획서'를 검토 후 Tool Box Meeting을 실시합니다.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 p-3 bg-slate-50 rounded-xl">
+                            <div class="text-blue-600 shrink-0"><i data-lucide="badge-percent" class="w-6 h-6"></i></div>
+                            <div>
+                                <p class="font-bold text-slate-800 text-sm">추락 방지용 친환경 '생명줄' 상시 비치</p>
+                                <p class="text-xs text-slate-500 mt-1">차량 붐 마스터 본체에 체결되는 안전 인증용 섬유 로프(수직구명줄) 설치를 의무화하여 바스켓 탈락 시에도 추락하지 않는 이중 보호 안전장치를 마련합니다.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 p-3 bg-slate-50 rounded-xl">
+                            <div class="text-blue-600 shrink-0"><i data-lucide="graduation-cap" class="w-6 h-6"></i></div>
+                            <div>
+                                <p class="font-bold text-slate-800 text-sm">작업자 교육 및 3대 핵심 수칙 위반 시 즉시 퇴거</p>
+                                <p class="text-xs text-slate-500 mt-1">안전대 미체결 적발 시 1진 아웃 제도(One-Strike Out)를 도입하여 현장 안전 불감증을 실효적으로 차단합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 법적 쟁점 및 중대재해처벌법 (Legal Framework) -->
+        <section id="legal" class="mb-16 scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
+                <i data-lucide="scale" class="w-7 h-7 text-indigo-500"></i>
+                <h2 class="text-2xl font-bold text-slate-900">4. 법적 책임 및 중대재해처벌법 적용성</h2>
+            </div>
+
+            <div class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-2xl text-white p-6 sm:p-10 shadow-lg">
+                <div class="max-w-4xl">
+                    <h3 class="text-xl sm:text-2xl font-bold text-amber-400 mb-6 flex items-center gap-2">
+                        <i data-lucide="gavel"></i> 원청 및 고용주의 중대산업재해 책임 분석
+                    </h3>
+                    
+                    <div class="space-y-6 text-sm sm:text-base text-slate-300 leading-relaxed">
+                        <div>
+                            <span class="inline-block bg-indigo-500/30 text-indigo-300 text-xs px-2.5 py-1 rounded font-semibold mb-2">중대재해처벌법 제4조 및 제5조</span>
+                            <p>
+                                사업주와 경영책임자는 도급, 용역, 위탁을 준 경우에도 <strong>안전 및 보건 확보 의무</strong>를 부담합니다. 본 김해 외동 사고의 경우, 외벽 유리창 작업을 도급 준 원청 사업주가 고소작업 차량의 적격 수급인 평가 여부, 작업계획서 승인 의무, 아우트리거 불량 여부에 대한 합동 안전 점검 의무를 다하지 않았다면 <strong>경영책임자가 처벌 대상</strong>이 될 수 있습니다.
+                            </p>
+                        </div>
+                        
+                        <div class="border-t border-indigo-800/60 pt-4">
+                            <span class="inline-block bg-indigo-500/30 text-indigo-300 text-xs px-2.5 py-1 rounded font-semibold mb-2">산업안전보건기준에 관한 규칙 제186조 (고소작업대 설치 등)</span>
+                            <p>
+                                관리자는 고소작업대를 설치 및 사용할 때 ① 정격하중 초과 방지 ② 작업자를 태운 채 이동 금지 ③ 아우트리거 정격 설치 조치를 완벽히 해야 합니다. 안전장치를 고의적으로 차단 또는 우회(Bypass)한 탑승자가 있을 경우, 현장소장 및 원청 법인 또한 산업안전보건법 위반으로 법적 기소됩니다.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 pt-4 border-t border-indigo-800/60 text-xs sm:text-sm">
+                            <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                                <p class="font-bold text-white mb-1"><i data-lucide="x-circle" class="inline w-4 h-4 text-red-500 mr-1"></i> 주요 위반 사유</p>
+                                <ul class="list-disc list-inside space-y-1 text-slate-400">
+                                    <li>차량 기계 정기 자율안전검사 미실시</li>
+                                    <li>도급 시 적격 수급업체 선정 프로세스 부실</li>
+                                    <li>안전보건총괄책임자의 현장 지휘 결여</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                                <p class="font-bold text-white mb-1"><i data-lucide="check-circle2" class="inline w-4 h-4 text-emerald-500 mr-1"></i> 법적 면책 요건 확보</p>
+                                <ul class="list-disc list-inside space-y-1 text-slate-400">
+                                    <li>안전예산의 실효성 있는 편성 및 집행</li>
+                                    <li>유해위험요인 진단(위험성평가) 정기 이행</li>
+                                    <li>재해 발생 시 매뉴얼에 따른 즉각적 대처 및 구호</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI 안전 질의 (Interactive Gemini AI Consultant) -->
+        <section id="ai-consultant" class="mb-16 scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
+                <i data-lucide="sparkles" class="w-7 h-7 text-amber-500 animate-pulse"></i>
+                <h2 class="text-2xl font-bold text-slate-900">5. AI 안전보건 기술 컨설턴트 (Gemini AI)</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-3">
+                <!-- Left Sidebar: Sample Questions -->
+                <div class="p-6 bg-slate-50 border-r border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                            <i data-lucide="help-circle" class="text-amber-500"></i> 권장 질문 항목
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-6">아래의 샘플 질문을 클릭하거나, 직접 궁금한 사항을 하단 입력창에 작성하세요.</p>
+                        
+                        <div class="space-y-2">
+                            <button onclick="fillQuestion('고소작업차 작업계획서에 반드시 포함되어야 할 항목은 무엇인가요?')" class="w-full text-left text-xs bg-white hover:bg-amber-50 border border-slate-200 hover:border-amber-300 p-3 rounded-xl transition-all font-medium text-slate-700 block shadow-2xs">
+                                "고소작업차 작업계획서 핵심 포함 사항"
+                            </button>
+                            <button onclick="fillQuestion('중대재해처벌법상 수급업체 사고 시 원청 경영책임자의 면책 조건은 무엇인가요?')" class="w-full text-left text-xs bg-white hover:bg-amber-50 border border-slate-200 hover:border-amber-300 p-3 rounded-xl transition-all font-medium text-slate-700 block shadow-2xs">
+                                "도급업체 사고 시 원청 경영책임자의 면책 조건"
+                            </button>
+                            <button onclick="fillQuestion('스카이차 탑승자가 거치하는 구명줄(수직생명줄)의 강도 및 법적 설치 기준은 어떤가요?')" class="w-full text-left text-xs bg-white hover:bg-amber-50 border border-slate-200 hover:border-amber-300 p-3 rounded-xl transition-all font-medium text-slate-700 block shadow-2xs">
+                                "구명줄(생명줄) 강도 및 설치 기준"
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-4 border-t border-slate-200 text-xs text-slate-400">
+                        <p class="flex items-center gap-1"><i data-lucide="info" class="w-3.5 h-3.5"></i> 실시간 Gemini 2.5 Flash API 활용</p>
+                    </div>
+                </div>
+
+                <!-- Chat Box Area -->
+                <div class="lg:col-span-2 p-6 flex flex-col h-[450px]">
+                    <!-- Chat History -->
+                    <div id="chat-history" class="flex-grow overflow-y-auto mb-4 space-y-4 pr-2">
+                        <div class="flex gap-3 items-start">
+                            <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shrink-0">
+                                AI
+                            </div>
+                            <div class="bg-slate-100 text-slate-800 text-sm p-3.5 rounded-2xl max-w-[85%] leading-relaxed">
+                                안녕하세요! 저는 AI 산업안전보건 기술 컨설턴트입니다. 
+                                <strong>김해 고소작업차 추락사고</strong>와 같은 재해를 분석하고, 고소작업차 안전수칙, <strong>중대재해처벌법</strong> 법적 자문, 안전 작업계획서 작성 규정 등에 대한 최신 규정과 대책을 알려드립니다. 궁금하신 점을 물어보세요!
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Form -->
+                    <form id="chat-form" class="flex gap-2">
+                        <input id="user-input" type="text" placeholder="예: 고소작업차의 안전거리 및 지반 안전 기준은?" class="flex-grow border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 shadow-2xs" required>
+                        <button type="submit" id="send-btn" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-3 rounded-xl transition-colors flex items-center justify-center shrink-0">
+                            <span id="btn-text">질문하기</span>
+                            <i id="btn-icon" data-lucide="send" class="w-4 h-4 ml-1.5"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex justify-center items-center gap-2 mb-4 text-white">
+                <i data-lucide="shield" class="w-6 h-6 text-amber-500"></i>
+                <span class="font-bold text-lg">HSE Safety Portfolio</span>
+            </div>
+            <p class="text-xs mb-2">김해 외동 고소작업차(스카이차) 추락재해 심층 케이스 스터디 및 분석 포트폴리오</p>
+            <p class="text-[10px] text-slate-600">본 분석 자료는 일반적인 안전 대책에 근거하여 교육 및 예방용으로 제작되었으며, 법적 판단을 위한 효력은 현장의 특정 조건에 따라 상이할 수 있습니다.</p>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        // Lucide Icons 초기화
+        lucide.createIcons();
+
+        // 모바일 메뉴 토글
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 추천 질문 주입용 함수
+        function fillQuestion(text) {
+            document.getElementById('user-input').value = text;
+            document.getElementById('user-input').focus();
+        }
+
+        // --- Gemini API 연동 부 ---
+        // Canvas 내에서는 apiKey를 ""로 설정하고 런타임 환경에 제공되는 키를 사용합니다.
+        const apiKey = ""; 
+
+        // 대화 내역 저장 배열 (컨텍스트 유지를 위해 활용)
+        let messages = [];
+
+        // 폼 제출 이벤트 핸들러
+        document.getElementById('chat-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userInput = document.getElementById('user-input');
+            const userText = userInput.value.trim();
+            if (!userText) return;
+
+            // 사용자 메시지 화면에 추가
+            appendMessage('user', userText);
+            userInput.value = '';
+
+            // 로딩 세션 생성
+            const botMessageId = appendLoadingMessage();
+
+            // 백오프를 활용한 API 통신 함수 호출
+            try {
+                const responseText = await callGeminiAPI(userText);
+                removeLoadingMessage(botMessageId);
+                appendMessage('bot', responseText);
+            } catch (error) {
+                console.error("Gemini API Error:", error);
+                removeLoadingMessage(botMessageId);
+                appendMessage('bot', `오류가 발생했습니다: ${error.message}. 네트워크 상태를 확인하시거나 잠시 후 다시 시도해주세요.`);
+            }
+        });
+
+        // 메시지 렌더링 함수
+        function appendMessage(sender, text) {
+            const chatHistory = document.getElementById('chat-history');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex gap-3 items-start';
+
+            if (sender === 'user') {
+                msgDiv.innerHTML = `
+                    <div class="flex gap-3 items-start justify-end w-full">
+                        <div class="bg-amber-500 text-slate-950 text-sm p-3.5 rounded-2xl max-w-[85%] leading-relaxed font-medium">
+                            ${escapeHtml(text)}
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-900 flex items-center justify-center text-xs font-bold shrink-0">
+                            나
+                        </div>
+                    </div>
+                `;
+            } else {
+                // markdown을 간단히 안전하게 HTML 형태로 포매팅하는 보조 파서
+                const formattedText = parseMarkdown(text);
+                msgDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shrink-0">
+                        AI
+                    </div>
+                    <div class="bg-slate-100 text-slate-800 text-sm p-3.5 rounded-2xl max-w-[85%] leading-relaxed markdown-body">
+                        ${formattedText}
+                    </div>
+                `;
+            }
+            
+            chatHistory.appendChild(msgDiv);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        // 로딩 홀더 추가
+        function appendLoadingMessage() {
+            const chatHistory = document.getElementById('chat-history');
+            const botMessageId = 'loading-' + Date.now();
+            const msgDiv = document.createElement('div');
+            msgDiv.id = botMessageId;
+            msgDiv.className = 'flex gap-3 items-start';
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shrink-0">
+                    AI
+                </div>
+                <div class="bg-slate-100 text-slate-500 text-sm p-3.5 rounded-2xl flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 bg-slate-500 rounded-full animate-bounce"></span>
+                    <span class="inline-block w-2 h-2 bg-slate-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                    <span class="inline-block w-2 h-2 bg-slate-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                    AI 안전보건 가이드 검토 중...
+                </div>
+            `;
+            chatHistory.appendChild(msgDiv);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            return botMessageId;
+        }
+
+        // 로딩 홀더 제거
+        function removeLoadingMessage(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.remove();
+            }
+        }
+
+        // HTML 이스케이프 보조 함수
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // 미니 마크다운 파서 (줄바꿈 및 볼드, 리스트 지원)
+        function parseMarkdown(text) {
+            let html = escapeHtml(text);
+            // 볼드체 적용
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            // 목록 적용 (* 혹은 -)
+            html = html.replace(/^\s*[\*\-]\s+(.*)$/gm, '<li class="ml-4 list-disc">$1</li>');
+            // 줄바꿈 적용
+            html = html.replace(/\n/g, '<br>');
+            return html;
+        }
+
+        // Exponential Backoff를 사용하는 Gemini 2.5 Flash API 호출
+        async function callGeminiAPI(queryText) {
+            const systemPrompt = `너는 산업안전보건공단 및 고용노동부의 최신 안전 보건 기술 가이드라인에 완전히 정통한 최고급 산업안전 자문역이자 안전 컨설턴트야. 사용자가 김해 고소작업차(스카이차) 추락사고 혹은 건설업/제조업 전반의 고소작업 위험요인에 대해 질문하면 상세하고 전문적이며 실질적으로 현장에 도움이 되는 방안을 친절히 한국어로 조언해야 해. 
+            대답은 가독성을 위해 개조식( bullet points )과 볼드체(**)를 적절히 섞어서 정리된 레이아웃으로 출력해 줘.`;
+
+            const model = "gemini-2.5-flash-preview-09-2025";
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: queryText }]
+                }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            };
+
+            const maxRetries = 5;
+            let attempt = 0;
+
+            while (attempt < maxRetries) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        const errBody = await response.json().catch(() => ({}));
+                        throw new Error(errBody.error?.message || `HTTP error ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) {
+                        return text;
+                    } else {
+                        throw new Error("API가 비어 있는 응답을 반환했습니다.");
+                    }
+                } catch (error) {
+                    attempt++;
+                    if (attempt >= maxRetries) {
+                        throw new Error(`모든 재시도(${maxRetries}회)가 실패하였습니다. 원인: ${error.message}`);
+                    }
+                    const delay = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s, 8s, 16s...
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+    </script>
+</body>
+</html>
