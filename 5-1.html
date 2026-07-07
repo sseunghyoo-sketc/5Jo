@@ -1,0 +1,323 @@
+HTML
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기억과 안전: 건설업 사망재해 아카이브</title>
+    <style>
+        /* 기본 스타일 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #11141a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* 네비게이션 바 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: rgba(17, 20, 26, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #222834;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #ff5e5e;
+            letter-spacing: -0.5px;
+        }
+
+        nav a {
+            color: #a0aec0;
+            text-decoration: none;
+            margin-left: 24px;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* 공통 섹션 스타일 */
+        section {
+            padding: 100px 8% 80px 8%;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 4px;
+            background-color: #ff5e5e;
+            margin-top: 10px;
+        }
+
+        /* 1. 히어로 섹션 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            background: linear-gradient(rgba(17, 20, 26, 0.85), #11141a), 
+                        url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070') center/cover no-repeat;
+            padding: 0 8%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.8rem;
+            color: #ffbe3c;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #a0aec0;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: #ff5e5e;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .cta-btn:hover {
+            background-color: #e04444;
+        }
+
+        /* 2. 대시보드 섹션 */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: #1a1f2c;
+            border: 1px solid #222834;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            color: #a0aec0;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .card .value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .card .value span {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #a0aec0;
+            margin-left: 4px;
+        }
+
+        .card.highlight .value {
+            color: #ff5e5e;
+        }
+
+        .chart-placeholder {
+            background-color: #1a1f2c;
+            border: 1px solid #222834;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            color: #718096;
+            font-style: italic;
+        }
+
+        /* 3. 중대재해처벌법 배경 섹션 */
+        .law-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .law-text p {
+            color: #cbd5e0;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .law-text strong {
+            color: #ffbe3c;
+        }
+
+        .law-timeline {
+            border-left: 2px solid #222834;
+            padding-left: 30px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ff5e5e;
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: #ff5e5e;
+            margin-bottom: 5px;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-desc {
+            color: #a0aec0;
+            font-size: 0.95rem;
+        }
+
+        /* 푸터 */
+        footer {
+            background-color: #0b0d12;
+            padding: 40px 8%;
+            text-align: center;
+            color: #4a5568;
+            font-size: 0.9rem;
+            border-top: 1px solid #1a1f2c;
+        }
+
+        /* 반응형 대응 */
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero .subtitle { font-size: 1.4rem; }
+            .law-content { grid-template-columns: 1fr; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">SAFETY ARCHIVE</div>
+        <nav>
+            <a href="#" class="active">HOME</a>
+            <a href="#dashboard">재해 현황 대시보드</a>
+            <a href="#law-background">중대재해처벌법 소개</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>기록되지 않는 역사는<br>반복됩니다.</h1>
+        <div class="subtitle">왜 우리는 과거의 재해를 기억해야 하는가?</div>
+        <p>매년 수많은 노동자가 일터에서 집으로 돌아가지 못하고 있습니다. 과거의 아픔을 투명하게 직시하고 기록하는 것, 그것이 안전한 대한민국을 만드는 첫걸음입니다.</p>
+        <a href="#dashboard" class="cta-btn">현황 확인하기</a>
+    </section>
+
+    <section id="dashboard">
+        <h2 class="section-title">국내 건설업 사망재해 현황</h2>
+        <div class="dashboard-grid">
+            <div class="card highlight">
+                <h3>연간 건설업 사고사망자 수</h3>
+                <div class="value">300<span>명 이상</span></div>
+            </div>
+            <div class="card">
+                <h3>재해 유형 1위</h3>
+                <div class="value">떨어짐<span>(추락)</span></div>
+            </div>
+            <div class="card">
+                <h3>전체 산재 사망 중 건설업 비중</h3>
+                <div class="value">50<span>% 내외</span></div>
+            </div>
+        </div>
+        <div class="chart-placeholder">
+            [ 시각화 대시보드: 연도별 재해 추이 및 사고 유형별 통계 그래프 탑재 영역 ]
+        </div>
+    </section>
+
+    <section id="law-background" style="background-color: #161a23;">
+        <h2 class="section-title">중대재해처벌법 도입 배경</h2>
+        <div class="law-content">
+            <div class="law-text">
+                <p>기존 산업안전보건법은 현장 실무자 위주의 처벌에 그쳐, 기업 차원의 근본적인 안전 시스템 개선을 이끌어내지 못한다는 한계가 있었습니다.</p>
+                <p>이에 따라 노동자의 생명과 안전을 지키기 위해, 기업의 경영책임자에게 <strong>안전보건 확보 의무</strong>를 직접 부여하는 강력한 법안이 요구되었습니다.</p>
+                <p>중대재해처벌법의 궁극적인 목적은 '처벌'이 아닌, 경영진이 주도하여 선제적으로 일터의 위험 요인을 제거하는 <strong>'예방 체계의 정착'</strong>에 있습니다.</p>
+            </div>
+            <div class="law-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2022년 1월 27일</div>
+                    <div class="timeline-title">중대재해처벌법 공식 시행</div>
+                    <div class="timeline-desc">상시근로자 50인 이상(공사금액 50억 이상) 사업장 우선 적용</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024년 1월 27일</div>
+                    <div class="timeline-title">5인 이상 사업장 전면 확대</div>
+                    <div class="timeline-desc">소규모 건설 현장 및 영세 사업장까지 안전보건 의무 확대 적용</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">현재 (2026년)</div>
+                    <div class="timeline-title">지속 가능한 안전 보건 생태계 구축</div>
+                    <div class="timeline-desc">단순 규제를 넘어 현장 중심의 실질적 안전 예방 문화 정착 단계</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 SAFETY ARCHIVE. All Rights Reserved. 본 페이지는 과거의 재해를 기억하고 안전한 내일을 만들기 위한 공익 목적으로 기획되었습니다.</p>
+    </footer>
+
+</body>
+</html>

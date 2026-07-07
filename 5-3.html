@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[CASE 02] 지하의 침묵, 흙막이 계측과 사면 안정성</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome (아이콘용) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js (계측 시각화용) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&display=swap');
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+        .pulse-red {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- 상단 헤더 -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-red-600 text-white p-2 rounded-lg font-bold text-xs tracking-wider">
+                    CASE 02
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-100">지하의 침묵, 흙막이 계측과 사면 안정성</h1>
+                    <p class="text-xs text-slate-400">토공사 (지반 붕괴 재해 예방 교육)</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-1 text-sm font-medium">
+                <a href="#case" class="px-3 py-2 text-slate-300 hover:text-white rounded-md transition hover:bg-slate-800">사고 개요</a>
+                <a href="#factors" class="px-3 py-2 text-slate-300 hover:text-white rounded-md transition hover:bg-slate-800">위험 요인</a>
+                <a href="#simulator" class="px-3 py-2 bg-red-600/20 text-red-400 border border-red-500/30 rounded-md hover:bg-red-600/30 transition">실시간 가상 계측 시뮬레이터</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+        
+        <!-- 히어로 및 실제 사례 소개 영역 -->
+        <section id="case" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-gradient-to-br from-slate-950 to-slate-900 p-6 md:p-10 rounded-2xl border border-slate-800">
+            <div class="lg:col-span-7 space-y-6">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20">
+                    <i class="fa-solid fa-circle-exclamation mr-1.5 pulse-red"></i> 실제 사고 사례 분석
+                </span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                    신안산선 광명 구간<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-500">터널 및 흙막이 지반 붕괴 사고</span>
+                </h2>
+                <p class="text-slate-300 leading-relaxed text-base">
+                    신안산선 복선전철 건설 공사 중 광명 구간의 터널 및 수직구 흙막이 벽체 부근에서 급격한 지반 침하와 붕괴가 발생했습니다. 이 사고는 지하 안전 관리의 핵심인 <strong>'계측 데이터 분석'</strong>과 <strong>'조기 조치'</strong>가 무너졌을 때 발생하는 전형적인 지하 붕괴 참사 모델입니다.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm pt-2">
+                    <div class="flex items-start space-x-3 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+                        <i class="fa-solid fa-mountain text-amber-500 mt-1"></i>
+                        <div>
+                            <span class="font-bold text-slate-200 block">연약 지반 및 단층대 조사 미흡</span>
+                            <span class="text-slate-400 text-xs">지질학적 취약 구간에 대한 선행 보강 공법이 매우 취약하게 계획됨.</span>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+                        <i class="fa-solid fa-triangle-exclamation text-red-500 mt-1"></i>
+                        <div>
+                            <span class="font-bold text-slate-200 block">임계치 경고 알람 묵살</span>
+                            <span class="text-slate-400 text-xs">센서 계측 데이터 상 변위 속도가 급증하는 붕괴 전조를 단순 노이즈로 간주.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-5 flex justify-center">
+                <!-- SVG로 시각화한 붕괴 모형 일러스트 -->
+                <div class="w-full max-w-sm aspect-square bg-slate-950 rounded-xl p-4 border border-slate-800 flex flex-col justify-between relative overflow-hidden">
+                    <div class="text-xs text-slate-400 flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span><i class="fa-solid fa-draw-polygon mr-1"></i> 흙막이 벽체 거동 모식도</span>
+                        <span class="text-red-400 font-semibold">DANGER</span>
+                    </div>
+                    
+                    <svg viewBox="0 0 400 300" class="w-full h-48 my-auto">
+                        <!-- 지상 그라운드 -->
+                        <path d="M 0 50 Q 150 50 180 80 T 200 130 L 200 300 L 0 300 Z" fill="#473a2b" opacity="0.8"/>
+                        <!-- 무너진 부분 하이라이트 -->
+                        <path d="M 150 50 Q 170 50 180 80 T 200 130 L 150 130 Z" fill="#ef4444" opacity="0.3" stroke="#ef4444" stroke-dasharray="3,3"/>
+                        
+                        <!-- 굴착면 우측 지반 -->
+                        <rect x="250" y="160" width="150" height="140" fill="#2d3748" opacity="0.6" />
+                        
+                        <!-- 흙막이 가상 벽체 (휘어진 모습) -->
+                        <path d="M 200 20 Q 170 120 200 280" fill="none" stroke="#ef4444" stroke-width="6" />
+                        <!-- 원래 벽체 점선 -->
+                        <line x1="200" y1="20" x2="200" y2="280" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,4" />
+                        
+                        <!-- 버팀대 (Strut) 변형/이탈 -->
+                        <line x1="200" y1="70" x2="350" y2="70" stroke="#f59e0b" stroke-width="4" />
+                        <line x1="180" y1="140" x2="350" y2="140" stroke="#ef4444" stroke-width="4" stroke-dasharray="2,2"/>
+                        <line x1="200" y1="210" x2="350" y2="210" stroke="#10b981" stroke-width="4" />
+
+                        <!-- 이탈 경고 기호 -->
+                        <g transform="translate(160, 120)">
+                            <circle cx="10" cy="10" r="12" fill="#ef4444" class="pulse-red"/>
+                            <text x="10" y="14" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">!</text>
+                        </g>
+
+                        <!-- 균열 라인 -->
+                        <path d="M 120 50 L 130 90 L 110 110" fill="none" stroke="#ef4444" stroke-width="2" />
+                        <path d="M 60 50 L 75 75" fill="none" stroke="#ef4444" stroke-width="1.5" />
+
+                        <!-- 안내 라벨 -->
+                        <text x="50" y="180" fill="#fff" font-size="11" font-weight="bold">배후 지반 침하</text>
+                        <text x="310" y="110" fill="#ef4444" font-size="10" font-weight="bold">지보공 파손</text>
+                        <text x="215" y="270" fill="#94a3b8" font-size="10">수직구 굴착부</text>
+                    </svg>
+
+                    <div class="bg-slate-900 p-2 rounded text-center text-xs border border-red-500/20 text-red-200">
+                        <i class="fa-solid fa-circle-info text-red-400 mr-1"></i> 벽체 중심부 변위가 임계값(80mm)을 초과 돌파하는 단계
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 핵심 위험 요인 분석 정보 -->
+        <section id="factors" class="space-y-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <h3 class="text-2xl font-bold text-white"><i class="fa-solid fa-triangle-exclamation text-amber-500 mr-2"></i>사고 유발 핵심 위험 요인</h3>
+                <p class="text-slate-400 text-sm mt-2">사고 조사 보고서에 명시된 주요 실패 원인과 극복해야 할 지반 토공사의 결함요소입니다.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 카드 1 -->
+                <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 hover:border-red-500/50 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-red-500/10 text-red-500 rounded-lg flex items-center justify-center mb-4 text-xl">
+                            <i class="fa-solid fa-water"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-100 mb-2">연약지반 보강 및 설계 차수 부족</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            수직구 굴착 영역에 광범위한 연약 점성토 및 파쇄 단층대가 분포했으나 차수 보강공법이 부실했습니다. 이로 인해 균열 틈새로 지하수 배출 및 미세토사가 유출(파이핑 현상)되면서 토압 분배의 불균형을 야기했습니다.
+                        </p>
+                    </div>
+                    <span class="text-xs text-red-400 mt-4 block font-semibold"><i class="fa-solid fa-shield-halved mr-1"></i> 대책: 차수 그라우팅 밀실 시공 필히 적용</span>
+                </div>
+
+                <!-- 카드 2 -->
+                <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 hover:border-red-500/50 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-amber-500/10 text-amber-500 rounded-lg flex items-center justify-center mb-4 text-xl">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-100 mb-2">계측값 경보 및 관리 임계값 묵살</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            붕괴 사고 며칠 전부터 경사계(Inclinometer)와 변형률계(Strain Gauge) 상 변위 속도가 급증하는 비정상적인 로그가 보고되었습니다. 그러나 기기 노후화나 기상 악화(강우)로 인한 오작동으로 속단하여 긴급 보강 조치를 누락했습니다.
+                        </p>
+                    </div>
+                    <span class="text-xs text-amber-400 mt-4 block font-semibold"><i class="fa-solid fa-shield-halved mr-1"></i> 대책: 임계 경보 발생 시 공사 즉시 중단 및 점검</span>
+                </div>
+
+                <!-- 카드 3 -->
+                <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 hover:border-red-500/50 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-blue-500/10 text-blue-500 rounded-lg flex items-center justify-center mb-4 text-xl">
+                            <i class="fa-solid fa-compress"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-100 mb-2">흙막이 지보공 지지력 신뢰성 결여</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            상부 하중과 배후 지반의 압력을 버텨주는 버팀대(Strut)와 연결 구조 부재(Wale)의 체결 강도가 저하되어 있었습니다. 한쪽의 하중 쏠림 현상(편압)이 발생하자 연쇄적으로 좌굴(Buckling)되어 지보 구조 전체가 한순간에 와괴되었습니다.
+                        </p>
+                    </div>
+                    <span class="text-xs text-blue-400 mt-4 block font-semibold"><i class="fa-solid fa-shield-halved mr-1"></i> 대책: 지보공 체결부 연결 핀/볼트 정밀 수시 정검</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 흙막이 계측 모니터링 및 실시간 사고 예방 시뮬레이터 -->
+        <section id="simulator" class="bg-slate-950 p-6 md:p-8 rounded-2xl border border-slate-800 space-y-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 gap-4">
+                <div>
+                    <h3 class="text-2xl font-bold text-white flex items-center">
+                        <span class="relative flex h-3 w-3 mr-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                        </span>
+                        실시간 흙막이 계측 센서 및 가상 굴착 시뮬레이터
+                    </h3>
+                    <p class="text-slate-400 text-sm mt-1">지하 굴착 깊이와 지하수위 변화에 따른 흙막이 변위를 가상 시뮬레이션하고 비상시 정지 및 대피 훈련을 시뮬레이션해 보세요.</p>
+                </div>
+                <!-- 컨트롤 룸 -->
+                <div class="flex flex-wrap gap-2">
+                    <button id="btn-start" onclick="startSimulation()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-sm font-semibold transition flex items-center space-x-2">
+                        <i class="fa-solid fa-play"></i> <span>굴착 개시 (시뮬레이션 시작)</span>
+                    </button>
+                    <button id="btn-emergency" onclick="triggerEmergencyReinforce()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-sm font-semibold transition flex items-center space-x-2 disabled:opacity-50" disabled>
+                        <i class="fa-solid fa-wrench"></i> <span>긴급 지보공 보강</span>
+                    </button>
+                    <button id="btn-reset" onclick="resetSimulation()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-sm font-semibold transition flex items-center space-x-2">
+                        <i class="fa-solid fa-rotate-left"></i> <span>초기화</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 시뮬레이터 대시보드 구조 -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- 왼편: 흙막이 가상 단면 애니메이션 (Canvas 대신 인터랙티브 SVG 지향) -->
+                <div class="lg:col-span-4 bg-slate-900 rounded-xl p-4 border border-slate-800 flex flex-col justify-between">
+                    <div class="flex justify-between items-center text-xs text-slate-400 mb-4">
+                        <span><i class="fa-solid fa-binoculars"></i> 가상 단면 실시간 모니터링</span>
+                        <span id="sim-status" class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-semibold">대기중</span>
+                    </div>
+
+                    <!-- 단면 그래픽 영역 -->
+                    <div class="relative bg-slate-950 w-full rounded-lg border border-slate-800 p-4 overflow-hidden h-[320px]">
+                        <!-- 뒤쪽 배후 지질 레이어 (연약 점토층) -->
+                        <div id="clay-layer" class="absolute left-0 top-0 w-[140px] h-full bg-orange-950/20 transition-all duration-500 border-r border-dashed border-orange-900/30">
+                            <span class="absolute bottom-2 left-2 text-[10px] text-orange-400/50">연약 지반대</span>
+                        </div>
+
+                        <!-- 굴착 바닥면 라인 -->
+                        <div id="excavation-ground" class="absolute right-0 bottom-0 w-[200px] h-[150px] bg-slate-800 transition-all duration-1000 border-t-2 border-slate-600">
+                            <span class="absolute top-2 right-2 text-[10px] text-slate-400">굴착 바닥면 (GL-<span id="lbl-depth">0</span>m)</span>
+                        </div>
+
+                        <!-- 지하수 수위선 -->
+                        <div id="water-line" class="absolute left-0 bottom-0 w-[140px] h-[220px] bg-blue-950/40 border-t-2 border-blue-500/60 transition-all duration-1000">
+                            <span class="absolute top-1 left-2 text-[10px] text-blue-400 flex items-center">
+                                <i class="fa-solid fa-droplet mr-1 text-xs"></i> 지하수위
+                            </span>
+                        </div>
+
+                        <!-- 흙막이 H-Beam 벽체 선 -->
+                        <div id="sim-wall" class="absolute left-[140px] top-4 w-4 h-[280px] bg-slate-700 rounded transition-all duration-300 origin-top flex flex-col justify-around items-center">
+                            <!-- 경사도 센서 지점 표시 -->
+                            <div class="w-3 h-3 rounded-full bg-emerald-500 border border-slate-900 shadow" title="최상단 센서"></div>
+                            <div id="mid-sensor" class="w-3 h-3 rounded-full bg-emerald-500 border border-slate-900 shadow" title="중앙 벽체 센서"></div>
+                            <div class="w-3 h-3 rounded-full bg-emerald-500 border border-slate-900 shadow" title="최하단 센서"></div>
+                        </div>
+
+                        <!-- 버팀 지보공 (Struts) -->
+                        <div id="strut-1" class="absolute left-[150px] top-[40px] w-[180px] h-3 bg-amber-600/80 transition-all duration-300 origin-left border-y border-amber-900"></div>
+                        <div id="strut-2" class="absolute left-[150px] top-[120px] w-[180px] h-3 bg-amber-600/80 transition-all duration-300 origin-left border-y border-amber-900 opacity-30"></div>
+                        <div id="strut-3" class="absolute left-[150px] top-[200px] w-[180px] h-3 bg-amber-600/80 transition-all duration-300 origin-left border-y border-amber-900 opacity-10"></div>
+
+                        <!-- 붕괴 유출 입자 연출 (Piping) -->
+                        <div id="piping-particles" class="absolute left-[130px] bottom-[10px] w-8 h-8 pointer-events-none hidden">
+                            <span class="absolute animate-ping inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        </div>
+                    </div>
+
+                    <!-- 제어 변수 표시 패널 -->
+                    <div class="grid grid-cols-2 gap-2 mt-4 text-xs">
+                        <div class="bg-slate-950 p-2 rounded border border-slate-800">
+                            <span class="text-slate-400 block">굴착 단계:</span>
+                            <span id="txt-step" class="font-bold text-white text-sm">대기 (0단계)</span>
+                        </div>
+                        <div class="bg-slate-950 p-2 rounded border border-slate-800">
+                            <span class="text-slate-400 block">계측 경보 레벨:</span>
+                            <span id="txt-alert-level" class="font-bold text-emerald-400 text-sm">안전 (Normal)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 가운데: 계측 그래프 영역 -->
+                <div class="lg:col-span-5 bg-slate-900 rounded-xl p-4 border border-slate-800 flex flex-col justify-between">
+                    <div class="flex justify-between items-center text-xs text-slate-400 mb-4">
+                        <span><i class="fa-solid fa-chart-line"></i> 벽체 수평 변위량 계측 트렌드 (센서 데이터)</span>
+                        <span class="text-slate-500">단위: mm</span>
+                    </div>
+
+                    <!-- Chart.js 렌더링 컨테이너 -->
+                    <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 h-[240px] flex items-center justify-center">
+                        <canvas id="gaugeChart" class="w-full h-full"></canvas>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1.5 text-xs text-slate-400">
+                        <div class="flex justify-between">
+                            <span>1차 관리기준값 (주의 요망):</span>
+                            <span class="text-amber-400 font-semibold">40.0 mm</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>2차 관리기준값 (위험 관리):</span>
+                            <span class="text-orange-500 font-semibold">60.0 mm</span>
+                        </div>
+                        <div class="flex justify-between border-t border-slate-800 pt-1">
+                            <span>3차 관리기준값 (즉시 대피 및 중단):</span>
+                            <span class="text-red-500 font-semibold">80.0 mm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 오른편: 가상 훈련 대응 매뉴얼 및 인터랙티브 퀴즈 형식 팁 -->
+                <div class="lg:col-span-3 bg-slate-900 rounded-xl p-4 border border-slate-800 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-bold text-white border-b border-slate-800 pb-2 flex items-center">
+                            <i class="fa-solid fa-shield-cat text-emerald-500 mr-2"></i> 비상대응 가이드
+                        </h4>
+                        
+                        <!-- 상황별 안내 문구 카드 -->
+                        <div id="instruction-box" class="bg-slate-950 p-4 rounded-lg border border-emerald-500/30 text-xs leading-relaxed text-slate-300">
+                            <strong>[안내]</strong> 상단의 "굴착 개시" 버튼을 누르면 지하 수직구 굴착이 시작됩니다. 우측 단면의 흙막이 벽이 가해지는 토압과 수압으로 인해 서서히 변형되며, 계측 센서 데이터가 실시간으로 수집됩니다. 
+                            <br><br>
+                            변위량이 위험 경보 범위에 다다르면 <strong>"긴급 지보공 보강"</strong> 버튼을 적절한 타이밍에 눌러 추가 좌굴 붕괴를 예방하세요.
+                        </div>
+
+                        <!-- 실시간 수치 데이터 정보 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 rounded bg-slate-950 text-xs">
+                                <span class="text-slate-400">벽체 최고 도달 변위량</span>
+                                <span id="max-displacement" class="font-mono font-bold text-emerald-400">0.00 mm</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 rounded bg-slate-950 text-xs">
+                                <span class="text-slate-400">지하수 유입 방지력</span>
+                                <span id="water-pressure-safety" class="font-mono font-bold text-blue-400">양호</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 미션 클리어 또는 실패 패널 -->
+                    <div id="mission-result" class="mt-4 p-3 rounded-lg border text-center hidden">
+                        <!-- 동적으로 메시지가 주입됩니다 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 지반 붕괴 사고 예방을 위한 핵심 5대 계측 관리 표준 -->
+        <section class="bg-gradient-to-r from-slate-950 to-slate-900 p-6 md:p-8 rounded-2xl border border-slate-800">
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                <i class="fa-solid fa-list-check text-blue-500 mr-2"></i> 현장 필수 안전 교육: 5대 흙막이 계측 항목 및 역할
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center space-y-2">
+                    <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-full font-semibold">지반 경사계</span>
+                    <h5 class="font-bold text-sm text-slate-200">Inclinometer</h5>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        지보공 배후 지반 내부의 수평 변위량을 측정하여 전체적 사면 미끄러짐 및 붕괴 원인 진단.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center space-y-2">
+                    <span class="text-xs bg-amber-500/10 text-amber-400 px-2.5 py-0.5 rounded-full font-semibold">변형률계</span>
+                    <h5 class="font-bold text-sm text-slate-200">Strain Gauge</h5>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        H-Beam 버팀대 및 띠장의 구조적 한계치를 확인하기 위한 부재 변형 압축 인장력 측정.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center space-y-2">
+                    <span class="text-xs bg-blue-500/10 text-blue-400 px-2.5 py-0.5 rounded-full font-semibold">지하수위계</span>
+                    <h5 class="font-bold text-sm text-slate-200">Water Level</h5>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        흙막이 배후지반의 지하수위 강하 여부를 측정하여 흙막이판 틈새 유실 및 수압 분포 파악.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center space-y-2">
+                    <span class="text-xs bg-purple-500/10 text-purple-400 px-2.5 py-0.5 rounded-full font-semibold">토압/간극수압계</span>
+                    <h5 class="font-bold text-sm text-slate-200">Piezometer</h5>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        흙막이 벽체 뒷면에 작용하는 실제 토질 압력과 점성토 속 간극수압의 균형 파괴를 감지.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center space-y-2">
+                    <span class="text-xs bg-red-500/10 text-red-400 px-2.5 py-0.5 rounded-full font-semibold">하중계</span>
+                    <h5 class="font-bold text-sm text-slate-200">Load Cell</h5>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        앵커나 지반 어스앵커 인장재에 걸리는 실하중을 디지털로 모니터링하여 장력 해이 상태 탐지.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- 하단 푸터 -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p>© 2026 건설안전보건 시뮬레이션 교육 자료. 모든 교육 목적의 복제 및 활용을 환영합니다.</p>
+            <p>본 자료는 국토교통부 및 건설사고조사위원회(사조위)의 실제 사고사례 보고서를 참조하여 학습 편의용 웹앱으로 설계되었습니다.</p>
+        </div>
+    </footer>
+
+    <!-- 내부 계측 시뮬레이션 로직 및 Chart.js 설정 스크립트 -->
+    <script>
+        // 전역 상태 변수
+        let simInterval = null;
+        let currentStep = 0;
+        let elapsedSeconds = 0;
+        let displacement = 0; // 단위: mm
+        let isReinforced = false; // 긴급 보강 여부
+        let isCollapsed = false; // 붕괴 완료 여부
+        let isCleared = false; // 보완 성공 여부
+        let chart = null;
+
+        // 차트 초기화 함수
+        function initChart() {
+            const ctx = document.getElementById('gaugeChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: '흙막이 벽체 수평 변위량 (mm)',
+                            data: [],
+                            borderColor: '#10b981', // emerald
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.1
+                        },
+                        {
+                            label: '경고 기준치 (주의)',
+                            data: [],
+                            borderColor: '#fbbf24', // amber
+                            borderWidth: 1.5,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            fill: false
+                        },
+                        {
+                            label: '한계 위험치 (즉시 대피)',
+                            data: [],
+                            borderColor: '#ef4444', // red
+                            borderWidth: 1.5,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: { color: '#1e293b' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        y: {
+                            min: 0,
+                            max: 100,
+                            grid: { color: '#1e293b' },
+                            ticks: { color: '#94a3b8' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: '#cbd5e1', boxWidth: 12, fontSize: 10 }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 시뮬레이션 시작 함수
+        function startSimulation() {
+            if (simInterval) return;
+
+            document.getElementById('btn-start').disabled = true;
+            document.getElementById('btn-start').classList.add('opacity-50');
+            document.getElementById('btn-emergency').disabled = false;
+
+            const simStatus = document.getElementById('sim-status');
+            simStatus.textContent = "굴착 진행중";
+            simStatus.className = "px-2 py-0.5 rounded-full bg-blue-600 text-white font-semibold pulse-red";
+
+            // 시뮬레이터 타이머 루프 작동 (0.5초당 가상의 경과시간 1단계씩 증가)
+            simInterval = setInterval(() => {
+                elapsedSeconds++;
+                
+                // 가상 굴착 깊이 제어
+                if (elapsedSeconds % 3 === 0 && currentStep < 3) {
+                    currentStep++;
+                }
+
+                // 변위량 상승 곡선 시뮬레이션 (점토 지반의 비선형 거동)
+                let baseGrowth = 0;
+                if (currentStep === 1) {
+                    baseGrowth = Math.random() * 2 + 1; // 1단계 서서히 가라앉음
+                    // 지보공 활성화 1단계
+                    document.getElementById('strut-1').style.opacity = "1";
+                } else if (currentStep === 2) {
+                    baseGrowth = Math.random() * 5 + 3; // 2단계 가속
+                    document.getElementById('strut-2').style.opacity = "1";
+                } else if (currentStep === 3) {
+                    baseGrowth = Math.random() * 8 + 6; // 3단계 파국적으로 변위 진행
+                    document.getElementById('strut-3').style.opacity = "1";
+                }
+
+                // 만약 사용자가 보강 버튼을 누른 상태라면, 변위 성장 속도가 혁신적으로 줄어듭니다.
+                if (isReinforced) {
+                    baseGrowth = baseGrowth * 0.15; // 85% 변형률 감쇄 작용
+                }
+
+                displacement += baseGrowth;
+                
+                // UI 텍스트 수치 업데이트
+                document.getElementById('lbl-depth').innerText = (currentStep * 5);
+                document.getElementById('txt-step').innerText = `${currentStep}단계 (지하 ${currentStep * 5}m)`;
+                document.getElementById('max-displacement').innerText = `${displacement.toFixed(2)} mm`;
+
+                // 시각적 흙막이 벽의 굴곡 애니메이션 묘사
+                const simWall = document.getElementById('sim-wall');
+                const angle = (displacement / 10).toFixed(1);
+                simWall.style.transform = `rotate(-${angle}deg)`;
+
+                // 지하 수위 강하 묘사 (굴착하면서 지하수가 외부로 유출되는 연약지반 누수 시뮬레이션)
+                const waterLine = document.getElementById('water-line');
+                const newWaterHeight = 220 - (displacement * 1.8);
+                waterLine.style.height = `${Math.max(40, newWaterHeight)}px`;
+
+                // 계측 이상 여부 판별 (임계치에 따른 경보 레벨 변경)
+                const alertLevel = document.getElementById('txt-alert-level');
+                const midSensor = document.getElementById('mid-sensor');
+                
+                if (displacement < 40) {
+                    alertLevel.innerText = "안전 (Normal)";
+                    alertLevel.className = "font-bold text-emerald-400 text-sm";
+                    midSensor.className = "w-3 h-3 rounded-full bg-emerald-500 border border-slate-900 shadow";
+                    chart.data.datasets[0].borderColor = '#10b981';
+                } else if (displacement >= 40 && displacement < 60) {
+                    alertLevel.innerText = "주의 (1단계 관리치 돌파)";
+                    alertLevel.className = "font-bold text-amber-400 text-sm pulse-red";
+                    midSensor.className = "w-3 h-3 rounded-full bg-amber-500 border border-slate-900 shadow pulse-red";
+                    chart.data.datasets[0].borderColor = '#f59e0b';
+                    document.getElementById('instruction-box').innerHTML = `
+                        <strong class="text-amber-400">[주의] 흙막이 수평 변위가 1차 허용치를 넘어섰습니다!</strong><br>
+                        계측 보고를 즉시 검토하고 배후 주택지반 침하 위험을 모니터링해야 합니다. 구조 변형 발생 가능성이 높습니다.
+                    `;
+                } else if (displacement >= 60 && displacement < 80) {
+                    alertLevel.innerText = "경고 (2단계 위기 관리)";
+                    alertLevel.className = "font-bold text-orange-500 text-sm pulse-red";
+                    midSensor.className = "w-3 h-3 rounded-full bg-orange-500 border border-slate-900 shadow pulse-red";
+                    chart.data.datasets[0].borderColor = '#f97316';
+                    document.getElementById('instruction-box').innerHTML = `
+                        <strong class="text-orange-500">[경고] 2차 한계치를 돌파하는 중입니다!</strong><br>
+                        흙막이 좌굴 및 붕괴 직전 전조입니다. 신속히 <strong>'긴급 지보공 보강'</strong> 버튼을 클릭하여 버팀목(레이커/추가 스트러트)을 덧대어 압력을 흡수시키십시오!
+                    `;
+                } else if (displacement >= 80) {
+                    alertLevel.innerText = "비상 대피 (3단계 파손 돌입)";
+                    alertLevel.className = "font-bold text-red-500 text-sm pulse-red";
+                    midSensor.className = "w-3 h-3 rounded-full bg-red-500 border border-slate-900 shadow pulse-red";
+                    chart.data.datasets[0].borderColor = '#ef4444';
+                    
+                    // 파이핑 토사 분출 애니메이션 활성화
+                    document.getElementById('piping-particles').classList.remove('hidden');
+
+                    if (!isReinforced) {
+                        triggerCollapseFailure(); // 보강 없이 80mm 초과 시 무조건 지반 붕괴로 실패 처리
+                    } else {
+                        document.getElementById('instruction-box').innerHTML = `
+                            <strong class="text-red-400">[비상] 변위 최대치 근접!</strong><br>
+                            긴급 보강 구조가 가까스로 하중을 견뎌내고 있습니다. 계측 장비를 계속 수시 진단하세요.
+                        `;
+                    }
+                }
+
+                // 안전 보강 조치를 성공적으로 마친 후 일정 시간 동안 붕괴하지 않으면 미션 성공 클리어
+                if (elapsedSeconds >= 25 && !isCollapsed) {
+                    triggerSuccessClear();
+                }
+
+                // 차트 업데이트
+                updateChartData(elapsedSeconds, displacement);
+
+            }, 500);
+        }
+
+        // 차트 실시간 갱신
+        function updateChartData(time, val) {
+            chart.data.labels.push(`${time}s`);
+            chart.data.datasets[0].data.push(val);
+            chart.data.datasets[1].data.push(40); // 1차 주의 한계선 그리기
+            chart.data.datasets[2].data.push(80); // 3차 위험 한계선 그리기
+
+            if (chart.data.labels.length > 20) {
+                chart.data.labels.shift();
+                chart.data.datasets[0].data.shift();
+                chart.data.datasets[1].data.shift();
+                chart.data.datasets[2].data.shift();
+            }
+            chart.update();
+        }
+
+        // 비상 대응 : 긴급 보강 조치 수행
+        function triggerEmergencyReinforce() {
+            if (!simInterval || isReinforced || isCollapsed) return;
+
+            isReinforced = true;
+            document.getElementById('btn-emergency').disabled = true;
+            document.getElementById('btn-emergency').textContent = "보강 완료 적용됨";
+            document.getElementById('btn-emergency').className = "px-4 py-2 bg-slate-700 text-slate-400 rounded-lg text-sm font-semibold cursor-not-allowed";
+
+            // 시각적 지보공 파이프 튼튼하게 보라색으로 하이라이트 추가
+            const struts = ['strut-1', 'strut-2', 'strut-3'];
+            struts.forEach(id => {
+                const el = document.getElementById(id);
+                el.style.border = "2px solid #a855f7"; // purple-500
+                el.style.backgroundColor = "#7e22ce"; // purple-700
+                el.style.opacity = "1";
+            });
+
+            document.getElementById('water-pressure-safety').innerText = "보강 완료 (안정화 진행)";
+            document.getElementById('water-pressure-safety').className = "font-mono font-bold text-purple-400";
+
+            document.getElementById('instruction-box').innerHTML = `
+                <strong class="text-purple-400">[조치 성공] 추가 스트러트 및 언더피닝 적용!</strong><br>
+                벽체의 횡방향 저항력이 향상되어 미끄러짐 거동 속도가 큰 폭으로 하락했습니다. 실제 현장에서도 계측 즉시 복강 작업을 했다면 참사를 막을 수 있었습니다.
+            `;
+        }
+
+        // 시뮬레이션 실패 처리 (광명 사고의 완벽한 재현)
+        function triggerCollapseFailure() {
+            clearInterval(simInterval);
+            simInterval = null;
+            isCollapsed = true;
+
+            const simStatus = document.getElementById('sim-status');
+            simStatus.textContent = "지반 완전히 붕괴";
+            simStatus.className = "px-2 py-0.5 rounded-full bg-red-600 text-white font-semibold";
+
+            // 벽체 꼬꾸라지는 연출
+            document.getElementById('sim-wall').style.transform = `rotate(-35deg) translateY(40px)`;
+            document.getElementById('sim-wall').className = "absolute left-[140px] top-4 w-4 h-[280px] bg-red-600 rounded transition-all duration-1000";
+            
+            // 지보 부재 파괴 이탈선
+            document.getElementById('strut-1').style.transform = "rotate(25deg) translateY(30px)";
+            document.getElementById('strut-2').style.transform = "rotate(-15deg) translateY(60px)";
+            document.getElementById('strut-3').style.transform = "rotate(10deg) translateY(10px)";
+            document.getElementById('strut-1').style.backgroundColor = "#ef4444";
+            document.getElementById('strut-2').style.backgroundColor = "#ef4444";
+
+            // 위험 통보 패널
+            const resultBox = document.getElementById('mission-result');
+            resultBox.className = "mt-4 p-4 rounded-lg border border-red-500/50 bg-red-950/40 text-center space-y-2 block text-xs";
+            resultBox.innerHTML = `
+                <h5 class="font-bold text-red-400 text-sm"><i class="fa-solid fa-skull-crossbones mr-2"></i> 흙막이 지반 붕괴 사고 발생</h5>
+                <p class="text-slate-300 leading-relaxed text-left">
+                    계측 수치의 급격한 증가 경보를 무시하여 수직구 흙막이가 토압을 이기지 못하고 붕괴했습니다. 실제 광명 터널 붕괴 사고 현장처럼 연약 지류 상의 주변 배후 도로와 주차장이 무너져 내렸습니다. <strong>계측 경보 발생 시에는 지체 없이 공사를 멈추고 보강해야 합니다!</strong>
+                </p>
+            `;
+        }
+
+        // 시뮬레이션 성공 클리어 처리
+        function triggerSuccessClear() {
+            clearInterval(simInterval);
+            simInterval = null;
+            isCleared = true;
+
+            const simStatus = document.getElementById('sim-status');
+            simStatus.textContent = "안전 굴착 성공";
+            simStatus.className = "px-2 py-0.5 rounded-full bg-emerald-600 text-white font-semibold";
+
+            const resultBox = document.getElementById('mission-result');
+            resultBox.className = "mt-4 p-4 rounded-lg border border-emerald-500/50 bg-emerald-950/40 text-center space-y-2 block text-xs";
+            resultBox.innerHTML = `
+                <h5 class="font-bold text-emerald-400 text-sm"><i class="fa-solid fa-circle-check mr-2"></i> 안전 굴착 미션 성공</h5>
+                <p class="text-slate-300 leading-relaxed text-left">
+                    지하수위 저하와 변위 추세를 실시간 관측하고 위험 가이드라인 한계점에 도달하기 전에 <strong>적기에 지보 구조물 긴급 보강</strong>을 수행하여 붕괴 참사를 완벽히 예방했습니다. 지반공사는 데이터 기반 안전 수칙 이행이 생명입니다!
+                </p>
+            `;
+        }
+
+        // 초기화
+        function resetSimulation() {
+            if (simInterval) {
+                clearInterval(simInterval);
+                simInterval = null;
+            }
+
+            currentStep = 0;
+            elapsedSeconds = 0;
+            displacement = 0;
+            isReinforced = false;
+            isCollapsed = false;
+            isCleared = false;
+
+            document.getElementById('lbl-depth').innerText = "0";
+            document.getElementById('txt-step').innerText = "대기 (0단계)";
+            document.getElementById('max-displacement').innerText = "0.00 mm";
+            document.getElementById('water-pressure-safety').innerText = "양호";
+            document.getElementById('water-pressure-safety').className = "font-mono font-bold text-blue-400";
+            
+            const simStatus = document.getElementById('sim-status');
+            simStatus.textContent = "대기중";
+            simStatus.className = "px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-semibold";
+
+            document.getElementById('txt-alert-level').innerText = "안전 (Normal)";
+            document.getElementById('txt-alert-level').className = "font-bold text-emerald-400 text-sm";
+
+            const midSensor = document.getElementById('mid-sensor');
+            midSensor.className = "w-3 h-3 rounded-full bg-emerald-500 border border-slate-900 shadow";
+
+            // 가상 단면 원상복구
+            const simWall = document.getElementById('sim-wall');
+            simWall.style.transform = `rotate(0deg) translateY(0px)`;
+            simWall.className = "absolute left-[140px] top-4 w-4 h-[280px] bg-slate-700 rounded transition-all duration-300 origin-top flex flex-col justify-around items-center";
+
+            document.getElementById('strut-1').style.transform = "rotate(0deg)";
+            document.getElementById('strut-2').style.transform = "rotate(0deg)";
+            document.getElementById('strut-3').style.transform = "rotate(0deg)";
+            document.getElementById('strut-1').style.backgroundColor = "rgba(217, 119, 6, 0.8)";
+            document.getElementById('strut-2').style.backgroundColor = "rgba(217, 119, 6, 0.8)";
+            document.getElementById('strut-3').style.backgroundColor = "rgba(217, 119, 6, 0.8)";
+            document.getElementById('strut-1').style.border = "1px solid #78350f";
+            document.getElementById('strut-2').style.border = "1px solid #78350f";
+            document.getElementById('strut-3').style.border = "1px solid #78350f";
+            
+            document.getElementById('strut-1').style.opacity = "0.3";
+            document.getElementById('strut-2').style.opacity = "0.1";
+            document.getElementById('strut-3').style.opacity = "0.1";
+
+            document.getElementById('water-line').style.height = "220px";
+            document.getElementById('piping-particles').classList.add('hidden');
+            document.getElementById('mission-result').classList.add('hidden');
+
+            document.getElementById('btn-start').disabled = false;
+            document.getElementById('btn-start').classList.remove('opacity-50');
+            document.getElementById('btn-emergency').disabled = true;
+            document.getElementById('btn-emergency').textContent = "긴급 지보공 보강";
+            document.getElementById('btn-emergency').className = "px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-sm font-semibold transition flex items-center space-x-2";
+
+            document.getElementById('instruction-box').innerHTML = `
+                <strong>[안내]</strong> 상단의 "굴착 개시" 버튼을 누르면 지하 수직구 굴착이 시작됩니다. 우측 단면의 흙막이 벽이 가해지는 토압과 수압으로 인해 서서히 변형되며, 계측 센서 데이터가 실시간으로 수집됩니다. 
+                <br><br>
+                변위량이 위험 경보 범위에 다다르면 <strong>"긴급 지보공 보강"</strong> 버튼을 적절한 타이밍에 눌러 추가 좌굴 붕괴를 예방하세요.
+            `;
+
+            // 차트 재생성
+            if (chart) {
+                chart.destroy();
+            }
+            initChart();
+        }
+
+        // 로드 즉시 실행
+        window.onload = function() {
+            initChart();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[CASE 06] 보이지 않는 위험, 활선 작업과 LOTO 시스템</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Orbitron & Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                        tech: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        cyberDark: '#070B13',
+                        cyberPanel: '#0E1626',
+                        cyberOrange: '#FF6B00',
+                        cyberCyan: '#00F5D4',
+                        cyberBlue: '#00B4D8',
+                        cyberRed: '#FF3366',
+                        cyberGray: '#1F2E47',
+                    },
+                    animation: {
+                        'glow-pulse': 'glow 2s infinite alternate',
+                        'scanline': 'scan 6s linear infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px rgba(0, 245, 212, 0.2), inset 0 0 5px rgba(0, 245, 212, 0.1)' },
+                            '100%': { boxShadow: '0 0 20px rgba(0, 245, 212, 0.6), inset 0 0 10px rgba(0, 245, 212, 0.3)' }
+                        },
+                        scan: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-8px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(31, 46, 71, 0.3) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(31, 46, 71, 0.3) 1px, transparent 1px);
+        }
+        .glow-cyan-hover:hover {
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.4);
+            border-color: #00F5D4;
+        }
+        .glow-orange-hover:hover {
+            box-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
+            border-color: #FF6B00;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #070B13;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #1F2E47;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #00F5D4;
+        }
+    </style>
+</head>
+<body class="bg-cyberDark text-slate-100 font-sans selection:bg-cyberCyan selection:text-cyberDark overflow-x-hidden custom-scrollbar">
+
+    <!-- HIGH-TECH TICKER BANNER -->
+    <div class="relative overflow-hidden bg-gradient-to-r from-cyberRed via-cyberOrange to-cyberRed py-1.5 px-4 text-xs font-semibold text-white tracking-wider flex items-center justify-center gap-3 z-50">
+        <div class="absolute inset-0 bg-white/10 animate-pulse pointer-events-none"></div>
+        <i class="fa-solid fa-triangle-exclamation text-white animate-bounce"></i>
+        <span class="font-tech font-bold uppercase tracking-widest">[CRITICAL INFRASTRUCTURE SAFETY REPORT]</span>
+        <span class="hidden sm:inline text-white/90">하청 근로자 이동형 철근 절단기 감전 사망 재해 분석 자료</span>
+    </div>
+
+    <!-- PREMIUM FLOATING HEADER -->
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 sticky top-4 z-50">
+        <header class="bg-cyberPanel/85 backdrop-blur-xl border border-cyberGray/50 rounded-2xl shadow-2xl transition-all duration-300 px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="bg-gradient-to-br from-cyberOrange to-cyberRed p-2 rounded-xl flex items-center justify-center shadow-lg shadow-cyberOrange/20">
+                    <i class="fa-solid fa-bolt-lightning text-white text-lg"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-tech text-xs tracking-widest text-cyberOrange font-bold">CASE-06</span>
+                        <span class="h-1.5 w-1.5 rounded-full bg-cyberCyan"></span>
+                        <span class="font-tech text-[10px] tracking-wider text-slate-500 font-bold">LOTO SYSTEM v2.6</span>
+                    </div>
+                    <h1 class="text-base sm:text-lg font-black tracking-tight text-white mt-0.5">보이지 않는 위험, 활선 정비</h1>
+                </div>
+            </div>
+            
+            <nav class="hidden lg:flex items-center gap-6 text-xs uppercase font-tech tracking-widest">
+                <a href="#incident-dossier" class="text-slate-400 hover:text-cyberCyan transition-colors">Incident Dossier</a>
+                <a href="#tactical-simulator" class="text-slate-400 hover:text-cyberOrange transition-colors">Tactical Sim</a>
+                <a href="#loto-flow" class="text-slate-400 hover:text-cyberCyan transition-colors">LOTO Protocols</a>
+                <a href="#compliance" class="text-slate-400 hover:text-cyberCyan transition-colors">Compliance</a>
+                <a href="#assessment" class="text-slate-400 hover:text-cyberCyan transition-colors">Assessment</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a href="#tactical-simulator" class="bg-transparent border border-cyberCyan/40 text-cyberCyan hover:bg-cyberCyan hover:text-cyberDark font-tech font-bold tracking-wider px-4 py-2 rounded-xl text-xs transition-all duration-300 shadow-md hover:shadow-cyberCyan/20">
+                    LAUNCH SIM
+                </a>
+            </div>
+        </header>
+    </div>
+
+    <!-- HERO SECTION: TACTICAL CONTROL ROOM -->
+    <section class="relative min-h-[85vh] flex items-center justify-center py-12 lg:py-20 overflow-hidden">
+        <!-- Background Grid & Glows -->
+        <div class="absolute inset-0 cyber-grid opacity-40 z-0"></div>
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyberCyan/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyberOrange/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Info Block -->
+            <div class="lg:col-span-7 space-y-8">
+                <div class="inline-flex items-center gap-2 bg-cyberOrange/10 border border-cyberOrange/30 text-cyberOrange px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider font-tech uppercase">
+                    <span class="w-2 h-2 rounded-full bg-cyberOrange animate-ping"></span>
+                    Alert: High Voltage Hazards
+                </div>
+                
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-none tracking-tight">
+                    통제되지 않는 에너지,<br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyberCyan via-blue-400 to-cyberOrange animate-pulse">
+                        찰나의 방심과 죽음의 전류
+                    </span>
+                </h2>
+                
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-2xl">
+                    실제 야외 건설 환경에서 빈번히 조작되는 <strong>'이동용 철근 절단기'</strong>의 누전 사고를 분석합니다. 임시 분전반의 핵심 방어막인 누전차단기 유무, 그리고 정비 조작을 완전히 통제하는 LOTO 프로토콜이 생존을 결정짓는 이유를 지금 검증해 보십시오.
+                </p>
+
+                <!-- High-Tech Quick Specs -->
+                <div class="grid grid-cols-3 gap-4 max-w-lg">
+                    <div class="bg-cyberPanel/40 border border-cyberGray/30 p-3 rounded-xl">
+                        <span class="text-[10px] text-slate-500 block font-tech uppercase">Critical Speed</span>
+                        <span class="text-lg font-bold text-cyberCyan font-tech">0.03 sec</span>
+                    </div>
+                    <div class="bg-cyberPanel/40 border border-cyberGray/30 p-3 rounded-xl">
+                        <span class="text-[10px] text-slate-500 block font-tech uppercase">Safety Rule</span>
+                        <span class="text-lg font-bold text-cyberOrange font-tech">LOTO 6-Step</span>
+                    </div>
+                    <div class="bg-cyberPanel/40 border border-cyberGray/30 p-3 rounded-xl">
+                        <span class="text-[10px] text-slate-500 block font-tech uppercase">Risk Factor</span>
+                        <span class="text-lg font-bold text-cyberRed font-tech">220V Active</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#tactical-simulator" class="bg-cyberOrange hover:bg-orange-500 text-white font-tech font-bold tracking-wider px-6 py-4 rounded-xl text-xs transition-all duration-300 flex items-center gap-2 shadow-lg shadow-cyberOrange/20 hover:shadow-cyberOrange/40">
+                        <i class="fa-solid fa-play-circle text-sm"></i> SIMULATION CONSOLE
+                    </a>
+                    <a href="#loto-flow" class="bg-cyberGray hover:bg-slate-800 text-slate-300 border border-slate-700 font-tech font-bold tracking-wider px-6 py-4 rounded-xl text-xs transition-all duration-300 flex items-center gap-2">
+                        LOTO PROTOCOLS <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Terminal Dossier Card -->
+            <div id="incident-dossier" class="lg:col-span-5 relative group">
+                <!-- Glowing Backdrop -->
+                <div class="absolute -inset-1 bg-gradient-to-r from-cyberCyan to-cyberOrange rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-1000"></div>
+                
+                <div class="relative bg-cyberPanel border border-cyberGray/60 rounded-2xl p-6 shadow-2xl overflow-hidden">
+                    <!-- Scanline effect -->
+                    <div class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(14,22,38,0)_95%,rgba(0,245,212,0.15)_95%)] bg-[size:100%_12px] pointer-events-none opacity-40"></div>
+                    
+                    <div class="flex items-center justify-between border-b border-cyberGray pb-4 mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyberRed animate-pulse"></span>
+                            <span class="font-tech text-xs font-bold tracking-wider text-slate-300">FATAL ACCIDENT DOSSIER</span>
+                        </div>
+                        <span class="font-tech text-[10px] bg-cyberRed/10 border border-cyberRed/30 text-cyberRed px-2.5 py-0.5 rounded-full">REAL FACTS</span>
+                    </div>
+
+                    <!-- Terminal Style Logs -->
+                    <div class="space-y-4 text-xs font-sans">
+                        <div class="bg-cyberDark/80 p-3.5 rounded-xl border border-cyberGray/50">
+                            <span class="text-cyberOrange font-tech uppercase tracking-wider text-[10px] block">Incident Overview</span>
+                            <p class="text-slate-300 mt-1 leading-relaxed">
+                                소속 근로자가 젖은 상태의 안전장갑을 착용한 채 피복이 손상된 야외 철근 절단기 외함을 기계식 조작하는 도중 전류가 인체로 유출, 폐쇄 감전사 발생.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-cyberDark/80 p-3.5 rounded-xl border border-cyberGray/50">
+                            <span class="text-cyberCyan font-tech uppercase tracking-wider text-[10px] block">Triggering Hardware</span>
+                            <p class="text-slate-300 mt-1 leading-relaxed">
+                                임시 야외전원 배전 케이블 및 휴대용 전기식 철근 절단 가시설 (전원 절연 피복 유실 및 통전 외함 노출).
+                            </p>
+                        </div>
+
+                        <div class="bg-cyberDark/80 p-3.5 rounded-xl border border-cyberGray/50">
+                            <span class="text-cyberRed font-tech uppercase tracking-wider text-[10px] block">Critical Violations</span>
+                            <ul class="text-slate-300 mt-1.5 space-y-1.5 list-none">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-xmark text-cyberRed mt-0.5"></i>
+                                    <span>배전반 내 전용 누전차단기(ELB) 설치 완전 배제</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-xmark text-cyberRed mt-0.5"></i>
+                                    <span>절단기 자체 절연 및 외함 접지 접점 결속 무시</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-circle-xmark text-cyberRed mt-0.5"></i>
+                                    <span>정비 청소 시 메인전기 차단 및 LOTO 잠금 절차 전무</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 1: INCIDENT CHRONOLOGY -->
+    <section class="py-20 border-t border-cyberGray/40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-cyberCyan font-tech font-bold tracking-widest text-xs block mb-2">// DETECTED FAILURE CHAIN</span>
+                <h3 class="text-3xl font-black text-white">사고 발생 전후 시나리오 분석</h3>
+                <div class="w-12 h-1 bg-gradient-to-r from-cyberCyan to-cyberBlue mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Timeline Step 1 -->
+                <div class="relative bg-cyberPanel border border-cyberGray hover:border-cyberCyan/40 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute -top-4 -left-4 w-10 h-10 bg-cyberDark border border-cyberGray rounded-xl flex items-center justify-center font-tech font-bold text-cyberCyan text-sm shadow-lg">
+                        01
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <span class="text-xs font-tech text-cyberCyan tracking-wider uppercase">Stage A: Hazard Presence</span>
+                        <h4 class="text-white font-bold text-lg">점검 결여 및 외부 피복 파손</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            이동 과정에서 발생한 전선의 피복 손상으로, 구리 도체가 절단기의 철제 외함 구조에 직접적으로 통전 가능한 치명적 절연 파괴 상태가 발생했습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Step 2 -->
+                <div class="relative bg-cyberPanel border border-cyberGray hover:border-cyberOrange/40 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute -top-4 -left-4 w-10 h-10 bg-cyberDark border border-cyberGray rounded-xl flex items-center justify-center font-tech font-bold text-cyberOrange text-sm shadow-lg">
+                        02
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <span class="text-xs font-tech text-cyberOrange tracking-wider uppercase">Stage B: Protection Failure</span>
+                        <h4 class="text-white font-bold text-lg">안전 장치(누전차단기)의 침묵</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            설치 비용을 이유로 가설 배전반에 과부하 차단기(MCCB)만을 장착했습니다. 실제 유출 전압을 걸려도 시스템 전기를 전면 차단해 줄 물리적 장치가 없었습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Step 3 -->
+                <div class="relative bg-cyberPanel border border-cyberRed/30 hover:border-cyberRed/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 bg-gradient-to-b from-cyberPanel to-cyberRed/5">
+                    <div class="absolute -top-4 -left-4 w-10 h-10 bg-cyberDark border border-cyberRed/50 rounded-xl flex items-center justify-center font-tech font-bold text-cyberRed text-sm shadow-lg animate-pulse">
+                        03
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <span class="text-xs font-tech text-cyberRed tracking-wider uppercase">Stage C: Electrocution</span>
+                        <h4 class="text-white font-bold text-lg">인체 도통 및 심실세동</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            작업자가 절단 장치의 금속 부분에 접촉하는 즉시 220V 고전압 전류가 전신을 관통하여 심장마비를 유발, 치명적인 결과를 맞이했습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: TACTICAL SIMULATION CONSOLE -->
+    <section id="tactical-simulator" class="py-20 bg-cyberPanel/30 border-y border-cyberGray/40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-cyberOrange font-tech font-bold tracking-widest text-xs block mb-2">// COGNITIVE VIRTUAL LAB</span>
+                <h3 class="text-3xl font-black text-white">가상 전기 안전 진단 시뮬레이션</h3>
+                <div class="w-12 h-1 bg-gradient-to-r from-cyberOrange to-cyberRed mx-auto mt-4"></div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left: Control Panels -->
+                <div class="lg:col-span-5 bg-cyberPanel border border-cyberGray rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between border-b border-cyberGray pb-4 mb-6">
+                            <span class="font-tech text-xs font-bold tracking-wider text-slate-300">CONTROL CONSOLE</span>
+                            <span class="text-xs font-tech font-bold text-cyberOrange">OPERATOR PANEL</span>
+                        </div>
+
+                        <!-- Param 1: Breaker Type -->
+                        <div class="mb-6 bg-cyberDark/60 p-4 rounded-xl border border-cyberGray/40">
+                            <div class="flex items-center justify-between mb-3">
+                                <label class="text-slate-300 font-bold text-xs font-tech uppercase tracking-wider">1. BREAKER CONFIGURATION</label>
+                                <span id="panel-elb-badge" class="font-tech text-[10px] px-2.5 py-0.5 rounded bg-cyberRed/20 text-cyberRed border border-cyberRed/30">ELB ABSENT</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="setSystemElb(true)" id="panel-btn-elb-on" class="py-2.5 px-4 text-xs font-tech font-bold rounded-lg border border-cyberGray text-slate-400 hover:bg-cyberGray/30 transition-all">
+                                    ELB CONNECTED
+                                </button>
+                                <button onclick="setSystemElb(false)" id="panel-btn-elb-off" class="py-2.5 px-4 text-xs font-tech font-bold rounded-lg border-cyberRed/50 bg-cyberRed/15 text-cyberRed transition-all">
+                                    ELB REMOVED
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Param 2: Insulator (Cable) Status -->
+                        <div class="mb-6 bg-cyberDark/60 p-4 rounded-xl border border-cyberGray/40">
+                            <div class="flex items-center justify-between mb-3">
+                                <label class="text-slate-300 font-bold text-xs font-tech uppercase tracking-wider">2. INSULATION STATUS</label>
+                                <span id="panel-cable-badge" class="font-tech text-[10px] px-2.5 py-0.5 rounded bg-cyberRed/20 text-cyberRed border border-cyberRed/30">DAMAGED (LEAK)</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="setSystemCable(true)" id="panel-btn-cable-on" class="py-2.5 px-4 text-xs font-tech font-bold rounded-lg border border-cyberGray text-slate-400 hover:bg-cyberGray/30 transition-all">
+                                    INTACT (SECURE)
+                                </button>
+                                <button onclick="setSystemCable(false)" id="panel-btn-cable-off" class="py-2.5 px-4 text-xs font-tech font-bold rounded-lg border-cyberRed/50 bg-cyberRed/15 text-cyberRed transition-all">
+                                    EXPOSED (HAZARD)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TRIGGER BUTTON -->
+                    <div class="pt-4 border-t border-cyberGray">
+                        <button onclick="triggerEngineTest()" class="w-full py-4 bg-gradient-to-r from-cyberOrange to-cyberRed hover:from-orange-500 hover:to-red-500 text-white font-tech font-bold tracking-wider rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyberOrange/20 transition-all">
+                            <i class="fa-solid fa-power-off text-sm"></i> SYSTEM ACTIVATE (ON)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Visual Monitor -->
+                <div class="lg:col-span-7 bg-cyberPanel border border-cyberGray rounded-2xl p-6 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-cyberCyan/5 to-transparent pointer-events-none"></div>
+                    
+                    <div>
+                        <div class="flex items-center justify-between border-b border-cyberGray pb-4 mb-4">
+                            <span class="font-tech text-xs font-bold tracking-wider text-slate-400">TACTICAL MONITOR SCREEN</span>
+                            <span class="flex items-center gap-1 text-xs font-tech text-cyberCyan">
+                                <span class="w-2 h-2 rounded-full bg-cyberCyan animate-ping"></span> SECURE FEED
+                            </span>
+                        </div>
+
+                        <!-- Main Screen Canvas Interface -->
+                        <div id="sim-monitor" class="h-80 w-full bg-cyberDark border border-cyberGray rounded-xl relative flex flex-col items-center justify-center overflow-hidden transition-all duration-300">
+                            <!-- Tactical Scanlines -->
+                            <div class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(14,22,38,0)_95%,rgba(0,245,212,0.1)_95%)] bg-[size:100%_16px] pointer-events-none"></div>
+
+                            <div class="w-full max-w-md px-6 flex justify-between items-center z-10">
+                                
+                                <!-- Visual Power Source -->
+                                <div class="flex flex-col items-center">
+                                    <span class="font-tech text-[10px] text-slate-500 mb-2">POWER SOURCE</span>
+                                    <div id="canvas-elb-box" class="w-16 h-20 bg-cyberPanel border border-cyberGray rounded-xl flex flex-col items-center justify-center p-2 relative">
+                                        <div id="canvas-elb-lever" class="w-2 h-10 bg-slate-600 rounded transition-transform duration-300 transform translate-y-2"></div>
+                                        <span id="canvas-elb-text" class="font-tech text-[8px] text-slate-500 mt-2">ELB OFF</span>
+                                    </div>
+                                </div>
+
+                                <!-- Flow Line -->
+                                <div class="flex-1 h-2 relative mx-4">
+                                    <div class="absolute inset-0 bg-cyberGray rounded-full"></div>
+                                    <div id="canvas-current-line" class="absolute left-0 top-0 h-full w-0 bg-cyberCyan rounded-full shadow-[0_0_10px_#00F5D4] transition-all duration-300"></div>
+                                    <div id="canvas-spark" class="absolute right-0 top-1/2 -translate-y-1/2 hidden">
+                                        <i class="fa-solid fa-bolt text-cyberOrange animate-ping text-lg"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Visual Cutter Tool -->
+                                <div class="flex flex-col items-center">
+                                    <span class="font-tech text-[10px] text-slate-500 mb-2">CUTTER TOOL</span>
+                                    <div id="canvas-tool-box" class="w-20 h-20 bg-cyberPanel border border-cyberGray rounded-xl flex items-center justify-center relative transition-all duration-300">
+                                        <i class="fa-solid fa-screwdriver-wrench text-slate-400 text-2xl"></i>
+                                        <div id="canvas-tool-led" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-slate-600"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Worker Status -->
+                                <div class="flex-1 h-2 relative mx-4">
+                                    <!-- Link from tool to worker -->
+                                    <div class="absolute inset-0 bg-cyberGray rounded-full"></div>
+                                    <div id="canvas-leak-line" class="absolute left-0 top-0 h-full w-0 bg-cyberRed rounded-full shadow-[0_0_10px_#FF3366] transition-all duration-300"></div>
+                                </div>
+
+                                <!-- Worker Symbol -->
+                                <div class="flex flex-col items-center">
+                                    <span class="font-tech text-[10px] text-slate-500 mb-2">OPERATOR</span>
+                                    <div id="canvas-worker-box" class="w-16 h-20 bg-cyberPanel border border-cyberGray rounded-xl flex flex-col items-center justify-center p-2 transition-all duration-300">
+                                        <i class="fa-solid fa-user-shield text-slate-400 text-2xl"></i>
+                                        <span id="canvas-worker-text" class="font-tech text-[8px] text-slate-500 mt-2">STANDBY</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Screen Console Messages -->
+                            <div id="canvas-message-box" class="absolute bottom-4 left-4 right-4 bg-cyberDark/90 border border-cyberGray rounded-lg p-3 text-center text-xs font-tech text-slate-400">
+                                SYSTEM CONSOLE READY. PLEASE SELECT PRESETS AND CLICK ACTIVATE.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Real-time analysis note -->
+                    <div class="mt-4 p-4 rounded-xl bg-cyberDark border border-cyberGray/50">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-cyberCyan/10 p-2 rounded-lg text-cyberCyan">
+                                <i class="fa-solid fa-circle-nodes text-sm"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-tech font-bold text-white uppercase tracking-wider">Breaker Sensitivities</h5>
+                                <p class="text-xs text-slate-400 leading-relaxed mt-0.5">
+                                    전압 감지형 및 지락형 차단 시스템은 미세한 암페어 변화량(30mA)을 계측하는 순간 기계 코일을 동작시켜 주회로를 접지 방출합니다. 완벽한 누전 안전 고리의 기본입니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: THE HIGH-TECH LOTO PROCEDURAL GUIDE -->
+    <section id="loto-flow" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-cyberCyan font-tech font-bold tracking-widest text-xs block mb-2">// STANDARD OPERATING PROCEDURE</span>
+            <h3 class="text-3xl font-black text-white">생명 수호의 LOTO 6단계 이행 절차</h3>
+            <div class="w-12 h-1 bg-gradient-to-r from-cyberCyan to-cyberBlue mx-auto mt-4"></div>
+        </div>
+
+        <div class="bg-cyberPanel border border-cyberGray rounded-2xl p-6 lg:p-10 relative overflow-hidden">
+            <!-- Asymmetrical Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+                
+                <!-- Left Steps Selection Block -->
+                <div class="lg:col-span-5 space-y-2 flex flex-col justify-between">
+                    <div>
+                        <span class="font-tech text-xs text-cyberCyan tracking-widest block mb-4">// SELECT PROCEDURAL PROTOCOLS</span>
+                        <div class="space-y-2" id="loto-menu-box">
+                            <!-- Handled in JS dynamically for high visual fidelity -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Detail Card -->
+                <div class="lg:col-span-7 bg-cyberDark border border-cyberGray rounded-2xl p-6 lg:p-8 flex flex-col justify-between relative min-h-[420px] transition-all duration-300">
+                    
+                    <!-- Detail Container -->
+                    <div id="loto-view-box" class="space-y-6">
+                        <!-- Dynamic render by JS -->
+                    </div>
+
+                    <!-- Flow Control Stepper -->
+                    <div class="mt-8 pt-4 border-t border-cyberGray flex justify-between items-center">
+                        <span class="font-tech text-[10px] text-slate-500 uppercase tracking-widest">Procedural Loop</span>
+                        <button id="loto-action-btn" onclick="nextLotoProtocol()" class="bg-cyberCyan hover:bg-cyan-400 text-cyberDark font-tech font-bold tracking-wider py-2.5 px-5 rounded-xl text-xs transition-all duration-300 flex items-center gap-2">
+                            NEXT PHASE <i class="fa-solid fa-arrow-right-long"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: THE TECHNICAL SAFETY MATRIX -->
+    <section id="compliance" class="py-20 border-t border-cyberGray/40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Info block -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="bg-cyberOrange/10 border border-cyberOrange/30 text-cyberOrange px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider font-tech uppercase">
+                        COMPLIANCE CODE
+                    </span>
+                    <h3 class="text-3xl font-black text-white leading-tight">상시 점검을 위한<br/>전기 안전 체크리스트</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        공사 투입 전, 현장의 안전 관리 기사는 무단 통전으로 인한 하청 근로자의 상해를 완벽 방지하기 위해 다음 4가지 핵심 장비를 상시 체크해야 합니다.
+                    </p>
+
+                    <div class="space-y-3 pt-2">
+                        <div class="flex gap-3 items-start">
+                            <div class="text-cyberCyan bg-cyberCyan/10 p-2 rounded-lg">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">중대재해 대책 연계</h4>
+                                <p class="text-slate-400 text-xs mt-0.5">안전 가치 강화를 위한 LOTO 표지 및 특수 안전 장비 완비 보장.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Checklist Matrix Console -->
+                <div class="lg:col-span-7 bg-cyberPanel border border-cyberGray rounded-2xl p-6 relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-cyberCyan/5 to-transparent pointer-events-none"></div>
+
+                    <div class="flex items-center justify-between border-b border-cyberGray pb-4 mb-6">
+                        <span class="font-tech text-xs font-bold tracking-wider text-slate-300">REALTIME MATRIX CHECK</span>
+                        <span id="matrix-counter" class="font-tech text-xs text-cyberCyan">0% CHECKED</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <!-- item 1 -->
+                        <div onclick="toggleMatrixItem(0)" class="flex items-start gap-4 p-4 rounded-xl bg-cyberDark/60 border border-cyberGray hover:border-cyberCyan/40 transition-all cursor-pointer group">
+                            <div class="pt-0.5">
+                                <div id="chk-box-0" class="w-5 h-5 rounded border border-cyberGray bg-cyberDark flex items-center justify-center text-cyberDark text-[10px] transition-all">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="text-sm font-bold text-slate-200 group-hover:text-white transition-colors">누전차단기 정격 감도(30mA 이하, 0.03초) 작동 테스트</span>
+                                <span class="text-xs text-slate-500 block mt-1">배전반 시험 테스트 버튼(적색/청색)을 매주 1회 이상 눌러 물리 트립 정상 여부를 확인하십시오.</span>
+                            </div>
+                        </div>
+
+                        <!-- item 2 -->
+                        <div onclick="toggleMatrixItem(1)" class="flex items-start gap-4 p-4 rounded-xl bg-cyberDark/60 border border-cyberGray hover:border-cyberCyan/40 transition-all cursor-pointer group">
+                            <div class="pt-0.5">
+                                <div id="chk-box-1" class="w-5 h-5 rounded border border-cyberGray bg-cyberDark flex items-center justify-center text-cyberDark text-[10px] transition-all">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="text-sm font-bold text-slate-200 group-hover:text-white transition-colors">이동형 케이블 거치대 활용 및 공중 배선 작업</span>
+                                <span class="text-xs text-slate-500 block mt-1">강우 등으로 물기가 존재하는 바닥에 전선을 절대로 방치하지 말고 가선 기둥을 활용하여 공중 배선 처리해야 합니다.</span>
+                            </div>
+                        </div>
+
+                        <!-- item 3 -->
+                        <div onclick="toggleMatrixItem(2)" class="flex items-start gap-4 p-4 rounded-xl bg-cyberDark/60 border border-cyberGray hover:border-cyberCyan/40 transition-all cursor-pointer group">
+                            <div class="pt-0.5">
+                                <div id="chk-box-2" class="w-5 h-5 rounded border border-cyberGray bg-cyberDark flex items-center justify-center text-cyberDark text-[10px] transition-all">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="text-sm font-bold text-slate-200 group-hover:text-white transition-colors">정비 작업 전 메인 에너지 차단 및 LOTO 전용 표지 가선</span>
+                                <span class="text-xs text-slate-500 block mt-1">임의 전력 투입을 배제하기 위해 오렌지/레드 자물쇠를 걸고 위험 안내 꼬리표를 결속하십시오.</span>
+                            </div>
+                        </div>
+
+                        <!-- item 4 -->
+                        <div onclick="toggleMatrixItem(3)" class="flex items-start gap-4 p-4 rounded-xl bg-cyberDark/60 border border-cyberGray hover:border-cyberCyan/40 transition-all cursor-pointer group">
+                            <div class="pt-0.5">
+                                <div id="chk-box-3" class="w-5 h-5 rounded border border-cyberGray bg-cyberDark flex items-center justify-center text-cyberDark text-[10px] transition-all">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="text-sm font-bold text-slate-200 group-hover:text-white transition-colors">취급 기계 기구의 금속제 외함 보호용 접지선 결속</span>
+                                <span class="text-xs text-slate-500 block mt-1">누전이 발생하더라도 인체로 전류가 통하기 전 기기 자체에서 대지로 안전 분류 방출될 수 있도록 접지 코드를 필수 결합하십시오.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Matrix Progress Banner -->
+                    <div id="matrix-banner" class="mt-6 p-4 rounded-xl bg-cyberDark border border-cyberGray text-center text-xs font-tech text-slate-500 tracking-wider uppercase">
+                        PENDING VERIFICATION. PLEASE COMPLETE ALL TEST PROCEDURES.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: SAFETY ASSESSMENT TERMINAL -->
+    <section id="assessment" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-cyberCyan font-tech font-bold tracking-widest text-xs block mb-2">// COGNITIVE EVALUATION</span>
+            <h3 class="text-3xl font-black text-white">안전 지식 인증 평가</h3>
+            <div class="w-12 h-1 bg-gradient-to-r from-cyberCyan to-cyberBlue mx-auto mt-4"></div>
+        </div>
+
+        <div class="max-w-3xl mx-auto relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-cyberCyan to-cyberBlue rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+            
+            <div class="relative bg-cyberPanel border border-cyberGray rounded-2xl p-6 md:p-10">
+                <!-- Scanline Effect -->
+                <div class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(14,22,38,0)_95%,rgba(0,245,212,0.1)_95%)] bg-[size:100%_12px] pointer-events-none opacity-40"></div>
+
+                <!-- Quiz Main Engine Area -->
+                <div id="quiz-panel">
+                    <div class="flex justify-between items-center border-b border-cyberGray pb-4 mb-6">
+                        <span id="quiz-step" class="font-tech text-xs font-bold tracking-wider text-slate-400">EVALUATION-01</span>
+                        <span id="quiz-stats" class="font-tech text-xs text-cyberCyan">SCORE: 0/3</span>
+                    </div>
+
+                    <div class="space-y-6">
+                        <h4 id="quiz-question" class="text-lg md:text-xl font-bold text-white leading-relaxed">
+                            Loading diagnostic terminal...
+                        </h4>
+
+                        <div id="quiz-options" class="grid grid-cols-1 gap-3 pt-2">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Result State (Hidden Initially) -->
+                <div id="quiz-results" class="hidden text-center py-6 space-y-6">
+                    <div class="w-20 h-20 rounded-2xl bg-cyberCyan/15 border border-cyberCyan flex items-center justify-center mx-auto text-cyberCyan text-3xl shadow-lg shadow-cyberCyan/10 animate-float">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-black text-white font-tech uppercase tracking-wide">ASSESSMENT CONCLUDED</h4>
+                        <p id="quiz-score-banner" class="text-cyberCyan text-lg font-tech font-bold mt-2">SCORE: 100% PERFECT</p>
+                        <p class="text-slate-400 text-sm max-w-md mx-auto mt-2 leading-relaxed">
+                            탁월합니다! 활선 작업 및 기기 절연 상태 체크, LOTO를 활용한 원천 전력 차단 프로토콜을 완벽하게 이해하셨습니다. 습득한 지식을 실제 현장 안전 실무에 적극 도입해 주십시오.
+                        </p>
+                    </div>
+                    <div>
+                        <button onclick="restartQuiz()" class="bg-cyberCyan hover:bg-cyan-400 text-cyberDark font-tech font-bold tracking-wider px-6 py-3 rounded-xl text-xs transition-all duration-300">
+                            RE-EVALUATE SYSTEM
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- HIGH-TECH FOOTER -->
+    <footer class="bg-cyberDark border-t border-cyberGray/50 py-16 text-slate-500 text-xs font-tech tracking-wider">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <span class="bg-cyberPanel border border-cyberGray text-slate-300 font-bold px-3 py-1 rounded text-[10px]">CASE-06</span>
+                <span class="text-slate-400 font-bold">ELECTROMAGNETIC SAFETY COMPLIANCE SYSTEM</span>
+            </div>
+            <p class="max-w-xl mx-auto text-slate-600 leading-relaxed font-sans normal-case">
+                본 대시보드는 실제 하청 소속 근로자 감전사 통계 분석을 기반으로 제작된 교육용 가상 제어판입니다. 활선 작업 및 전로 보수 정비 시 반드시 1인 1열쇠 LOTO 기준안을 수립하여 수동 잠금을 이행해야 사상 재해를 막을 수 있습니다.
+            </p>
+            <div class="pt-6 border-t border-cyberGray/30 text-[10px] text-slate-700">
+                &copy; 2026 INDUSTRIAL DEFENSE INFRASTRUCTURE INC. ALL RIGHTS RESERVED.
+            </div>
+        </div>
+    </footer>
+
+    <!-- SYSTEM ENGINE SCRIPT -->
+    <script>
+        // --- 1. SIMULATOR STATES & ACTIONS ---
+        let currentElb = false;
+        let currentCable = false;
+
+        function updateSimConsole() {
+            // Badges
+            const elbBadge = document.getElementById('panel-elb-badge');
+            const cableBadge = document.getElementById('panel-cable-badge');
+            
+            // Buttons
+            const btnElbOn = document.getElementById('panel-btn-elb-on');
+            const btnElbOff = document.getElementById('panel-btn-elb-off');
+            const btnCableOn = document.getElementById('panel-btn-cable-on');
+            const btnCableOff = document.getElementById('panel-btn-cable-off');
+
+            // 1. ELB Button and Badge styling
+            if (currentElb) {
+                elbBadge.innerText = "ELB ACTIVE";
+                elbBadge.className = "font-tech text-[10px] px-2.5 py-0.5 rounded bg-cyberCyan/20 text-cyberCyan border border-cyberCyan/30";
+                
+                btnElbOn.className = "py-2.5 px-4 text-xs font-tech font-bold rounded-lg border-cyberCyan/50 bg-cyberCyan/15 text-cyberCyan transition-all";
+                btnElbOff.className = "py-2.5 px-4 text-xs font-tech font-bold rounded-lg border border-cyberGray text-slate-400 hover:bg-cyberGray/30 transition-all";
+            } else {
+                elbBadge.innerText = "ELB ABSENT";
+                elbBadge.className = "font-tech text-[10px] px-2.5 py-0.5 rounded bg-cyberRed/20 text-cyberRed border border-cyberRed/30";
+                
+                btnElbOn.className = "py-2.5 px-4 text-xs font-tech font-bold rounded-lg border border-cyberGray text-slate-400 hover:bg-cyberGray/30 transition-all";
+                btnElbOff.className = "py-2.5 px-4 text-xs font-tech font-bold rounded-lg border-cyberRed/50 bg-cyberRed/15 text-cyberRed transition-all";
+            }
+
+            // 2. Cable Button and Badge styling
+            if (currentCable) {
+                cableBadge.innerText = "CABLE INTACT";
+                cableBadge.className = "font-tech text-[10px] px-2.5 py-0.5 rounded bg-cyberCyan/20 text-cyberCyan border border-cyberCyan/30";
+                
+                btnCableOn.className = "py-2.5 px-4 text-xs font-tech font-bold rounded-lg border-cyberCyan/50 bg-cyberCyan/15 text-cyberCyan transition-all";
+                btnCableOff.className = "py-2.5 px-4 text-xs font-tech font-bold rounded-lg border border-cyberGray text-slate-400 hover:bg-cyberGray/30 transition-all";
+            } else {
+                cableBadge.innerText = "DAMAGED (LEAK)";
+                cableBadge.className = "font-tech text-[10px] px-2.5 py-0.5 rounded bg-cyberRed/20 text-cyberRed border border-cyberRed/30";
+                
+                btnCableOn.className = "py-2.5 px-4 text-xs font-tech font-bold rounded-lg border border-cyberGray text-slate-400 hover:bg-cyberGray/30 transition-all";
+                btnCableOff.className = "py-2.5 px-4 text-xs font-tech font-bold rounded-lg border-cyberRed/50 bg-cyberRed/15 text-cyberRed transition-all";
+            }
+
+            // Reset Visualization Screen components
+            document.getElementById('canvas-current-line').style.width = "0%";
+            document.getElementById('canvas-leak-line').style.width = "0%";
+            document.getElementById('canvas-spark').className = "absolute right-0 top-1/2 -translate-y-1/2 hidden";
+            
+            const elbBox = document.getElementById('canvas-elb-box');
+            const elbLever = document.getElementById('canvas-elb-lever');
+            const elbText = document.getElementById('canvas-elb-text');
+            const toolBox = document.getElementById('canvas-tool-box');
+            const toolLed = document.getElementById('canvas-tool-led');
+            const workerBox = document.getElementById('canvas-worker-box');
+            const workerText = document.getElementById('canvas-worker-text');
+            const monitor = document.getElementById('sim-monitor');
+            const msgBox = document.getElementById('canvas-message-box');
+
+            elbBox.className = "w-16 h-20 bg-cyberPanel border border-cyberGray rounded-xl flex flex-col items-center justify-center p-2 relative";
+            elbText.innerText = currentElb ? "ELB STANDBY" : "ELB ABSENT";
+            elbText.className = "font-tech text-[8px] text-slate-500 mt-2";
+            elbLever.className = "w-2 h-10 bg-slate-600 rounded transition-transform duration-300 transform translate-y-2";
+
+            toolBox.className = "w-20 h-20 bg-cyberPanel border border-cyberGray rounded-xl flex items-center justify-center relative transition-all duration-300";
+            toolLed.className = "absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-slate-600";
+            
+            workerBox.className = "w-16 h-20 bg-cyberPanel border border-cyberGray rounded-xl flex flex-col items-center justify-center p-2 transition-all duration-300";
+            workerBox.querySelector('i').className = "fa-solid fa-user-shield text-slate-400 text-2xl";
+            workerText.innerText = "STANDBY";
+            workerText.className = "font-tech text-[8px] text-slate-500 mt-2";
+
+            monitor.className = "h-80 w-full bg-cyberDark border border-cyberGray rounded-xl relative flex flex-col items-center justify-center overflow-hidden transition-all duration-300";
+            msgBox.className = "absolute bottom-4 left-4 right-4 bg-cyberDark/90 border border-cyberGray rounded-lg p-3 text-center text-xs font-tech text-slate-400";
+            msgBox.innerText = "CONFIGURATION LOADED. PENDING TRIGGERS.";
+        }
+
+        function setSystemElb(state) {
+            currentElb = state;
+            updateSimConsole();
+        }
+
+        function setSystemCable(state) {
+            currentCable = state;
+            updateSimConsole();
+        }
+
+        function triggerEngineTest() {
+            const currentLine = document.getElementById('canvas-current-line');
+            const leakLine = document.getElementById('canvas-leak-line');
+            const spark = document.getElementById('canvas-spark');
+            const elbBox = document.getElementById('canvas-elb-box');
+            const elbLever = document.getElementById('canvas-elb-lever');
+            const elbText = document.getElementById('canvas-elb-text');
+            const toolBox = document.getElementById('canvas-tool-box');
+            const toolLed = document.getElementById('canvas-tool-led');
+            const workerBox = document.getElementById('canvas-worker-box');
+            const workerText = document.getElementById('canvas-worker-text');
+            const monitor = document.getElementById('sim-monitor');
+            const msgBox = document.getElementById('canvas-message-box');
+
+            // Phase 1: Energizing Cable
+            currentLine.style.width = "100%";
+            currentLine.className = "absolute left-0 top-0 h-full w-0 bg-cyberCyan rounded-full shadow-[0_0_15px_#00F5D4] transition-all duration-300";
+            elbLever.className = "w-2 h-10 bg-cyberCyan rounded transition-transform duration-300 transform -translate-y-2";
+            elbText.innerText = "ELB LOAD ON";
+            elbText.className = "font-tech text-[8px] text-cyberCyan mt-2";
+
+            setTimeout(() => {
+                if (currentElb) {
+                    if (!currentCable) {
+                        // Trip Scenario (Earth leakage detected)
+                        spark.className = "absolute right-0 top-1/2 -translate-y-1/2 block animate-ping text-cyberOrange";
+                        toolBox.className = "w-20 h-20 bg-cyberOrange/10 border border-cyberOrange rounded-xl flex items-center justify-center relative transition-all duration-300";
+                        toolLed.className = "absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyberOrange animate-pulse";
+                        
+                        // Trip Breaker Lever
+                        elbLever.className = "w-2 h-10 bg-cyberRed rounded transition-transform duration-300 transform translate-y-2";
+                        elbText.innerText = "ELB TRIPPED";
+                        elbText.className = "font-tech text-[8px] text-cyberRed mt-2";
+                        elbBox.className = "w-16 h-20 bg-cyberRed/10 border border-cyberRed rounded-xl flex flex-col items-center justify-center p-2 relative";
+
+                        workerBox.className = "w-16 h-20 bg-cyberCyan/10 border border-cyberCyan rounded-xl flex flex-col items-center justify-center p-2 transition-all duration-300";
+                        workerText.innerText = "SECURED (0.03s)";
+                        workerText.className = "font-tech text-[8px] text-cyberCyan mt-2";
+
+                        msgBox.innerText = "SUCCESS: ELB INSTANTLY DEACTIVATED MAIN GRID (LEAKAGE TRIPPED WITHIN 0.03 SECONDS). OPERATOR SAFE.";
+                        msgBox.className = "absolute bottom-4 left-4 right-4 bg-cyberCyan/15 border border-cyberCyan text-cyberCyan rounded-lg p-3 text-center text-xs font-tech font-bold";
+                    } else {
+                        // Normal Secure Operation
+                        toolBox.className = "w-20 h-20 bg-cyberCyan/10 border border-cyberCyan rounded-xl flex items-center justify-center relative transition-all duration-300";
+                        toolLed.className = "absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyberCyan";
+                        
+                        workerBox.className = "w-16 h-20 bg-cyberCyan/10 border border-cyberCyan rounded-xl flex flex-col items-center justify-center p-2 transition-all duration-300";
+                        workerText.innerText = "OPERATING";
+                        workerText.className = "font-tech text-[8px] text-cyberCyan mt-2";
+
+                        msgBox.innerText = "NOMINAL OPERATIVE: SYSTEM INSULATED SECURELY WITH GROUND PATHWAYS NOMINAL.";
+                        msgBox.className = "absolute bottom-4 left-4 right-4 bg-cyberDark/90 border border-cyberCyan/40 text-cyberCyan rounded-lg p-3 text-center text-xs font-tech";
+                    }
+                } else {
+                    // Disaster scenarios
+                    if (!currentCable) {
+                        // FATAL ELECTROCUTION
+                        spark.className = "absolute right-0 top-1/2 -translate-y-1/2 block animate-pulse text-cyberRed";
+                        toolBox.className = "w-20 h-20 bg-cyberRed/20 border border-cyberRed rounded-xl flex items-center justify-center relative transition-all duration-300 animate-bounce";
+                        toolLed.className = "absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyberRed animate-ping";
+                        
+                        leakLine.style.width = "100%";
+                        leakLine.className = "absolute left-0 top-0 h-full w-0 bg-cyberRed rounded-full shadow-[0_0_15px_#FF3366] transition-all duration-300";
+
+                        workerBox.className = "w-16 h-20 bg-cyberRed/20 border-2 border-cyberRed rounded-xl flex flex-col items-center justify-center p-2 transition-all duration-300 animate-bounce";
+                        workerBox.querySelector('i').className = "fa-solid fa-skull-crossbones text-cyberRed text-2xl animate-pulse";
+                        workerText.innerText = "ELECTROCUTED";
+                        workerText.className = "font-tech text-[8px] text-cyberRed mt-2 font-black";
+
+                        monitor.className = "h-80 w-full bg-cyberRed/10 border border-cyberRed rounded-xl relative flex flex-col items-center justify-center overflow-hidden transition-all duration-300";
+
+                        msgBox.innerText = "CRITICAL FATALITY: LEAKAGE REACHED HUMAN BODY PATHWAY WITHOUT TRIP MECHANISMS. INSTANT CARDIAC FAILURE.";
+                        msgBox.className = "absolute bottom-4 left-4 right-4 bg-cyberRed border border-cyberRed text-white rounded-lg p-3 text-center text-xs font-tech font-bold shadow-[0_0_20px_rgba(255,51,102,0.4)]";
+                    } else {
+                        // Risk Presence (Operating without protection)
+                        toolBox.className = "w-20 h-20 bg-cyberOrange/10 border border-cyberOrange rounded-xl flex items-center justify-center relative transition-all duration-300";
+                        toolLed.className = "absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyberOrange";
+
+                        workerBox.className = "w-16 h-20 bg-cyberOrange/10 border border-cyberOrange rounded-xl flex flex-col items-center justify-center p-2 transition-all duration-300";
+                        workerText.innerText = "UNPROTECTED";
+                        workerText.className = "font-tech text-[8px] text-cyberOrange mt-2";
+
+                        msgBox.innerText = "WARNING DETECTED: CUTTER ENGAGED WITHOUT CIRCUIT PROTECTION (ELB BYPASSED). INSULATION LEAK IN FUTURE WILL CAUSE DEATH.";
+                        msgBox.className = "absolute bottom-4 left-4 right-4 bg-cyberOrange/20 border border-cyberOrange text-cyberOrange rounded-lg p-3 text-center text-xs font-tech font-bold";
+                    }
+                }
+            }, 500);
+        }
+
+        // --- 2. LOTO PROCEDURE ENGINE ---
+        let currentLotoStep = 1;
+        const lotoProtocols = {
+            1: {
+                title: "PREPARATION & ALERTS (준비 및 알림)",
+                desc: "기계 설비 수동 보수 전, 관련 부서와 전 작업자에게 작업 범위를 전파하고 예기치 못한 작동 사고를 미연에 선언합니다.",
+                checklists: [
+                    "중단 및 점검 수리 시간, 주 책임자를 작업 게시판에 명확히 명기했는가?",
+                    "영향 범주 내에 있는 모든 하청 근로자들에게 구두 공지가 수행되었는가?",
+                    "필수적인 정전 방재복 등 절연 작업 안전 보호구를 불량 검사 하였는가?"
+                ],
+                icon: `<i class="fa-solid fa-bullhorn text-4xl text-cyberCyan animate-float"></i>`
+            },
+            2: {
+                title: "SYSTEM INHIBIT / SHUT DOWN (기계 정지)",
+                desc: "공정 제어 전원을 안전 절차 가이드에 맞추어 차단하고 설비의 운동 부위 회전을 안전하게 서행 감속시켜 완전히 멈춤 처리를 수행합니다.",
+                checklists: [
+                    "오동작을 유발할 수 있는 비상 급정 스위치 및 내부 PLC 소프트웨어 조작이 완료되었는가?",
+                    "공구의 기계 관성 작동 및 열 배기팬 회전이 완벽하게 Zero에 수렴했는가?",
+                    "안전 스위치의 조작 밸브 유압 시스템을 중하값으로 폐쇄 조작했는가?"
+                ],
+                icon: `<i class="fa-solid fa-circle-stop text-4xl text-cyberOrange animate-float"></i>`
+            },
+            3: {
+                title: "ENERGY ISOLATION (에너지 격리)",
+                desc: "공정 장비로 전송되는 보조 동력, 유체 및 가스 밸브, 그리고 주 전력 차단반 레버를 직접 내려 물리적인 공급 고리를 단절합니다.",
+                checklists: [
+                    "배전 가동반 주 전원 레버를 내리고, 상위 고압 케이블 커플러를 단로시켰는가?",
+                    "고압 공기압 콤프레셔 압축 배관 체크밸브를 완전 수동 폐쇄했는가?",
+                    "유입 유압 동맥을 회차 통로(By-pass)로 유도 차단했는가?"
+                ],
+                icon: `<i class="fa-solid fa-bolt text-4xl text-cyberCyan animate-float"></i>`
+            },
+            4: {
+                title: "LOCKOUT / TAGOUT ASSIGNMENT (LOTO 결속)",
+                desc: "차단 스위치에 작업 당사자가 직접 개인 자물쇠(Lockout)를 거치해 키를 본인 주머니에 소지하고, 작업 상세 표지(Tagout)를 긴밀히 결착합니다.",
+                checklists: [
+                    "개별 협력업체 정비 인원 수에 대응하여 마스터 멀티 고리(Hasp)를 장착했는가?",
+                    "태그 표지에 소속 부서, 성명, 휴대전화 등 직무 명시가 또렷히 기입되어 있는가?",
+                    "개인 자물쇠 보조열쇠를 타인에게 일임하지 않고 보관 기준을 준수하는가?"
+                ],
+                icon: `<i class="fa-solid fa-lock text-4xl text-cyberRed animate-float"></i>`
+            },
+            5: {
+                title: "DISSIPATION OF STORED ENERGY (잔류 에너지 방출)",
+                desc: "전기를 내렸더라도 인입 회로 내부 콘덴서 축전지 및 유압 실린더 내부에 압착된 배출 대기 에너지를 강제 유도 통전/방풍 방출합니다.",
+                checklists: [
+                    "콘덴서 전하 방출용 특수 절연 방전 접지봉을 활용해 잔류 전하를 대지 매립 방전시켰는가?",
+                    "공기 수조 압력 게이지 바늘이 완벽한 0(Zero) Bar 위치를 지시하고 있는가?",
+                    "자유 낙하 부하 기둥 아래에 철제 고정 서포트 버팀목을 설치했는가?"
+                ],
+                icon: `<i class="fa-solid fa-wind text-4xl text-cyberCyan animate-float"></i>`
+            },
+            6: {
+                title: "VERIFICATION & VALIDATION (검증 및 안전 확인)",
+                desc: "작업을 즉시 돌입하지 말고, 검전 측정계를 가져와 공급 도체 통전부 접점을 테스터 측정하여 무전압(0V) 상태를 기술적으로 검증 계측합니다.",
+                checklists: [
+                    "검전기 수치상 기생 유도 기전력이 완전히 유실된 상태임을 공정 기록했는가?",
+                    "LOTO 표지가 타인의 통제를 견고히 막고 주 레버 동작 수동 잠금이 견디고 있는가?",
+                    "모든 절차가 일치해 무재해 서명 등록 후 실물 공구를 직접 조작하기 시작하는가?"
+                ],
+                icon: `<i class="fa-solid fa-square-check text-4xl text-cyberCyan animate-float"></i>`
+            }
+        };
+
+        function buildLotoMenu() {
+            const menuBox = document.getElementById('loto-menu-box');
+            menuBox.innerHTML = '';
+
+            for (let i = 1; i <= 6; i++) {
+                const step = lotoProtocols[i];
+                const button = document.createElement('button');
+                button.onclick = () => activateLotoProtocol(i);
+                button.id = `loto-nav-btn-${i}`;
+                
+                // Set default style state
+                button.className = "w-full text-left p-3.5 rounded-xl border transition-all duration-300 flex items-center gap-4 cursor-pointer";
+                button.innerHTML = `
+                    <span id="loto-num-${i}" class="w-8 h-8 rounded-lg font-tech font-bold text-xs flex items-center justify-center flex-shrink-0">
+                        ${i}
+                    </span>
+                    <div>
+                        <span id="loto-sub-${i}" class="block font-tech text-[9px] font-bold uppercase tracking-widest">Phase 0${i}</span>
+                        <span id="loto-title-${i}" class="text-xs font-bold font-sans">${step.title.split('(')[0]}</span>
+                    </div>
+                `;
+                menuBox.appendChild(button);
+            }
+        }
+
+        function activateLotoProtocol(stepNum) {
+            currentLotoStep = stepNum;
+
+            // Paint buttons based on active state
+            for (let i = 1; i <= 6; i++) {
+                const btn = document.getElementById(`loto-nav-btn-${i}`);
+                const num = document.getElementById(`loto-num-${i}`);
+                const sub = document.getElementById(`loto-sub-${i}`);
+                const title = document.getElementById(`loto-title-${i}`);
+
+                if (i === stepNum) {
+                    btn.className = "w-full text-left p-3.5 rounded-xl border border-cyberCyan/40 bg-cyberCyan/10 text-white transition-all duration-300 shadow-md shadow-cyberCyan/10";
+                    num.className = "w-8 h-8 rounded-lg bg-cyberCyan text-cyberDark font-tech font-bold text-xs flex items-center justify-center flex-shrink-0 shadow-[0_0_10px_#00F5D4]";
+                    sub.className = "block font-tech text-[9px] font-bold uppercase tracking-widest text-cyberCyan";
+                    title.className = "text-xs font-bold text-white font-sans";
+                } else {
+                    btn.className = "w-full text-left p-3.5 rounded-xl border border-cyberGray bg-cyberPanel/40 text-slate-400 hover:border-slate-700 hover:bg-cyberPanel/60 transition-all duration-300";
+                    num.className = "w-8 h-8 rounded-lg bg-cyberGray text-slate-400 font-tech font-bold text-xs flex items-center justify-center flex-shrink-0";
+                    sub.className = "block font-tech text-[9px] font-bold uppercase tracking-widest text-slate-500";
+                    title.className = "text-xs font-bold text-slate-400 font-sans";
+                }
+            }
+
+            // Populate View Detail Box on the right
+            const viewBox = document.getElementById('loto-view-box');
+            const data = lotoProtocols[stepNum];
+
+            let checklistItemsMarkup = '';
+            data.checklists.forEach(item => {
+                checklistItemsMarkup += `
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-shield text-cyberCyan text-[10px] mt-1.5"></i>
+                        <span>${item}</span>
+                    </li>
+                `;
+            });
+
+            viewBox.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <span class="font-tech text-xs text-cyberCyan tracking-widest">PROTOCOL STAGE 0${stepNum}</span>
+                    <span class="h-0.5 flex-1 bg-cyberGray"></span>
+                </div>
+                
+                <h4 class="text-xl font-black text-white font-tech">${data.title}</h4>
+                
+                <div class="p-6 bg-cyberPanel border border-cyberGray rounded-xl flex flex-col items-center justify-center relative">
+                    <!-- Tech visual decoration inside card -->
+                    <div class="absolute top-2 right-2 flex gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyberCyan animate-ping"></span>
+                    </div>
+                    ${data.icon}
+                    <p class="text-slate-300 text-sm text-center max-w-lg leading-relaxed mt-4">
+                        "${data.desc}"
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <h5 class="text-xs font-tech font-bold text-cyberCyan tracking-wider uppercase flex items-center gap-2">
+                        <span class="w-1 h-3 bg-cyberCyan rounded-full"></span> PRE-FLIGHT VERIFICATIONS
+                    </h5>
+                    <ul class="text-xs text-slate-400 space-y-2 leading-relaxed">
+                        ${checklistItemsMarkup}
+                    </ul>
+                </div>
+            `;
+
+            // Button string
+            const actionBtn = document.getElementById('loto-action-btn');
+            if (stepNum === 6) {
+                actionBtn.innerHTML = `RESTART TIMELOOP <i class="fa-solid fa-rotate"></i>`;
+                actionBtn.className = "bg-cyberOrange hover:bg-orange-500 text-white font-tech font-bold tracking-wider py-2.5 px-5 rounded-xl text-xs transition-all duration-300 flex items-center gap-2";
+            } else {
+                actionBtn.innerHTML = `NEXT PROTOCOL <i class="fa-solid fa-arrow-right-long"></i>`;
+                actionBtn.className = "bg-cyberCyan hover:bg-cyan-400 text-cyberDark font-tech font-bold tracking-wider py-2.5 px-5 rounded-xl text-xs transition-all duration-300 flex items-center gap-2";
+            }
+        }
+
+        function nextLotoProtocol() {
+            let nextVal = currentLotoStep + 1;
+            if (nextVal > 6) {
+                nextVal = 1;
+            }
+            activateLotoProtocol(nextVal);
+        }
+
+        // --- 3. COMPLIANCE CHECKLIST ---
+        const checklistMatrix = [false, false, false, false];
+
+        function toggleMatrixItem(index) {
+            checklistMatrix[index] = !checklistMatrix[index];
+
+            const chkBox = document.getElementById(`chk-box-${index}`);
+            if (checklistMatrix[index]) {
+                chkBox.className = "w-5 h-5 rounded border border-cyberCyan bg-cyberCyan flex items-center justify-center text-cyberDark text-[10px] transition-all shadow-[0_0_10px_#00F5D4]";
+            } else {
+                chkBox.className = "w-5 h-5 rounded border border-cyberGray bg-cyberDark flex items-center justify-center text-cyberDark text-[10px] transition-all";
+            }
+
+            // Calc progress
+            let count = 0;
+            checklistMatrix.forEach(val => { if (val) count++; });
+            const progressPercent = Math.round((count / checklistMatrix.length) * 100);
+
+            // Counter UI
+            document.getElementById('matrix-counter').innerText = `${progressPercent}% CHECKED`;
+
+            // Banner style updates
+            const banner = document.getElementById('matrix-banner');
+            if (progressPercent === 100) {
+                banner.innerText = "SUCCESS: ALL MATRIX VERIFIED. ELECTRICAL SAFETY STANDARD MET.";
+                banner.className = "mt-6 p-4 rounded-xl bg-cyberCyan/15 border border-cyberCyan text-cyberCyan text-center text-xs font-tech font-bold tracking-wider animate-pulse";
+            } else {
+                banner.innerText = `PENDING VERIFICATION. [${count} OF ${checklistMatrix.length} COMPLETED]`;
+                banner.className = "mt-6 p-4 rounded-xl bg-cyberDark border border-cyberGray text-center text-xs font-tech text-slate-500 tracking-wider uppercase";
+            }
+        }
+
+        // --- 4. SAFETY QUIZ ENGINE ---
+        const safetyQuestions = [
+            {
+                q: "실제 하청 근로자의 사망 사고가 일어난 '이동식 철근 절단기' 누전 시, 인체로 전류가 통전되기 전에 기계적인 에너지 주 회로를 초고속(0.03초) 차단하는 장치는 무엇입니까?",
+                options: [
+                    "지락 및 배선 단선 시 전기 누설을 순간 감지해 차단하는 누전차단기(ELB)",
+                    "전선 과부하 시 부하 과열만 잡는 배선용차단기(MCCB)",
+                    "단선 시 강제로 고압을 승압해 주는 배선 보호용 계측기",
+                    "주 동력을 일시 정지시키는 조작반 스위치(Switch)"
+                ],
+                correct: 0,
+                explain: "누전차단기(ELB)는 미세한 누설 전류가 검측되는 즉시 회로를 0.03초 이내에 차단하여 인체 도통 전류 유입 한계선 전에 안전망을 확보해 줍니다."
+            },
+            {
+                q: "기계 설비 정비, 청소 전, 예기치 않은 오작동 전력 수동 가동이나 잔류 에너지 누전 위협을 방지하기 위한 통제 수칙은?",
+                options: [
+                    "MSDS 화학 물질 안전 대응",
+                    "LOTO (Lockout/Tagout) 자물쇠 시금 표지 부착 의무제도",
+                    "ISO 9001 제품 표준화 지침",
+                    "OHSAS 일반 비상 상황 대응망"
+                ],
+                correct: 1,
+                explain: "Lockout(물리 장치 차단 잠금) 및 Tagout(위험 수기 표시 꼬리표 부착) 시스템은 정비 보수 작업 중 타인의 임의 동작 시도를 차단해 안전을 수호합니다."
+            },
+            {
+                q: "야외 건설공사 공정 가선 도중 임시 전선 배선 시 올바른 작업 기준이 아닌 것은?",
+                options: [
+                    "정기적으로 절연 테이핑 및 피복 크랙 상태를 가독 체크한다.",
+                    "강우나 고습 환경 아래 차량 통로가 지나는 침수 지면에 임시 케이블을 그대로 둔다.",
+                    "피복 불량 배선 검측 시 사용을 긴급 중단하고 신품 자재로 대체한다.",
+                    "스위치 콘센트 함에 절연 방수 격막 케이스를 견고히 탑재한다."
+                ],
+                correct: 1,
+                explain: "젖은 노출 지면은 습기로 인한 전도성을 최대화하여 통행자 전신 감전을 초래하므로 지중 가선이나 공중 행거 거치 가선 처리를 반드시 규격화해야 합니다."
+            }
+        ];
+
+        let quizIndex = 0;
+        let quizScore = 0;
+
+        function renderQuizQuestion() {
+            if (quizIndex >= safetyQuestions.length) {
+                // Assessment concluled
+                document.getElementById('quiz-panel').className = "hidden";
+                const resultBlock = document.getElementById('quiz-results');
+                resultBlock.className = "block space-y-6 text-center";
+                
+                const percent = Math.round((quizScore / safetyQuestions.length) * 100);
+                document.getElementById('quiz-score-banner').innerText = `SCORE: ${percent}% CORRECT`;
+                return;
+            }
+
+            const current = safetyQuestions[quizIndex];
+            document.getElementById('quiz-step').innerText = `DIAGNOSTIC STAGE 0${quizIndex + 1}`;
+            document.getElementById('quiz-stats').innerText = `SCORE: ${quizScore}/${safetyQuestions.length}`;
+            document.getElementById('quiz-question').innerText = current.q;
+
+            const optsBox = document.getElementById('quiz-options');
+            optsBox.innerHTML = '';
+
+            current.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border border-cyberGray bg-cyberDark/50 hover:border-cyberCyan/40 hover:bg-cyberPanel text-slate-300 hover:text-white transition-all text-xs font-medium flex justify-between items-center group font-sans cursor-pointer";
+                btn.innerHTML = `
+                    <span>${idx + 1}. ${opt}</span>
+                    <i class="fa-solid fa-chevron-right text-slate-700 group-hover:text-cyberCyan transition-colors"></i>
+                `;
+                btn.onclick = () => submitQuizAnswer(idx);
+                optsBox.appendChild(btn);
+            });
+        }
+
+        function submitQuizAnswer(selected) {
+            const current = safetyQuestions[quizIndex];
+            const correctState = (selected === current.correct);
+
+            if (correctState) {
+                quizScore++;
+            }
+
+            const optsBox = document.getElementById('quiz-options');
+            optsBox.innerHTML = `
+                <div class="p-5 rounded-xl border ${correctState ? 'bg-cyberCyan/10 border-cyberCyan/50 text-cyberCyan' : 'bg-cyberRed/10 border-cyberRed/50 text-cyberRed'} space-y-4">
+                    <div class="flex items-center gap-2">
+                        <i class="${correctState ? 'fa-solid fa-circle-check text-cyberCyan' : 'fa-solid fa-circle-xmark text-cyberRed'} text-base"></i>
+                        <h5 class="font-tech text-xs tracking-wider uppercase font-bold">
+                            ${correctState ? 'ANALYSIS PASSED (정답)' : 'ANALYSIS FAILED (오답)'}
+                        </h5>
+                    </div>
+                    
+                    <p class="text-xs text-slate-300 leading-relaxed font-sans font-medium">
+                        ${current.explain}
+                    </p>
+
+                    <div class="pt-2 text-right">
+                        <button onclick="gotoNextQuiz()" class="bg-cyberCyan hover:bg-cyan-400 text-cyberDark font-tech font-bold tracking-wider py-2 px-4 rounded text-[10px] transition-all">
+                            PROCEED TO NEXT STAGE
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function gotoNextQuiz() {
+            quizIndex++;
+            renderQuizQuestion();
+        }
+
+        function restartQuiz() {
+            quizIndex = 0;
+            quizScore = 0;
+            document.getElementById('quiz-panel').className = "block";
+            document.getElementById('quiz-results').className = "hidden";
+            renderQuizQuestion();
+        }
+
+        // --- 5. SYSTEM LOADING SYSTEM INIT ---
+        window.onload = function() {
+            updateSimConsole();
+            buildLotoMenu();
+            activateLotoProtocol(1);
+            renderQuizQuestion();
+        }
+    </script>
+</body>
+</html>

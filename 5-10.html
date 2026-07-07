@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비상대응 (CONTACT / SYSTEM)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', 'Inter', sans-serif;
+        }
+        .hazard-border {
+            background-image: repeating-linear-gradient(
+                -45deg,
+                #f59e0b,
+                #f59e0b 10px,
+                #1e293b 10px,
+                #1e293b 20px
+            );
+        }
+        @keyframes pulse-red {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        .pulse-emergency {
+            animation: pulse-red 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col antialiased">
+
+    <!-- TOP HAZARD BAR -->
+    <div class="h-3 hazard-border w-full"></div>
+
+    <!-- MAIN HEADER -->
+    <header class="bg-slate-800 border-b border-slate-700 py-6 px-4 sm:px-6 lg:px-8 shadow-lg">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <span class="bg-amber-500 text-slate-950 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">Page 10. 비상대응 (CONTACT / SYSTEM)</span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-white mt-2 tracking-tight">
+                    아차 사고 신고 및 중대재해 골든타임 행동 요령
+                </h1>
+                <p class="text-slate-400 text-sm mt-1">현장의 모든 근로자는 안전하게 일할 권리가 있으며, 위험 시 대피할 의무가 있습니다.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="triggerEmergencyModal()" class="pulse-emergency bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg flex items-center gap-2 transition duration-200">
+                    <i class="fa-solid fa-circle-exclamation text-lg"></i>
+                    <span>긴급 작업중지권 발동</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- LEFT COLUMN: WORK STOPPAGE RIGHT (5 cols on large screens) -->
+        <section class="lg:col-span-5 flex flex-col gap-6">
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-md">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-3 bg-amber-500/10 text-amber-500 rounded-lg">
+                        <i class="fa-solid fa-hand text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-white">1. 근로자 작업중지권 행사 가이드</h2>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                    산업안전보건법에 의거, 근로자는 급박한 위험이 있을 때 스스로 작업을 중지하고 대피할 수 있으며 이로 인한 불이익 처분은 엄격히 금지됩니다.
+                </p>
+
+                <!-- CASE STUDY ACCORDION -->
+                <div class="bg-slate-900 border border-slate-700 rounded-lg p-4 mb-6">
+                    <div class="flex items-center justify-between text-xs text-amber-500 font-semibold mb-2">
+                        <span>실제 사례 예시</span>
+                        <span class="bg-amber-500/10 px-2 py-0.5 rounded">교량 거푸집</span>
+                    </div>
+                    <h3 class="text-white font-bold text-sm mb-2">상판 거푸집 해체 작업 중 변형 발견</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        거푸집 해체 중 하부 지지대(동바리) 일부가 찌그러지고 뒤틀려 있는 것을 이 씨(작업자)가 목격. 붕괴 사고 징후로 판단하여 즉시 작업중지권 행사 결정.
+                    </p>
+                </div>
+
+                <!-- GOLDEN TIME STEPS -->
+                <h3 class="text-sm font-bold text-slate-300 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-clock text-amber-500"></i> 골든타임 행동 요령
+                </h3>
+                <div class="relative pl-6 border-l-2 border-slate-700 space-y-5">
+                    <!-- Step 1 -->
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-red-600 text-white font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center">1</span>
+                        <h4 class="text-sm font-bold text-white">즉시 작업 중지 및 대피</h4>
+                        <p class="text-slate-400 text-xs mt-1">즉시 주변 동료에게 소리쳐 상황을 알린 뒤 안전 지대로 대피합니다.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-amber-500 text-slate-950 font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center">2</span>
+                        <h4 class="text-sm font-bold text-white">비상 연락 및 상황 보고</h4>
+                        <p class="text-slate-400 text-xs mt-1">안전보건 총괄책임자 또는 관리자에게 현장 위치와 유해 위험 상태를 신속 보고합니다.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-slate-600 text-white font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center">3</span>
+                        <h4 class="text-sm font-bold text-white">안전조치 이행</h4>
+                        <p class="text-slate-400 text-xs mt-1">안전관리자가 현장을 통제하고 붕괴 위험 보강(동바리 교체 등)을 진행합니다.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-emerald-600 text-white font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center">4</span>
+                        <h4 class="text-sm font-bold text-white">작업 재개 승인</h4>
+                        <p class="text-slate-400 text-xs mt-1">해소 여부를 확인 후 안심 사인이 활성화되면 재개합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIVE EMERGENCY SIMULATOR WIDGET -->
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-md relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-3 text-red-500/20 text-6xl pointer-events-none">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h3 class="text-md font-bold text-white mb-2">실시간 대피 알림 데모</h3>
+                <p class="text-slate-400 text-xs mb-4">근로자 작업중지가 발동되면 시스템 연동 장비 및 스마트폰으로 신호가 즉시 전송됩니다.</p>
+                
+                <div id="demo-light" class="flex items-center justify-between p-3 bg-slate-900 border border-slate-700 rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <span id="signal-dot" class="w-3.5 h-3.5 bg-emerald-500 rounded-full"></span>
+                        <span id="signal-text" class="text-sm font-bold text-emerald-500">SAFE (작업 정상)</span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-mono">ID: SEC-202</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- RIGHT COLUMN: WEB FEEDBACK SYSTEM (7 cols on large screens) -->
+        <section class="lg:col-span-7 flex flex-col gap-6">
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-md">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-3 bg-blue-500/10 text-blue-400 rounded-lg">
+                        <i class="fa-solid fa-laptop-code text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-white">2. 위험성평가 웹 피드백 메커니즘</h2>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                    발견한 위험 요인을 모바일이나 PC로 10초 만에 접수하고, 조치 결과를 실시간 문자와 모니터로 피드백 받는 안전 소통 통합 시스템입니다.
+                </p>
+
+                <!-- CASE STUDY 2 -->
+                <div class="bg-blue-950/20 border border-blue-900/40 rounded-lg p-4 mb-6 flex flex-col md:flex-row gap-4">
+                    <div class="md:w-1/3 shrink-0">
+                        <img id="case-image" src="https://placehold.co/300x200/243c5a/fff?text=No+Hazard+Detected" alt="위험요인 모식도" class="rounded-lg object-cover w-full h-24 border border-blue-900" onerror="this.src='https://placehold.co/300x200?text=No+Image'">
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between text-xs text-blue-400 font-semibold mb-1">
+                            <span>실제 운영 사례</span>
+                            <span class="bg-blue-500/10 px-2 py-0.5 rounded">지하시설</span>
+                        </div>
+                        <h4 class="text-white font-bold text-sm mb-1">굴착 구역 가스 노출 (아차사고 신고)</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            도로 확포장 중 설계도에 없던 가스관이 드러남. 신호수가 바로 모바일에 올려 2구역의 대피 통제 및 보호판 설치 조치를 단 15분 만에 해결했습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- SIMULATED APP FORM -->
+                <div class="border-t border-slate-700 pt-6">
+                    <h3 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-square-plus text-blue-400"></i> 아차 사고 / 위험요인 즉시 신고 체험
+                    </h3>
+                    <form id="feedback-form" onsubmit="handleReportSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-400 mb-1">위험 발생 구역</label>
+                                <select id="form-area" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 text-sm focus:outline-none focus:border-blue-500">
+                                    <option value="제1작업장 (토공사)">제1작업장 (토공사)</option>
+                                    <option value="제2교각 교상구간">제2교각 교상구간</option>
+                                    <option value="터널 입구 진입부">터널 입구 진입부</option>
+                                    <option value="자재 적치장 근처">자재 적치장 근처</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-400 mb-1">위험도 예측 등급</label>
+                                <select id="form-severity" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 text-sm focus:outline-none focus:border-blue-500">
+                                    <option value="High (위험도 상)" class="text-red-500 font-bold">⚠️ High (상 - 즉시 중단 위험)</option>
+                                    <option value="Medium (위험도 중)" class="text-amber-500">Medium (중 - 잠재적 위험)</option>
+                                    <option value="Low (위험도 하)" class="text-emerald-500">Low (하 - 개선 요망)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 mb-1">상태 내용 요약</label>
+                            <input id="form-title" type="text" placeholder="예: 배수관 상단 안전난간 파손, 동바리 미세 변형" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 text-sm focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded-lg text-sm shadow transition duration-150 flex items-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>웹 시스템 즉시 등록</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- LIVE FEEDBACK FEED -->
+                <div class="border-t border-slate-700 mt-6 pt-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-bolt text-amber-500"></i> 실시간 피드백 처리 현황판
+                        </h4>
+                        <span class="text-[10px] bg-slate-700 text-slate-300 py-1 px-2 rounded-full font-mono">LIVE SYNC</span>
+                    </div>
+                    
+                    <div id="feedback-queue" class="space-y-3">
+                        <!-- Simulated Card 1 -->
+                        <div class="bg-slate-900 border border-slate-700 rounded-lg p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition duration-150 hover:border-slate-600">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="bg-emerald-500/10 text-emerald-500 text-[10px] font-bold px-2 py-0.5 rounded">조치 완료</span>
+                                    <span class="text-[10px] text-slate-500">신고번호 #24-098</span>
+                                </div>
+                                <h5 class="text-sm font-bold text-white">가스배관 일부 노출 (방호판 임시 가복구)</h5>
+                                <p class="text-[11px] text-slate-400">제2작업구역 | 위험등급: High</p>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <p class="text-[11px] text-emerald-500 font-bold">15분 이내 전원 대피 및 보호조치 조치완료</p>
+                                <span class="text-[10px] text-slate-500">오늘 11:24 조치</span>
+                            </div>
+                        </div>
+
+                        <!-- Simulated Card 2 -->
+                        <div class="bg-slate-900 border border-slate-700 rounded-lg p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition duration-150 hover:border-slate-600">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="bg-amber-500/10 text-amber-500 text-[10px] font-bold px-2 py-0.5 rounded">접수/확인중</span>
+                                    <span class="text-[10px] text-slate-500">신고번호 #24-099</span>
+                                </div>
+                                <h5 class="text-sm font-bold text-white">가설 발판 통로 고정 불량 및 일부 흔들림</h5>
+                                <p class="text-[11px] text-slate-400">A구역 진입 계단 | 위험등급: Medium</p>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <p class="text-[11px] text-amber-500 font-bold">안전담당관 현장 이동 중</p>
+                                <span class="text-[10px] text-slate-500">방금 전 접수</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER EMERGENCY SECTION -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-8 px-4 sm:px-6 lg:px-8 mt-auto">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2 text-red-500">
+                <i class="fa-solid fa-phone-volume"></i> EMERGENCY CONTACT | 비상연락망
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Contact 1 -->
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg flex items-center gap-3">
+                    <div class="p-3 bg-red-600/10 text-red-500 rounded-full shrink-0">
+                        <i class="fa-solid fa-headset text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400">현장 종합상황실</p>
+                        <p class="text-sm font-bold text-white">비상 핫라인 (내선 119)</p>
+                    </div>
+                </div>
+                <!-- Contact 2 -->
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg flex items-center gap-3">
+                    <div class="p-3 bg-red-600/10 text-red-500 rounded-full shrink-0">
+                        <i class="fa-solid fa-user-shield text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400">안전보건 총괄관리자</p>
+                        <p class="text-sm font-bold text-white">상시 무전 및 유선 연결</p>
+                    </div>
+                </div>
+                <!-- Contact 3 -->
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg flex items-center gap-3">
+                    <div class="p-3 bg-amber-500/10 text-amber-500 rounded-full shrink-0">
+                        <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400">아차사고/오류 접수</p>
+                        <p class="text-sm font-bold text-white">정보화 보건안전국</p>
+                    </div>
+                </div>
+                <!-- Contact 4 -->
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg flex items-center gap-3">
+                    <div class="p-3 bg-blue-500/10 text-blue-400 rounded-full shrink-0">
+                        <i class="fa-solid fa-building-shield text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400">외부 긴급 구조대</p>
+                        <p class="text-sm font-bold text-white">안전보건공단 / 119연동</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 text-center text-xs text-slate-500">
+                본 시스템은 산업안전관리체계를 지원하기 위한 공용 표준 비상안전대응 시스템 데모입니다.
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE ALERTS (CUSTOM NO-ALERT MODALS) -->
+    <!-- Emergency Stoppage Action Modal -->
+    <div id="emergency-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300">
+        <div class="bg-slate-800 border-2 border-red-500 rounded-xl p-6 max-w-md w-full shadow-2xl relative">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-red-600/20 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 pulse-emergency">
+                    <i class="fa-solid fa-bell text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">근로자 작업중지권이 즉시 행사되었습니다!</h3>
+                <p class="text-slate-300 text-sm mb-4 leading-relaxed">
+                    현장에 비상 경보(Sirens)가 활성화되고 안전관리실로 긴급 상황이 통보되었습니다. 즉시 동료들에게 전파하고 대피소로 신속하게 대피하십시오.
+                </p>
+                <div class="bg-slate-900 p-3 rounded-lg text-left text-xs text-amber-400 mb-6 font-mono border border-amber-500/30">
+                    <div>⚠️ 발생 구역: 현 작동 지점 (GPS 보정)</div>
+                    <div>⚠️ 전송 알림: "즉시 정지 후 안전 구역 대피 요망"</div>
+                    <div>⚠️ 조치 수순: 종합상황실 수락 대기중</div>
+                </div>
+                <div class="flex gap-3 justify-center">
+                    <button onclick="closeEmergencyModal()" class="bg-slate-700 hover:bg-slate-600 text-slate-100 font-bold py-2 px-4 rounded-lg text-sm transition duration-150">
+                        상황 종료 (테스트 해제)
+                    </button>
+                    <button onclick="activateSafeSign()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg text-sm transition duration-150">
+                        대피 구역 완료 확인
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 space-y-2 z-50"></div>
+
+    <script>
+        let reportCount = 100;
+
+        // Auto change images to simulate live visual hazard feeds on mount
+        window.onload = function() {
+            // Start rotation simulation or specific initial settings
+            const caseImg = document.getElementById('case-image');
+            if (caseImg) {
+                caseImg.src = "https://placehold.co/300x200/451a03/f59e0b?text=Gas+Pipe+Exposed";
+            }
+        };
+
+        function triggerEmergencyModal() {
+            const modal = document.getElementById('emergency-modal');
+            modal.classList.remove('hidden');
+            
+            // Switch light to ALERT
+            const sigDot = document.getElementById('signal-dot');
+            const sigTxt = document.getElementById('signal-text');
+            const demoLight = document.getElementById('demo-light');
+
+            sigDot.classList.remove('bg-emerald-500');
+            sigDot.classList.add('bg-red-500', 'pulse-emergency');
+            sigTxt.innerText = "EMERGENCY (작업 긴급 중단!)";
+            sigTxt.classList.remove('text-emerald-500');
+            sigTxt.classList.add('text-red-500');
+            demoLight.classList.add('border-red-600/50', 'bg-red-950/20');
+
+            showToast("위험 감지! 즉시 현장 대피 지시가 송출되었습니다.", "red");
+        }
+
+        function closeEmergencyModal() {
+            document.getElementById('emergency-modal').classList.add('hidden');
+        }
+
+        function activateSafeSign() {
+            closeEmergencyModal();
+            // Transition back to SAFE
+            const sigDot = document.getElementById('signal-dot');
+            const sigTxt = document.getElementById('signal-text');
+            const demoLight = document.getElementById('demo-light');
+
+            sigDot.classList.remove('bg-red-500', 'pulse-emergency');
+            sigDot.classList.add('bg-emerald-500');
+            sigTxt.innerText = "SAFE (현장 보강 확인 완료)";
+            sigTxt.classList.remove('text-red-500');
+            sigTxt.classList.add('text-emerald-500');
+            demoLight.classList.remove('border-red-600/50', 'bg-red-950/20');
+            
+            showToast("안전조치 확인 후 현장 사인이 SAFE로 재활성화되었습니다.", "emerald");
+        }
+
+        function handleReportSubmit(e) {
+            e.preventDefault();
+            
+            const area = document.getElementById('form-area').value;
+            const severity = document.getElementById('form-severity').value;
+            const title = document.getElementById('form-title').value;
+
+            if(!title.trim()) return;
+
+            reportCount++;
+            const newReportId = `#24-${reportCount}`;
+
+            // Add card dynamically to the top of the feedback queue
+            const queue = document.getElementById('feedback-queue');
+            
+            const newCard = document.createElement('div');
+            newCard.className = "bg-slate-900 border border-blue-500/50 rounded-lg p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition duration-150 hover:border-blue-400";
+            newCard.innerHTML = `
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-blue-500 text-slate-950 text-[10px] font-bold px-2 py-0.5 rounded">방금 접수됨</span>
+                        <span class="text-[10px] text-slate-500">신고번호 ${newReportId}</span>
+                    </div>
+                    <h5 class="text-sm font-bold text-white">${title}</h5>
+                    <p class="text-[11px] text-slate-400">${area} | 위험등급: ${severity}</p>
+                </div>
+                <div class="text-right shrink-0">
+                    <p class="text-[11px] text-blue-400 font-bold">통합관제센터 실시간 전송완료</p>
+                    <span class="text-[10px] text-slate-500">조치 피드백 대기중</span>
+                </div>
+            `;
+
+            queue.insertBefore(newCard, queue.firstChild);
+            
+            // Clear input
+            document.getElementById('form-title').value = '';
+
+            showToast(`위험요인이 ${newReportId}로 등록되어 관리자에게 긴급 알림이 전송되었습니다.`, "blue");
+
+            // Simulate automatic action/resolution feedback loop after 4 seconds
+            setTimeout(() => {
+                newCard.className = "bg-slate-900 border border-emerald-800 rounded-lg p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition duration-150 hover:border-emerald-700";
+                newCard.innerHTML = `
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="bg-emerald-500/10 text-emerald-500 text-[10px] font-bold px-2 py-0.5 rounded">조치 완료</span>
+                            <span class="text-[10px] text-slate-500">신고번호 ${newReportId}</span>
+                        </div>
+                        <h5 class="text-sm font-bold text-white">${title}</h5>
+                        <p class="text-[11px] text-slate-400">${area} | 위험등급: ${severity}</p>
+                    </div>
+                    <div class="text-right shrink-0">
+                        <p class="text-[11px] text-emerald-500 font-bold">임시 안전 통제 조치 완료 (웹 피드백 종결)</p>
+                        <span class="text-[10px] text-slate-500">방금 전 피드백 완료</span>
+                    </div>
+                `;
+                showToast(`[신고번호 ${newReportId}]에 대한 관리 조치 완료 알림이 웹 시스템에 접수되었습니다.`, "emerald");
+            }, 5000);
+        }
+
+        // Custom Toast Notifications
+        function showToast(message, colorType) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let bgClass = "bg-slate-800 border-l-4 border-amber-500 text-slate-100";
+            if (colorType === 'red') bgClass = "bg-slate-800 border-l-4 border-red-500 text-slate-100";
+            if (colorType === 'emerald') bgClass = "bg-slate-800 border-l-4 border-emerald-500 text-slate-100";
+            if (colorType === 'blue') bgClass = "bg-slate-800 border-l-4 border-blue-500 text-slate-100";
+
+            toast.className = `${bgClass} p-4 rounded-r-lg shadow-xl flex items-center gap-3 transition duration-300 max-w-sm transform translate-y-2 opacity-0`;
+            toast.innerHTML = `
+                <div class="text-sm font-medium flex-grow">${message}</div>
+                <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-white shrink-0">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            `;
+
+            container.appendChild(toast);
+            
+            // animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 50);
+
+            // auto-remove
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => { toast.remove(); }, 300);
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
