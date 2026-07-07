@@ -45,7 +45,7 @@
             background-color: #141414;
         }
 
-        /* [배경 최적화] 첨부해주신 마인크래프트 숲 인게임 배경화면으로 수정 완료 */
+        /* [배경 최적화] 마인크래프트 인게임 청명한 숲 배경화면 */
         body::before {
             content: "";
             position: fixed;
@@ -60,7 +60,7 @@
             z-index: -2;
         }
 
-        /* 마인크래프트 게임 속 블러 및 어두운 레이어 느낌 구현 */
+        /* 마인크래프트 게임 속 UI 투명 레이어 느낌 구현 (가독성 확보) */
         body::after {
             content: "";
             position: fixed;
@@ -68,8 +68,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(16, 20, 30, 0.65); 
-            backdrop-filter: blur(4px); 
+            background: rgba(16, 25, 16, 0.6); 
+            backdrop-filter: blur(3px); 
             z-index: -1;
         }
 
@@ -108,7 +108,7 @@
     <!-- HUD Header (마인크래프트 상단바 스타일) -->
     <header class="border-b-4 border-black bg-neutral-900 sticky top-0 z-40 py-3 px-6 flex justify-between items-center shadow-lg">
         <div class="flex items-center space-x-3">
-            <div class="h-10 w-10 bg-gradient-to-br from-green-600 to-emerald-800 border-2 border-black flex items-center justify-center text-white font-pixel text-xl shadow-[inset_2px_2px_0px_rgba(255,255,255,0.4)]">5</div>
+            <div onclick="playClickSound()" class="h-10 w-10 bg-gradient-to-br from-green-600 to-emerald-800 border-2 border-black flex items-center justify-center text-white font-pixel text-xl shadow-[inset_2px_2px_0px_rgba(255,255,255,0.4)] cursor-pointer">5</div>
             <div>
                 <h1 class="font-sans font-bold tracking-tight text-lg text-white flex items-center gap-2 mc-shadow">
                     5조 '건설재해사례조사' <span class="text-[10px] bg-yellow-500 text-black font-pixel font-bold px-2 py-0.5 border border-black shadow-[1px_1px_0px_#000]">v5.0</span>
@@ -144,54 +144,44 @@
             </p>
         </div>
 
-        <!-- 1~10 Clickable Cards Grid (마인크래프트 인벤토리 슬롯 및 캐릭터/아이템 매칭) -->
+        <!-- 1~10 Clickable Cards Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <!-- 1번: 감전 -> 크리퍼(번개 충전/폭발 이미지) -->
             <div onclick="navigateToPage(1)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">💣</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">1. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span>
             </div>
-            <!-- 2번: 교량 붕괴 -> 부서지는 모래블록/자갈(모래시계) -->
             <div onclick="navigateToPage(2)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">⏳</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">2. 세종 안성 고속도로 청용천교 붕괴</span>
             </div>
-            <!-- 3번: 터널 흙막이 지반 붕괴 -> 철 곡괭이/좀비 동굴 작업 -->
             <div onclick="navigateToPage(3)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">⛏️</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">3. 터널 및 흙막이 지반 붕괴 사고</span>
             </div>
-            <!-- 4번: 낙하 사고 -> 위에서 떨어지는 블록/철창 -->
             <div onclick="navigateToPage(4)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">⛓️</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">4. 경기 고양 현장 철근다발 낙하 사망 사고</span>
             </div>
-            <!-- 5번: 대형 화재 -> 네더랙/지옥 불꽃 -->
             <div onclick="navigateToPage(5)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">🔥</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">5. 부산 기장군 리조트 현장 대형 화재 사고</span>
             </div>
-            <!-- 6번: 감전 상세 -> 레드스톤 회로 오작동(지지직) -->
             <div onclick="navigateToPage(6)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">🔴</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">6. 철근 절단기 조작 중 감전 사망 사고 (상세)</span>
             </div>
-            <!-- 7번: 관로 공사 현장 -> 스티브의 흙 파내기(삽) -->
             <div onclick="navigateToPage(7)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">🪓</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">7. 충남 아산시 하수관로 정비공사 현장</span>
             </div>
-            <!-- 8번: 추락 사고 -> 비계/사다리에서 떨어짐 -->
             <div onclick="navigateToPage(8)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">🪜</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">8. 김해 고소작업차 추락사고</span>
             </div>
-            <!-- 9번: 질식 사고 -> 물속 산소 게이지 부족/포션 디버프 -->
             <div onclick="navigateToPage(9)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">🧪</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">9. 경기 파주 아파트 현장 질식 사고</span>
             </div>
-            <!-- 10번: 중대재해법 도입 -> 하트/체력 바 고갈 경고 -->
             <div onclick="navigateToPage(10)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">💔</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">10. 국내 사망재해 현황, 중대재해법 도입 배경</span>
@@ -200,14 +190,12 @@
 
         <!-- [하단 시스템 배너 영역] -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-            <!-- 11번: 서베이 -> 책과 깃펜(기록) -->
             <div onclick="openQrModal()" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[65px]">
                 <span class="text-2xl">✒️</span>
                 <span class="font-bold text-xs text-black tracking-tight">11. QR 코드 피드백 & 설문조사 시스템 연동</span>
             </div>
             
-            <!-- 12번: 소통 게시판 -> 마인크래프트 표지판(Sign) -->
-            <a href="https://padlet.com/sseunghyoo/padlet-6nkmjbeyavcltsi6" target="_blank" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[65px]">
+            <a href="https://padlet.com/sseunghyoo/padlet-6nkmjbeyavcltsi6" target="_blank" onclick="playClickSound()" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[65px]">
                 <span class="text-2xl">🪧</span>
                 <span class="font-bold text-xs text-black tracking-tight">12. 자유 의견 교환 및 안전 소통 게시판</span>
             </a>
@@ -215,7 +203,7 @@
         
     </main>
 
-    <!-- FULL-SCREEN INTERACTIVE VIEWER OVERLAY (마인크래프트 보관함/상자 UI 콘솔 스타일) -->
+    <!-- FULL-SCREEN INTERACTIVE VIEWER OVERLAY -->
     <div id="fullscreen-overlay" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-0 hidden">
         <div class="bg-zinc-400 w-full h-full md:w-[95vw] md:h-[92vh] border-4 border-neutral-800 flex flex-col justify-between shadow-2xl overflow-hidden shadow-[inset_4px_4px_0px_#fff,inset_-4px_-4px_0px_#555]">
             <!-- Top Status Nav Bar -->
@@ -241,7 +229,7 @@
         </div>
     </div>
 
-    <!-- QR CODE POPUP MODAL (마인크래프트 상자 보관함 팝업 스타일) -->
+    <!-- QR CODE POPUP MODAL -->
     <div id="qr-modal" class="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-400 border-4 border-neutral-800 w-full max-w-sm p-6 text-center space-y-4 shadow-[inset_3px_3px_0px_#fff,inset_-3px_-3px_0px_#555]">
             <div class="flex justify-between items-center border-b-2 border-zinc-600 pb-2">
@@ -271,6 +259,34 @@
 
     <!-- INTERACTIVE SCRIPT CONTROLLERS -->
     <script>
+        // [사운드 엔진] 마인크래프트 스타일의 귀여운 인벤토리 클릭 효과음 생성 함수
+        function playClickSound() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                const ctx = new AudioContext();
+                
+                // 단기 주파수 제어로 '또각'하는 픽셀 타격음 구현
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.type = 'triangle'; // 부드러운 복고풍 오락실 소리
+                osc.frequency.setValueAtTime(150, ctx.currentTime); 
+                osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.04);
+                
+                gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.start();
+                osc.stop(ctx.currentTime + 0.08);
+            } catch (e) {
+                console.log("Audio play blocked by browser policy before user interaction.");
+            }
+        }
+
         function updateTime() {
             const now = new Date();
             document.getElementById('system-time').innerText = now.toTimeString().split(' ')[0];
@@ -279,6 +295,7 @@
         updateTime();
 
         function navigateToPage(pageNum) {
+            playClickSound(); // 카드 클릭 효과음 실행
             const overlay = document.getElementById('fullscreen-overlay');
             const frame = document.getElementById('fullscreen-frame');
             const titleNode = document.getElementById('overlay-title-node');
@@ -292,6 +309,7 @@
         }
 
         function closeFullscreenOverlay() {
+            playClickSound(); // 닫기 효과음 실행
             const overlay = document.getElementById('fullscreen-overlay');
             const frame = document.getElementById('fullscreen-frame');
             
@@ -303,11 +321,13 @@
         }
 
         function openQrModal() {
+            playClickSound(); // QR 오픈 효과음 실행
             document.getElementById('qr-modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
 
         function closeQrModal() {
+            playClickSound(); // 모달 닫기 효과음 실행
             document.getElementById('qr-modal').classList.add('hidden');
             document.body.style.overflow = '';
         }
