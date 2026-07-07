@@ -157,9 +157,8 @@
             </p>
         </div>
 
-        <!-- Navigation Grid: 10 clean, bright cards styled as requested. Descriptions removed. Only emoji & precise names inside. -->
+        <!-- Navigation Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" id="case-grid">
-            
             <!-- Page 1 Card -->
             <div onclick="navigateToPage(1)" id="card-1" class="card-custom active p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
                 <div class="flex flex-col items-center gap-2">
@@ -167,7 +166,6 @@
                     <span class="font-bold text-xs text-slate-700 tracking-tight">1. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span>
                 </div>
             </div>
-
             <!-- Page 2 Card -->
             <div onclick="navigateToPage(2)" id="card-2" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
                 <div class="flex flex-col items-center gap-2">
@@ -175,7 +173,6 @@
                     <span class="font-bold text-xs text-slate-700 tracking-tight">2. 세종 안성 고속도로 청용천교 붕괴</span>
                 </div>
             </div>
-
             <!-- Page 3 Card -->
             <div onclick="navigateToPage(3)" id="card-3" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
                 <div class="flex flex-col items-center gap-2">
@@ -183,7 +180,6 @@
                     <span class="font-bold text-xs text-slate-700 tracking-tight">3. 실제 사례: 신안산선 광명 구간 터널 및 흙막이 지반 붕괴 사고</span>
                 </div>
             </div>
-
             <!-- Page 4 Card -->
             <div onclick="navigateToPage(4)" id="card-4" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
                 <div class="flex flex-col items-center gap-2">
@@ -191,7 +187,6 @@
                     <span class="font-bold text-xs text-slate-700 tracking-tight">4. 경기 고양 상가 신축 현장 철근다발 낙하 사망 사고</span>
                 </div>
             </div>
-
             <!-- Page 5 Card -->
             <div onclick="navigateToPage(5)" id="card-5" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
                 <div class="flex flex-col items-center gap-2">
@@ -199,7 +194,6 @@
                     <span class="font-bold text-xs text-slate-700 tracking-tight">5. 부산 기장군 리조트 신축 현장 대형 화재 사고</span>
                 </div>
             </div>
-
             <!-- Page 6 Card -->
             <div onclick="navigateToPage(6)" id="card-6" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
                 <div class="flex flex-col items-center gap-2">
@@ -207,7 +201,6 @@
                     <span class="font-bold text-xs text-slate-700 tracking-tight">6. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span>
                 </div>
             </div>
-
             <!-- Page 7 Card -->
             <div onclick="navigateToPage(7)" id="card-7" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
                 <div class="flex flex-col items-center gap-2">
@@ -215,7 +208,6 @@
                     <span class="font-bold text-xs text-slate-700 tracking-tight">7. 충남 아산시 하수관로 정비공사 현장</span>
                 </div>
             </div>
-
             <!-- Page 8 Card -->
             <div onclick="navigateToPage(8)" id="card-8" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
                 <div class="flex flex-col items-center gap-2">
@@ -223,7 +215,6 @@
                     <span class="font-bold text-xs text-slate-700 tracking-tight">8. 김해 고소작업차 추락사고</span>
                 </div>
             </div>
-
             <!-- Page 9 Card -->
             <div onclick="navigateToPage(9)" id="card-9" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px]">
                 <div class="flex flex-col items-center gap-2">
@@ -231,7 +222,6 @@
                     <span class="font-bold text-xs text-slate-700 tracking-tight">9. 경기 파주 아파트 신축 현장 질식 사고</span>
                 </div>
             </div>
-
             <!-- Page 10 Card -->
             <div onclick="navigateToPage(10)" id="card-10" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[105px] bg-blue-50/30 hover:bg-blue-50">
                 <div class="flex flex-col items-center gap-2">
@@ -239,19 +229,15 @@
                     <span class="font-bold text-xs text-blue-800 tracking-tight">10. 국내 건설업 사망재해 현황, 중대재해처벌법 도입 배경</span>
                 </div>
             </div>
-
         </div>
 
-        <!-- Double Panel: Left (Case Descriptions), Right (Interactive 3D Preview & Checks) -->
+        <!-- Double Panel -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
             
-            <!-- Left Panel: Content Page Views (Light theme cards) -->
+            <!-- Left Panel: Content Display -->
             <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-card flex flex-col justify-between min-h-[460px]" id="content-display">
-                
-                <!-- -------------------------------------------------------------------- -->
-                <!-- PAGE 1: 하청 근로자 철근 절단기 조작 중 감전 사망 사고 -->
-                <!-- -------------------------------------------------------------------- -->
-                <div id="page-1" class="page-content space-y-6">
+                <!-- 동적으로 로드된 콘텐츠가 들어가는 영역 (기본 1페이지 뷰 활성화) -->
+                <div id="page-content-target" class="page-content space-y-6">
                     <div class="flex flex-col justify-between border-b border-slate-100 pb-4 gap-1">
                         <span class="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2 py-0.5 rounded w-max">전기설비공사 | CASE 01</span>
                         <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-1">1. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</h3>
@@ -259,9 +245,7 @@
                     
                     <div class="space-y-4 text-slate-600 text-sm leading-relaxed">
                         <p class="font-bold text-slate-700 text-base">📌 사고 개요 및 핵심 위험 요인</p>
-                        <p>
-                            가설 작업장에서 바닥에 침투한 옥외 수분과 임시 배전반의 절연 노후화로 인해 전력이 외함을 타고 누전되었습니다. 이때 작업자가 절단 장비를 다루는 과정에서 고전압에 완전히 노출되어 감전되는 중대 재해가 발생하였습니다.
-                        </p>
+                        <p>가설 작업장에서 바닥에 침투한 옥외 수분과 임시 배전반의 절연 노후화로 인해 전력이 외함을 타고 누전되었습니다. 이때 작업자가 절단 장비를 다루는 과정에서 고전압에 완전히 노출되어 감전되는 중대 재해가 발생하였습니다.</p>
                         <div class="bg-red-50 border border-red-100 p-4 rounded-xl space-y-2">
                             <h4 class="text-xs font-bold text-red-600 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation"></i> 치명적 위험 요인</h4>
                             <ul class="text-xs text-red-700 list-disc list-inside space-y-1">
@@ -272,276 +256,7 @@
                     </div>
                 </div>
 
-                <!-- -------------------------------------------------------------------- -->
-                <!-- PAGE 2: 세종 안성 고속도로 청용천교 붕괴 -->
-                <!-- -------------------------------------------------------------------- -->
-                <div id="page-2" class="page-content hidden space-y-5">
-                    <div class="flex flex-col justify-between border-b border-slate-100 pb-4 gap-1">
-                        <span class="text-xs font-bold text-sky-600 uppercase tracking-widest bg-sky-50 px-2 py-0.5 rounded w-max">가설공사 | CASE 02</span>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-1">2. 세종 안성 고속도로 청용천교 붕괴</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="font-bold text-slate-700 text-base">📌 사고 개요 및 핵심 위험 요인</p>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            교량 건설 현장에서 대량의 슬래브 콘크리트 타설 작업 도중, 하부 지지 가설구조물(동바리 및 거푸집)이 편중된 하중을 견디지 못하고 구조물 전체가 연쇄적으로 연쇄 붕괴하여 인명 피해를 유발하였습니다.
-                        </p>
-                        <div class="bg-red-50 border border-red-100 p-4 rounded-xl space-y-2">
-                            <h4 class="text-xs font-bold text-red-600 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation"></i> 치명적 위험 요인</h4>
-                            <ul class="text-xs text-red-700 list-disc list-inside space-y-1">
-                                <li>데크플레이트 및 가설용 부재의 정밀한 하중 지지 성능 구조 계산 누락</li>
-                                <li>동바리 수평 연결 및 대각 가새 고정 핀 연결 기준 미준수</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- -------------------------------------------------------------------- -->
-                <!-- PAGE 3: 실제 사례: 신안산선 광명 구간 터널 및 흙막이 지반 붕괴 사고 -->
-                <!-- -------------------------------------------------------------------- -->
-                <div id="page-3" class="page-content hidden space-y-5">
-                    <div class="flex flex-col justify-between border-b border-slate-100 pb-4 gap-1">
-                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest bg-amber-50 px-2 py-0.5 rounded w-max">토공사 | CASE 03</span>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-1">3. 실제 사례: 신안산선 광명 구간 터널 및 흙막이 지반 붕괴 사고</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="font-bold text-slate-700 text-base">📌 사고 개요 및 핵심 위험 요인</p>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            광명 터널 수직 굴착면의 인접 지반 하부로 지하수가 일시적으로 과유입되면서 연약한 토압이 급증하였습니다. 이에 버팀보가 과적 압력을 버티지 못하고 뒤틀려 흙막이 지보공 전체가 내려앉았습니다.
-                        </p>
-                        <div class="bg-red-50 border border-red-100 p-4 rounded-xl space-y-2">
-                            <h4 class="text-xs font-bold text-red-600 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation"></i> 치명적 위험 요인</h4>
-                            <ul class="text-xs text-red-700 list-disc list-inside space-y-1">
-                                <li>연약 지반 배수 조치 및 배면 차수 그라우팅 사전 수밀성 시공성 부족</li>
-                                <li>사전에 변위를 나타낸 지하 수위 및 토압 센서 계측 경고 데이터 묵살</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- -------------------------------------------------------------------- -->
-                <!-- PAGE 4: 경기 고양 상가 신축 현장 철근다발 낙하 사망 사고 -->
-                <!-- -------------------------------------------------------------------- -->
-                <div id="page-4" class="page-content hidden space-y-5">
-                    <div class="flex flex-col justify-between border-b border-slate-100 pb-4 gap-1">
-                        <span class="text-xs font-bold text-red-600 uppercase tracking-widest bg-red-50 px-2 py-0.5 rounded w-max">중량물공사 | CASE 04</span>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-1">4. 경기 고양 상가 신축 현장 철근다발 낙하 사망 사고</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="font-bold text-slate-700 text-base">📌 사고 개요 및 핵심 위험 요인</p>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            상가 옥상 층 배근 자재 운용을 위해 이동식 크레인을 구동해 고중량 철근을 양중 하던 중, 와이어 로프 결속 구조가 어긋나며 다발 전체가 수십 미터 수직 아래의 낙하 반경으로 떨어져 참사를 야기했습니다.
-                        </p>
-                        <div class="bg-red-50 border border-red-100 p-4 rounded-xl space-y-2">
-                            <h4 class="text-xs font-bold text-red-600 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation"></i> 치명적 위험 요인</h4>
-                            <ul class="text-xs text-red-700 list-disc list-inside space-y-1">
-                                <li>인양용 다발에 2줄걸이 슬링로프 등 안전 체결 미준수로 이탈 조치 미비</li>
-                                <li>중량물이 이송되는 크레인 회전 반경 내 하부 출입 통제 펜스 및 안내 유도수 부족</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- -------------------------------------------------------------------- -->
-                <!-- PAGE 5: 부산 기장군 리조트 신축 현장 대형 화재 사고 -->
-                <!-- -------------------------------------------------------------------- -->
-                <div id="page-5" class="page-content hidden space-y-5">
-                    <div class="flex flex-col justify-between border-b border-slate-100 pb-4 gap-1">
-                        <span class="text-xs font-bold text-orange-600 uppercase tracking-widest bg-orange-50 px-2 py-0.5 rounded w-max">마감공사 | CASE 05</span>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-1">5. 부산 기장군 리조트 신축 현장 대형 화재 사고</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="font-bold text-slate-700 text-base">📌 사고 개요 및 핵심 위험 요인</p>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            지하 밀폐 구역 내 유기용제가 포함된 마감 우레탄 스프레이 및 도장 작업을 강행하던 와중, 해당 공간과 연결된 배관 조인트에서 진행되던 고온 아크 용접의 비산 불티가 정체된 유증기와 결합해 급격한 대형 화재로 이어졌습니다.
-                        </p>
-                        <div class="bg-red-50 border border-red-100 p-4 rounded-xl space-y-2">
-                            <h4 class="text-xs font-bold text-red-600 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation"></i> 치명적 위험 요인</h4>
-                            <ul class="text-xs text-red-700 list-disc list-inside space-y-1">
-                                <li>휘발성 유가스가 발생하기 쉬운 밀폐형 도장공사와 가스 불꽃 용접의 일시 혼재 시공</li>
-                                <li>기류 제어 송풍용 강제 배기 시스템의 부재 및 화재 비산 방지 전담 감시인의 미배치</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- -------------------------------------------------------------------- -->
-                <!-- PAGE 6: 하청 근로자 철근 절단기 조작 중 감전 사망 사고 (상세화) -->
-                <!-- -------------------------------------------------------------------- -->
-                <div id="page-6" class="page-content hidden space-y-5">
-                    <div class="flex flex-col justify-between border-b border-slate-100 pb-4 gap-1">
-                        <span class="text-xs font-bold text-purple-600 uppercase tracking-widest bg-purple-50 px-2 py-0.5 rounded w-max">전기설비공사 | CASE 06</span>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-1">6. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="font-bold text-slate-700 text-base">📌 사고 개요 및 핵심 위험 요인</p>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            피복이 손상된 가설 전기 배선의 장기 방치로 인해 접지가 소실된 다기능 철근 기계로 수 밀리암페어 수준의 유도성 전류가 흘렀습니다. 옥외 습기가 높은 기후 상태에서 가설 기구 외함에 접촉한 근로자가 전격류를 인체로 흘려보내 사망한 중대 전기 재해입니다.
-                        </p>
-                        <div class="bg-red-50 border border-red-100 p-4 rounded-xl space-y-2">
-                            <h4 class="text-xs font-bold text-red-600 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation"></i> 치명적 위험 요인</h4>
-                            <ul class="text-xs text-red-700 list-disc list-inside space-y-1">
-                                <li>가설 분전 계통의 필수 설비인 누전차단기 고장 검사 생략 및 직접 우회 점프 연결</li>
-                                <li>이중 피복 구조 가요 전선관의 꺾임 부위 피복 노출에 대한 상시 전력 안전 모니터링 누락</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- -------------------------------------------------------------------- -->
-                <!-- PAGE 7: 충남 아산시 하수관로 정비공사 현장 -->
-                <!-- -------------------------------------------------------------------- -->
-                <div id="page-7" class="page-content hidden space-y-5">
-                    <div class="flex flex-col justify-between border-b border-slate-100 pb-4 gap-1">
-                        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2 py-0.5 rounded w-max">토공사 | CASE 07</span>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-1">7. 충남 아산시 하수관로 정비공사 현장</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="font-bold text-slate-700 text-base">📌 사고 개요 및 핵심 위험 요인</p>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            좁고 깊은 관로 터파기 굴착 구역 내부에서 바닥 자재를 수평 가이드 조절 중이던 하청 작업자를 발견하지 못하고, 평탄화 작업을 위해 급격히 방향을 선회하고 후진하던 굴착기 후방 궤도에 깔린 협착 참사입니다.
-                        </p>
-                        <div class="bg-red-50 border border-red-100 p-4 rounded-xl space-y-2">
-                            <h4 class="text-xs font-bold text-red-600 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation"></i> 치명적 위험 요인</h4>
-                            <ul class="text-xs text-red-700 list-disc list-inside space-y-1">
-                                <li>굴착기, 불도저 등 중장비 이동 사각지대에 대한 정밀 유도 경보 카메라 오작동 방치</li>
-                                <li>독립적 작업 제어를 조율하고 타 근로자를 통제할 전담 안전 신호수 요원의 무단 이탈</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- -------------------------------------------------------------------- -->
-                <!-- PAGE 8: 김해 고소작업차 추락사고 -->
-                <!-- -------------------------------------------------------------------- -->
-                <div id="page-8" class="page-content hidden space-y-5">
-                    <div class="flex flex-col justify-between border-b border-slate-100 pb-4 gap-1">
-                        <span class="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded w-max">고소작업 | CASE 08</span>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-1">8. 김해 고소작업차 추락사고</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="font-bold text-slate-700 text-base">📌 사고 개요 및 핵심 위험 요인</p>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            건축 외벽 고소 판넬 조립 및 미장 처리를 위하여 스카이 리프트 차량 버스켓에 탑승한 근로자가 중심을 잃으며 지상으로 수십 미터 추락하였습니다. 지지 아웃트리거의 접지 결함 및 구명 서포트 미체결 상태가 겹치며 사망 사고를 불렀습니다.
-                        </p>
-                        <div class="bg-red-50 border border-red-100 p-4 rounded-xl space-y-2">
-                            <h4 class="text-xs font-bold text-red-600 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation"></i> 치명적 위험 요인</h4>
-                            <ul class="text-xs text-red-700 list-disc list-inside space-y-1">
-                                <li>근로자가 착용하고 있던 안전 고리용 스냅을 전용 강재 지지 로프(생명선)에 미잠금 방치</li>
-                                <li>경사지 탑승 지지력 보강을 위한 견고한 아웃트리거 밑받침목 고정 배치 생략</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- -------------------------------------------------------------------- -->
-                <!-- PAGE 9: 경기 파주 아파트 신축 현장 질식 사고 -->
-                <!-- -------------------------------------------------------------------- -->
-                <div id="page-9" class="page-content hidden space-y-5">
-                    <div class="flex flex-col justify-between border-b border-slate-100 pb-4 gap-1">
-                        <span class="text-xs font-bold text-teal-600 uppercase tracking-widest bg-teal-50 px-2 py-0.5 rounded w-max">밀폐공간 | CASE 09</span>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-1">9. 경기 파주 아파트 신축 현장 질식 사고</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <p class="font-bold text-slate-700 text-base">📌 사고 개요 및 핵심 위험 요인</p>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            겨울철 슬래브 양생 열풍을 위해 아파트 층을 텐트막으로 전면 보온 수축한 뒤, 내부에 배치된 갈탄 난로 연료 교체차 진입한 현장 직원이 농축된 불완전 연소 가스(일산화탄소)를 마시고 질식하여 참사를 입은 중대 가스 재해입니다.
-                        </p>
-                        <div class="bg-red-50 border border-red-100 p-4 rounded-xl space-y-2">
-                            <h4 class="text-xs font-bold text-red-600 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation"></i> 치명적 위험 요인</h4>
-                            <ul class="text-xs text-red-700 list-disc list-inside space-y-1">
-                                <li>진입 전 농도 검출기(O2, CO) 투입 가동을 통한 사후 안전 가스 농도 판독 원천 무시</li>
-                                <li>밀폐 공간 내부로 산소를 밀어 넣어줄 다구경 기계 송풍 배기 전동 장비 전원 꺼짐 방치</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- -------------------------------------------------------------------- -->
-                <!-- PAGE 10: 국내 건설업 사망재해 현황, 중대재해처벌법 도입 배경 -->
-                <!-- -------------------------------------------------------------------- -->
-                <div id="page-10" class="page-content hidden space-y-4">
-                    <div class="flex flex-col justify-between border-b border-slate-100 pb-3 gap-1">
-                        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2 py-0.5 rounded w-max">국가 건설 통계 및 분석 | CASE 10</span>
-                        <h3 class="text-lg md:text-xl font-black text-slate-800 mt-1">10. 국내 건설업 사망재해 현황, 중대재해처벌법 도입 배경</h3>
-                    </div>
-                    
-                    <div class="space-y-3">
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            국내 건설 산업의 연도별 사망 사고 요인 중 **추락(떨어짐) 및 협착(끼임/깔림)**이 전체 재해의 과반을 차지합니다. 이러한 악순환과 건설 현장 전반의 안전 체계를 완전히 개질하기 위해 **중대재해처벌법**이 탄생하였습니다. 
-                        </p>
-                        
-                        <!-- Mini Chart Data Visual Table -->
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
-                            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">📊 건설 사망 핵심 3대 유형 분포율</h4>
-                            <div class="space-y-1.5">
-                                <div>
-                                    <div class="flex justify-between text-[10px] font-bold text-slate-500">
-                                        <span>추락 (떨어짐, 고소작업 등)</span>
-                                        <span>52.4%</span>
-                                    </div>
-                                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                                        <div class="bg-blue-600 h-full rounded-full" style="width: 52.4%;"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-[10px] font-bold text-slate-500">
-                                        <span>붕괴 및 무너짐 (지반/가설)</span>
-                                        <span>18.1%</span>
-                                    </div>
-                                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                                        <div class="bg-sky-500 h-full rounded-full" style="width: 18.1%;"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-[10px] font-bold text-slate-500">
-                                        <span>기타 (감전, 질식, 화재)</span>
-                                        <span>29.5%</span>
-                                    </div>
-                                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                                        <div class="bg-amber-500 h-full rounded-full" style="width: 29.5%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Near-Miss Submission Form (Light theme matching image_26c044.png style inputs) -->
-                        <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
-                            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">실시간 아차사고 간편 신고 제보망</h4>
-                            <form id="near-miss-form" onsubmit="submitNearMiss(event)" class="space-y-3">
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div>
-                                        <label class="block text-[10px] text-slate-500 font-bold mb-1">작업 대상구분</label>
-                                        <select id="report-phase" class="w-full bg-white text-slate-800 text-xs rounded-lg border border-slate-300 p-2 focus:border-blue-500 focus:outline-none">
-                                            <option value="Electric">전기설비 공정</option>
-                                            <option value="Temporary">가설 및 교량</option>
-                                            <option value="Earthwork">터널 및 지반</option>
-                                            <option value="Lifting">중량물 인양</option>
-                                            <option value="Finishing">마감 화재공정</option>
-                                            <option value="Machinery">건설 중장비</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-[10px] text-slate-500 font-bold mb-1">제보자 직종</label>
-                                        <select id="report-user" class="w-full bg-white text-slate-800 text-xs rounded-lg border border-slate-300 p-2 focus:border-blue-500 focus:outline-none">
-                                            <option value="Worker">현장 기능직</option>
-                                            <option value="Safety Manager">현장 안전감리원</option>
-                                            <option value="Superintendent">감리/기술 단원</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] text-slate-500 font-bold mb-1">관측 위해 사항 기술</label>
-                                    <textarea id="report-desc" rows="2" required placeholder="예: 분전반 접지가 끊겨 철근 절단기 조작 시 짜릿한 전류감이 누전되는 위험이 발견되었습니다. 즉각 개선 바랍니다." class="w-full bg-white text-slate-800 text-xs rounded-lg border border-slate-300 p-2 focus:border-blue-500 focus:outline-none placeholder-slate-400"></textarea>
-                                </div>
-                                <button type="submit" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg transition-all flex items-center justify-center gap-1.5 shadow-sm">
-                                    <i class="fa-solid fa-paper-plane"></i> 스마트 피드백 콘솔 전송
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Common Dashboard Stats/Action block inside left panel -->
+                <!-- Common Dashboard Footer -->
                 <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs" id="common-panel-footer">
                     <span class="text-slate-400 font-mono">SYSTEM: PRE-AUDITED OK</span>
                     <button onclick="navigateToPage(10)" class="text-blue-600 hover:text-blue-700 font-extrabold flex items-center gap-1">
@@ -550,16 +265,12 @@
                 </div>
             </div>
 
-            <!-- Right Panel: Interactive 3D Model Viewport (LIGHT) + Checklist -->
+            <!-- Right Panel: Interactive 3D Model Viewport + Checklist -->
             <div class="lg:col-span-5 flex flex-col gap-6">
                 
-                <!-- 3D BIM Twin Viewer Box (Light Blueprint style) -->
+                <!-- 3D BIM Twin Viewer Box -->
                 <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-card flex flex-col justify-between h-[280px] relative overflow-hidden perspective-container">
-                    
-                    <!-- Grid background -->
                     <div class="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
-
-                    <!-- HUD coordinates -->
                     <div class="absolute left-3 top-3 z-10 font-mono text-[9px] text-slate-400 bg-white/90 p-1.5 rounded-lg border border-slate-200 pointer-events-none space-y-0.5 shadow-sm">
                         <p class="text-blue-600 font-bold">DIGITAL TWIN MODEL</p>
                         <p>CAM_Y_ROT: <span id="rot-y-disp">25</span>°</p>
@@ -568,62 +279,38 @@
                     <!-- 3D CSS Core Frame Container -->
                     <div id="bim3d" class="bim-3d-model h-full w-full flex items-center justify-center" style="transform: rotateX(-15deg) rotateY(25deg);">
                         <div class="relative w-64 h-36" style="transform-style: preserve-3d;">
-                            
-                            <!-- Level 4 plate (Roof / Confined Space / Finishes) -->
-                            <div class="bim-plate flex items-center justify-center flex-col text-center" 
-                                 id="plate-level4"
-                                 style="width: 180px; height: 90px; transform: translate3d(25px, -30px, 0); border-color: rgba(14, 165, 233, 0.4);"
-                                 onclick="navigateToPage(9)">
+                            <!-- Level 4 plate -->
+                            <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level4" style="width: 180px; height: 90px; transform: translate3d(25px, -30px, 0); border-color: rgba(14, 165, 233, 0.4);" onclick="navigateToPage(9)">
                                 <span class="text-[8px] font-mono text-slate-400">LV_4 [CONFINED & FIRE]</span>
                                 <span class="text-[9px] font-extrabold text-slate-700">CASE 09 / CASE 05</span>
                             </div>
-
-                            <!-- Level 3 plate (Steel structure & Lifting area) -->
-                            <div class="bim-plate flex items-center justify-center flex-col text-center" 
-                                 id="plate-level3"
-                                 style="width: 200px; height: 100px; transform: translate3d(15px, 10px, 25px); border-color: rgba(14, 165, 233, 0.4);"
-                                 onclick="navigateToPage(4)">
+                            <!-- Level 3 plate -->
+                            <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level3" style="width: 200px; height: 100px; transform: translate3d(15px, 10px, 25px); border-color: rgba(14, 165, 233, 0.4);" onclick="navigateToPage(4)">
                                 <span class="text-[8px] font-mono text-slate-400">LV_3 [HEAVY LIFT & FALL]</span>
                                 <span class="text-[9px] font-extrabold text-slate-700">CASE 04 / CASE 08</span>
                             </div>
-
-                            <!-- Level 2 plate (Scaffolding & Electrics) -->
-                            <div class="bim-plate flex items-center justify-center flex-col text-center" 
-                                 id="plate-level2"
-                                 style="width: 220px; height: 110px; transform: translate3d(5px, 50px, 50px); border-color: rgba(14, 165, 233, 0.4);"
-                                 onclick="navigateToPage(1)">
+                            <!-- Level 2 plate -->
+                            <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level2" style="width: 220px; height: 110px; transform: translate3d(5px, 50px, 50px); border-color: rgba(14, 165, 233, 0.4);" onclick="navigateToPage(1)">
                                 <span class="text-[8px] font-mono text-slate-400">LV_2 [TEMPORARY / POWER]</span>
                                 <span class="text-[9px] font-extrabold text-slate-700">CASE 01 / CASE 06 / CASE 02</span>
                             </div>
-
-                            <!-- Level 1 plate (Ground / Soil Excavation) -->
-                            <div class="bim-plate flex items-center justify-center flex-col text-center" 
-                                 id="plate-level1"
-                                 style="width: 240px; height: 120px; transform: translate3d(-5px, 90px, 75px); border-color: rgba(14, 165, 233, 0.4);"
-                                 onclick="navigateToPage(3)">
+                            <!-- Level 1 plate -->
+                            <div class="bim-plate flex items-center justify-center flex-col text-center" id="plate-level1" style="width: 240px; height: 120px; transform: translate3d(-5px, 90px, 75px); border-color: rgba(14, 165, 233, 0.4);" onclick="navigateToPage(3)">
                                 <span class="text-[8px] font-mono text-slate-400">LV_1 [EARTH & MACHINERY]</span>
                                 <span class="text-[9px] font-extrabold text-slate-700">CASE 03 / CASE 07</span>
                             </div>
-
                         </div>
                     </div>
 
                     <!-- 3D Rotation Controllers -->
                     <div class="absolute bottom-3 right-3 flex items-center gap-1 z-10">
-                        <button onclick="rotateBIM(-25)" class="h-6 w-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center shadow-sm" title="회전">
-                            <i class="fa-solid fa-arrow-rotate-left"></i>
-                        </button>
-                        <button onclick="resetBIMRotation()" class="px-2 h-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center font-bold shadow-sm">
-                            정면 정렬
-                        </button>
-                        <button onclick="rotateBIM(25)" class="h-6 w-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center shadow-sm" title="회전">
-                            <i class="fa-solid fa-arrow-rotate-right"></i>
-                        </button>
+                        <button onclick="rotateBIM(-25)" class="h-6 w-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center shadow-sm"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                        <button onclick="resetBIMRotation()" class="px-2 h-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center font-bold shadow-sm">정면 정렬</button>
+                        <button onclick="rotateBIM(25)" class="h-6 w-6 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-[10px] flex items-center justify-center shadow-sm"><i class="fa-solid fa-arrow-rotate-right"></i></button>
                     </div>
-
                 </div>
 
-                <!-- Dynamic Safety Checklist Verification (Matching image_26c044.png clean style) -->
+                <!-- Dynamic Safety Checklist Verification -->
                 <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-card flex-1 flex flex-col justify-between min-h-[195px]">
                     <div>
                         <div class="flex items-center justify-between mb-3">
@@ -633,11 +320,9 @@
                             <span class="text-[9px] font-mono text-slate-400">CHECKLIST CONTROLLER</span>
                         </div>
                         
-                        <!-- Checklists wrappers dynamically shown based on current active page -->
+                        <!-- 동적 바인딩 타겟 체크리스트 영역 -->
                         <div class="space-y-2.5 text-xs text-slate-600" id="checklist-host">
-                            
-                            <!-- PAGE 1 Checklist -->
-                            <div id="check-list-1" class="checklist-group space-y-2">
+                            <div id="checklist-target-zone" class="checklist-group space-y-2">
                                 <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
                                     <input type="checkbox" onchange="evaluateChecklistStatus(1)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
                                     <span>절단기 가동 배선 내 대지 전압 저감용 정격 누전차단기 유효 작동 검사</span>
@@ -647,133 +332,25 @@
                                     <span>작업장 지면에 노출된 젖은 수분 제거 및 안전 절연 보호 장갑 필수 착용</span>
                                 </label>
                             </div>
-
-                            <!-- PAGE 2 Checklist -->
-                            <div id="check-list-2" class="checklist-group hidden space-y-2">
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(2)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>거푸집 동바리 조립 상세도 준수 및 지지 가새 체결 검증</span>
-                                </label>
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(2)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>타설 중 무리한 하중 편심 집중 배제 및 전용 분산 장비 투입</span>
-                                </label>
-                            </div>
-
-                            <!-- PAGE 3 Checklist -->
-                            <div id="check-list-3" class="checklist-group hidden space-y-2">
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(3)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>차수 벽체 그라우팅 상태 일일 배수 모니터링 체크</span>
-                                </label>
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(3)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>경사계 및 토압 변위 센서 한계값 도달 시 핫라인 비상 대피 시스템 작동</span>
-                                </label>
-                            </div>
-
-                            <!-- PAGE 4 Checklist -->
-                            <div id="check-list-4" class="checklist-group hidden space-y-2">
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(4)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>슬링로프 인양물 2곳 이상 이중 와이어로프 및 분실 방지 클립 체결</span>
-                                </label>
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(4)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>중량물 수직 반경 하부에 통제 비콘 설치 및 전담 제어수 고용</span>
-                                </label>
-                            </div>
-
-                            <!-- PAGE 5 Checklist -->
-                            <div id="check-list-5" class="checklist-group hidden space-y-2">
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(5)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>도장/방수 부서와 인근 화기 사용 배관 결합 공정 전면 시차 차단</span>
-                                </label>
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(5)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>화재감시인 전담 배치 및 입구 대형 소화포, CO2 자동 진화기 확보</span>
-                                </label>
-                            </div>
-
-                            <!-- PAGE 6 Checklist -->
-                            <div id="check-list-6" class="checklist-group hidden space-y-2">
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(6)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>가설 이동형 배전반 내 정격 감도 전류 누전차단기 개별 물림 검증</span>
-                                </label>
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(6)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>정비 또는 날 전기 작업 시 LOTO(차단기 시건장치 및 Tag) 시스템 작동</span>
-                                </label>
-                            </div>
-
-                            <!-- PAGE 7 Checklist -->
-                            <div id="check-list-7" class="checklist-group hidden space-y-2">
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(7)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>관로 터파기 흙막이 지보공 붕괴 방지용 수평 버팀대 견고 고정</span>
-                                </label>
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(7)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>중장비 유도원 전담 배치 및 위험 작업 반경 접근 금지 구획 바리케이드 완비</span>
-                                </label>
-                            </div>
-
-                            <!-- PAGE 8 Checklist -->
-                            <div id="check-list-8" class="checklist-group hidden space-y-2">
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(8)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>스카이 버스켓 지지 아웃트리거 바닥 침하 방지용 강철 받침판 완비</span>
-                                </label>
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(8)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>작업용 고소 안전대 고리 지선 안전 로프에 정확히 체결 승인</span>
-                                </label>
-                            </div>
-
-                            <!-- PAGE 9 Checklist -->
-                            <div id="check-list-9" class="checklist-group hidden space-y-2">
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(9)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>밀폐 밀실 내부 진입 전 다목적 4대가스 측정 검지봉 완비 계측</span>
-                                </label>
-                                <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200/50">
-                                    <input type="checkbox" onchange="evaluateChecklistStatus(9)" class="w-4 h-4 text-blue-600 focus:ring-0 rounded border-slate-300">
-                                    <span>강제 환기 배풍 시스템 호스 인출 가동 및 외부 입구 정비 대원 상주</span>
-                                </label>
-                            </div>
-
-                            <!-- PAGE 10 Checklist -->
-                            <div id="check-list-10" class="checklist-group hidden space-y-2">
-                                <div class="p-3 bg-blue-50 rounded-xl border border-blue-200 text-[11px] text-blue-800 leading-relaxed">
-                                    <p class="font-bold mb-1"><i class="fa-solid fa-scale-balanced"></i> 중대재해처벌법 및 위험성평가</p>
-                                    <p>각 사례별 예방 체크리스트를 클릭하여 현장에서 발생할 수 있는 주요 위험을 사전 통제하고 최종 안전 승인을 획득하십시오.</p>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 
                     <!-- Evaluation dynamic result footer -->
                     <div class="mt-4 pt-3 border-t border-slate-100 text-center flex items-center justify-between" id="checklist-result-bar">
                         <span class="text-[10px] font-mono text-slate-400">STATUS: AUDITING</span>
-                        <span id="audit-status-badge" class="text-[11px] font-bold text-red-500 font-sans flex items-center gap-1">
-                            <i class="fa-solid fa-circle-exclamation animate-pulse"></i> 미진단 상태
+                        <span id="audit-status-badge" class="text-[11px] font-bold text-rose-500 font-sans flex items-center gap-1">
+                            <i class="fa-solid fa-circle-exclamation"></i> 미진단 상태
                         </span>
                     </div>
-
                 </div>
 
             </div>
-
         </div>
 
         <!-- Live Near-miss Alert Logs -->
         <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-card">
             <h4 class="text-[10px] font-mono text-blue-600 uppercase tracking-widest font-extrabold mb-2.5">LIVE CAD_HOTLINE TRANSMISSION FEED (위험요소 관제 현황 로그)</h4>
             <div id="live-alert-board" class="space-y-1.5 max-h-[140px] overflow-y-auto pr-2 text-[11px] font-mono">
-                <!-- Prepopulated logs -->
                 <div class="p-2 bg-slate-50 rounded-lg border border-slate-200/60 flex justify-between items-center text-slate-500">
                     <span class="flex items-center gap-1.5"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> [HQ_GATEWAY]</span>
                     <span class="text-slate-700">전국 통합 건설소 안전 피드백 콘솔이 실시간 동기화 상태입니다.</span>
@@ -792,9 +369,7 @@
             </div>
             <div>
                 <h3 class="text-lg font-black text-slate-800 tracking-tight" id="modal-title">STATION SECURED</h3>
-                <p class="text-xs text-slate-500 mt-1 leading-relaxed" id="modal-desc">
-                    가상 안전체크 진단 검사가 완료되었습니다!
-                </p>
+                <p class="text-xs text-slate-500 mt-1 leading-relaxed" id="modal-desc">가상 안전체크 진단 검사가 완료되었습니다!</p>
             </div>
             <button onclick="closeSafetyModal()" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl transition-all shadow-md">
                 승인 및 대시보드 복귀
@@ -802,7 +377,7 @@
         </div>
     </div>
 
-    <!-- Web Footer (Light Theme) -->
+    <!-- Web Footer -->
     <footer class="border-t border-slate-200 bg-white text-slate-400 py-4 px-6 text-center text-xs font-mono mt-auto">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
             <p>© 2026 BIM-SAFE Construction Safety Digital Twin. All Rights Reserved.</p>
@@ -854,42 +429,21 @@
         // Active Case Page State
         let currentPage = 1;
 
-        // Dynamic Page Navigator (Matching 10 cards exactly)
-        function navigateToPage(pageNum) {
+        // 동적 비동기 네비게이터 함수 (5-1.html ~ 5-10.html 파일을 매핑 및 구조적 스왑)
+        async function navigateToPage(pageNum) {
             currentPage = pageNum;
 
-            // 1. Hide all text-detail viewports
-            const pages = document.querySelectorAll('.page-content');
-            pages.forEach(p => p.classList.add('hidden'));
-
-            // 2. Reveal target text viewport
-            const targetPage = document.getElementById(`page-${pageNum}`);
-            if (targetPage) targetPage.classList.remove('hidden');
-
-            // 3. Highlight navigation cards (Matching image_26c044.png active/hover style)
+            // 1. 네비게이션 메뉴 카드 갱신
             for (let i = 1; i <= 10; i++) {
                 const card = document.getElementById(`card-${i}`);
                 if (card) {
-                    if (i === pageNum) {
-                        card.classList.add('active');
-                    } else {
-                        card.classList.remove('active');
-                    }
+                    if (i === pageNum) card.classList.add('active');
+                    else card.classList.remove('active');
                 }
             }
 
-            // 4. Update dynamic checklists
-            const checklists = document.querySelectorAll('.checklist-group');
-            checklists.forEach(chk => chk.classList.add('hidden'));
-
-            const targetChecklist = document.getElementById(`check-list-${pageNum}`);
-            if (targetChecklist) targetChecklist.classList.remove('hidden');
-
-            // 5. Connect 3D twin plates with pages
-            document.querySelectorAll('.bim-plate').forEach(plate => {
-                plate.classList.remove('active-plate');
-            });
-
+            // 2. 3D 트윈 플레이트 클래스 부여 및 회전동기화
+            document.querySelectorAll('.bim-plate').forEach(plate => plate.classList.remove('active-plate'));
             if (pageNum === 1 || pageNum === 2 || pageNum === 6) {
                 document.getElementById('plate-level2').classList.add('active-plate');
                 rotateBIM(15);
@@ -906,48 +460,89 @@
                 resetBIMRotation();
             }
 
-            // 6. Update current audit state
+            // 3. 비동기 Fetch 통신 구동
+            try {
+                const response = await fetch(`5-${pageNum}.html`);
+                if (!response.ok) throw new Error('서브 컨포넌트 수신 실패');
+
+                const htmlText = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+
+                // 서브 파일에서 콘텐츠 영역 스왑
+                const incomingContent = doc.querySelector('.page-content') || doc.body;
+                const targetZone = document.getElementById('page-content-target');
+                if (targetZone) targetZone.innerHTML = incomingContent.innerHTML;
+
+                // 서브 파일에서 체크리스트 레이아웃 바인딩
+                const incomingChecklist = doc.querySelector('.checklist-group') || doc.querySelector(`#check-list-${pageNum}`);
+                const checklistHost = document.getElementById('checklist-target-zone');
+                if (incomingChecklist && checklistHost) {
+                    checklistHost.innerHTML = incomingChecklist.innerHTML;
+                    
+                    // 수집된 내부 체크박스 객체에 대한 트리거 핸들러 바인딩 재정의
+                    const checkboxes = checklistHost.querySelectorAll('input[type="checkbox"]');
+                    checkboxes.forEach(cb => {
+                        cb.setAttribute('onchange', `evaluateChecklistStatus(${pageNum})`);
+                    });
+                }
+            } catch (error) {
+                console.warn("비동기 데이터 바인딩 실패: 서버 환경 혹은 서브 노드 구조를 확인하십시오.");
+            }
+
+            // 4. 진단 평가 상태 계산 호출
             evaluateChecklistStatus(pageNum);
         }
 
-        // Checklist evaluation and status changes
+        // 실시간 체크리스트 진단 검사 및 상태 평가 연산 함수
         function evaluateChecklistStatus(pageNum) {
             const resultBar = document.getElementById('checklist-result-bar');
             const badge = document.getElementById('audit-status-badge');
+            if (!resultBar || !badge) return;
 
             if (pageNum === 10) {
                 resultBar.classList.add('opacity-40');
                 badge.className = "text-[11px] font-bold text-slate-400 font-sans";
-                badge.innerHTML = `<i class="fa-solid fa-circle-minus"></i> 진단 대상 아음`;
+                badge.innerHTML = `<i class="fa-solid fa-circle-minus"></i> 진단 대상 없음`;
                 return;
             }
 
             resultBar.classList.remove('opacity-40');
+            const checklistHost = document.getElementById('checklist-target-zone');
+            if (!checklistHost) return;
 
-            const checks = document.querySelectorAll(`#check-list-${pageNum} input[type="checkbox"]`);
+            const checks = checklistHost.querySelectorAll('input[type="checkbox"]');
+            if (checks.length === 0) return;
+
             let allPassed = true;
+            let checkedCount = 0;
+
             checks.forEach(c => {
                 if (!c.checked) allPassed = false;
+                else checkedCount++;
             });
+
+            if (checkedCount === 0) {
+                badge.className = "text-[11px] font-bold text-rose-500 font-sans flex items-center gap-1";
+                badge.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> 미진단 상태`;
+                return;
+            }
 
             if (allPassed) {
                 badge.className = "text-[11px] font-bold text-emerald-600 font-sans flex items-center gap-1";
                 badge.innerHTML = `<i class="fa-solid fa-circle-check"></i> 진단 완전 확보`;
 
-                // Display modal
                 const modalTitle = document.getElementById('modal-title');
                 const modalDesc = document.getElementById('modal-desc');
-
-                modalTitle.innerText = `[CASE 0${pageNum}] 진단 최종 통과`;
-                modalDesc.innerText = `선택하신 실제 재해 예방안에 대한 가상 체크 검증이 실시간 완료되었습니다. 현장 안전 수칙을 항시 이행하여 주십시오.`;
-
+                if (modalTitle && modalDesc) {
+                    modalTitle.innerText = `[CASE 0${pageNum}] 진단 최종 통과`;
+                    modalDesc.innerText = `선택하신 실제 재해 예방안에 대한 가상 체크 검증이 실시간 완료되었습니다. 현장 안전 수칙을 항시 이행하여 주십시오.`;
+                }
                 document.getElementById('safety-modal').classList.remove('hidden');
-
-                // Inject live log
                 injectLiveLog(`CASE 0${pageNum}`, `정밀 안전 확인 검사 통과 및 승인 완료`);
             } else {
                 badge.className = "text-[11px] font-bold text-rose-500 font-sans flex items-center gap-1 animate-pulse";
-                badge.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> 점검 진행 중...`;
+                badge.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> 점검 진행 중 (${checkedCount}/${checks.length})...`;
             }
         }
 
@@ -960,6 +555,7 @@
             const board = document.getElementById('live-alert-board');
             const now = new Date();
             const timeStr = now.toTimeString().split(' ')[0];
+            if (!board) return;
 
             const item = document.createElement('div');
             item.className = "p-2 bg-blue-50/50 rounded-lg border border-blue-100/50 flex justify-between items-center text-xs text-blue-800 animate-fadeIn";
@@ -978,36 +574,28 @@
             const user = document.getElementById('report-user').value;
             const desc = document.getElementById('report-desc').value;
 
-            // Generate Log
             injectLiveLog(phase.toUpperCase(), `신고(${user}): ${desc}`);
 
-            // Modal alerts
             const modalTitle = document.getElementById('modal-title');
             const modalDesc = document.getElementById('modal-desc');
-
-            modalTitle.innerText = `스마트 민원 신고 완료`;
-            modalDesc.innerText = `[${phase}] 파트 현장 관리관에 관측 위험을 무선 전송하였습니다. 실시간 조치가 곧 진행됩니다.`;
+            if (modalTitle && modalDesc) {
+                modalTitle.innerText = `스마트 민원 신고 완료`;
+                modalDesc.innerText = `[${phase}] 파트 현장 관리관에 관측 위험을 무선 전송하였습니다. 실시간 조치가 곧 진행됩니다.`;
+            }
             document.getElementById('safety-modal').classList.remove('hidden');
-
-            // reset textbox
             document.getElementById('report-desc').value = '';
         }
 
         // Reset Simulator
         function resetSimulator() {
-            // Uncheck all boxes
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             checkboxes.forEach(c => c.checked = false);
-
-            // Reload default page 1
             navigateToPage(1);
-
-            // Log output
             injectLiveLog("SYSTEM", "시뮬레이터 상태 전면 공정 초기화 완료");
         }
 
-        // First Load Initializer
         window.onload = function() {
+            // 최초 로드 시 1페이지 타겟 초기 연동 실행
             navigateToPage(1);
         }
     </script>
