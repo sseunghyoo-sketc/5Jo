@@ -36,43 +36,78 @@
     <style>
         body {
             font-family: 'Gothic A1', sans-serif;
-            background-color: #F8FAFC;
             color: #1E293B;
             overflow-x: hidden;
-            background-image: 
-                linear-gradient(to right, rgba(14, 165, 233, 0.04) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
-            background-size: 24px 24px;
+            position: relative;
+            min-h: 100vh;
+        }
+
+        /* [배경 최적화] 건설 현장 고화질 전체 배경화면 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -2;
+        }
+
+        /* 텍스트 가독성과 입체감을 위한 암막 마스크 필터 */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.75); 
+            backdrop-filter: blur(4px); 
+            z-index: -1;
         }
 
         .card-custom {
-            background-color: #FFFFFF;
-            border: 1.5px solid #E2E8F0;
+            background-color: rgba(255, 255, 255, 0.85);
+            border: 1.5px solid rgba(226, 232, 240, 0.3);
             border-radius: 16px;
+            backdrop-filter: blur(8px);
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .card-custom:hover {
             border-color: #2563EB;
+            background-color: #FFFFFF;
             transform: translateY(-4px);
-            box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.15);
+            box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.3);
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
 
     <!-- HUD Header -->
-    <header class="border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0 z-40 py-4 px-6 flex justify-between items-center">
+    <header class="border-b border-slate-700/50 bg-slate-900/90 backdrop-blur-md sticky top-0 z-40 py-3 px-6 flex justify-between items-center shadow-md">
         <div class="flex items-center space-x-3">
             <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-blue-600 to-sky-500 flex items-center justify-center text-white font-black text-xl shadow-md">B</div>
             <div>
-                <h1 class="font-sans font-extrabold tracking-tight text-lg text-slate-800 flex items-center gap-2">
-                    BIM-SAFE <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold font-mono">DIGITAL TWIN v5.0</span>
+                <h1 class="font-sans font-extrabold tracking-tight text-lg text-white flex items-center gap-2">
+                    BIM-SAFE <span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold font-mono">DIGITAL TWIN v5.0</span>
                 </h1>
                 <p class="text-[10px] text-slate-400 uppercase tracking-widest font-mono">Construction Safety Interactive Simulator</p>
             </div>
         </div>
-        <div class="text-xs font-mono bg-blue-50 border border-blue-100 rounded-xl px-4 py-2 text-blue-600 font-bold">
-            <span id="system-time">00:00:00</span>
+        
+        <!-- 오른쪽 상단 연동 컴포넌트 (시간 + QR 코드 추가) -->
+        <div class="flex items-center space-x-4">
+            <div class="text-xs font-mono bg-blue-950/50 border border-blue-800 rounded-xl px-4 py-2 text-blue-400 font-bold">
+                <span id="system-time">00:00:00</span>
+            </div>
+            <!-- QR 코드 이미지 컨테이너 -->
+            <div class="bg-white p-1 rounded-lg shadow-sm border border-slate-700/60 flex items-center justify-center">
+                <img src="qrcode.png" alt="System QR" class="h-9 w-9 object-contain" onerror="this.style.display='none'; console.warn('QR코드가 경로에 없습니다. qrcode.png 파일명을 확인하세요.');">
+            </div>
         </div>
     </header>
 
@@ -80,62 +115,62 @@
         
         <!-- Introduction Header -->
         <div class="text-center max-w-3xl mx-auto space-y-2 pt-4">
-            <span class="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">건설현장 핵심 10대 재해 사례 연구</span>
-            <h2 class="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">
+            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest bg-blue-950/60 border border-blue-800/60 px-3 py-1 rounded-full shadow-sm">건설현장 핵심 10대 재해 사례 연구</span>
+            <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight drop-shadow-md">
                 과거의 실패에서 배우는 안전 인프라 시뮬레이션
             </h2>
-            <p class="text-sm text-slate-500">
+            <p class="text-sm text-slate-300 font-medium">
                 원하는 재해 사례 카드를 클릭하면 전체화면 진단 검사 콘솔이 실시간으로 개방됩니다.
             </p>
         </div>
 
-        <!-- 10 Clickable Cards Grid (Expanded to full width) -->
+        <!-- 10 Clickable Cards Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             <div onclick="navigateToPage(1)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">⚡</span>
-                <span class="font-extrabold text-xs text-slate-700 tracking-tight leading-snug">1. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">1. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span>
             </div>
             <div onclick="navigateToPage(2)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">🌉</span>
-                <span class="font-extrabold text-xs text-slate-700 tracking-tight leading-snug">2. 세종 안성 고속도로 청용천교 붕괴</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">2. 세종 안성 고속도로 청용천교 붕괴</span>
             </div>
             <div onclick="navigateToPage(3)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">⛏️</span>
-                <span class="font-extrabold text-xs text-slate-700 tracking-tight leading-snug">3. 터널 및 흙막이 지반 붕괴 사고</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">3. 터널 및 흙막이 지반 붕괴 사고</span>
             </div>
             <div onclick="navigateToPage(4)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">🏗️</span>
-                <span class="font-extrabold text-xs text-slate-700 tracking-tight leading-snug">4. 경기 고양 현장 철근다발 낙하 사망 사고</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">4. 경기 고양 현장 철근다발 낙하 사망 사고</span>
             </div>
             <div onclick="navigateToPage(5)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">🔥</span>
-                <span class="font-extrabold text-xs text-slate-700 tracking-tight leading-snug">5. 부산 기장군 리조트 현장 대형 화재 사고</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">5. 부산 기장군 리조트 현장 대형 화재 사고</span>
             </div>
             <div onclick="navigateToPage(6)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">⚡</span>
-                <span class="font-extrabold text-xs text-slate-700 tracking-tight leading-snug">6. 철근 절단기 조작 중 감전 사망 사고 (상세)</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">6. 철근 절단기 조작 중 감전 사망 사고 (상세)</span>
             </div>
             <div onclick="navigateToPage(7)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">🚜</span>
-                <span class="font-extrabold text-xs text-slate-700 tracking-tight leading-snug">7. 충남 아산시 하수관로 정비공사 현장</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">7. 충남 아산시 하수관로 정비공사 현장</span>
             </div>
             <div onclick="navigateToPage(8)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">🪜</span>
-                <span class="font-extrabold text-xs text-slate-700 tracking-tight leading-snug">8. 김해 고소작업차 추락사고</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">8. 김해 고소작업차 추락사고</span>
             </div>
             <div onclick="navigateToPage(9)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">☣️</span>
-                <span class="font-extrabold text-xs text-slate-700 tracking-tight leading-snug">9. 경기 파주 아파트 현장 질식 사고</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">9. 경기 파주 아파트 현장 질식 사고</span>
             </div>
-            <div onclick="navigateToPage(10)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px] bg-blue-50/40 border-blue-200 hover:bg-blue-50">
+            <div onclick="navigateToPage(10)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px] bg-blue-900/40 border-blue-500/40 hover:bg-white text-white hover:text-slate-800">
                 <span class="text-3xl mb-2">🚨</span>
-                <span class="font-extrabold text-xs text-blue-900 tracking-tight leading-snug">10. 국내 사망재해 현황, 중대재해법 도입 배경</span>
+                <span class="font-extrabold text-xs tracking-tight leading-snug">10. 국내 사망재해 현황, 중대재해법 도입 배경</span>
             </div>
         </div>
     </main>
 
     <!-- FULL-SCREEN INTERACTIVE VIEWER OVERLAY -->
-    <div id="fullscreen-overlay" class="fixed inset-0 bg-slate-950/40 backdrop-blur-md z-50 flex items-center justify-center p-0 hidden">
+    <div id="fullscreen-overlay" class="fixed inset-0 bg-slate-955/65 backdrop-blur-md z-50 flex items-center justify-center p-0 hidden">
         <div class="bg-white w-full h-full md:w-[95vw] md:h-[92vh] md:rounded-3xl flex flex-col justify-between shadow-2xl overflow-hidden border border-slate-200">
             
             <!-- Top Status Nav Bar -->
@@ -164,7 +199,7 @@
     </div>
 
     <!-- Web Footer -->
-    <footer class="border-t border-slate-200 bg-white text-slate-400 py-4 px-6 text-center text-xs font-mono mt-auto">
+    <footer class="border-t border-slate-800 bg-slate-900 text-slate-400 py-4 px-6 text-center text-xs font-mono mt-auto">
         <p>© 2026 BIM-SAFE Construction Safety Digital Twin. All Rights Reserved.</p>
     </footer>
 
