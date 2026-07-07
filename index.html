@@ -8,26 +8,28 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;500;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Google Fonts: 마인크래프트 느낌의 각진 폰트 및 가독성을 위한 조합 -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Galmuri11:wght@400;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        bim: {
-                            bg: '#F8FAFC',
-                            card: '#FFFFFF',
-                            border: '#E2E8F0',
-                            textDark: '#1E293B',
-                            blue: '#2563EB',
-                            sky: '#0EA5E9'
+                        mc: {
+                            bg: '#141414',
+                            gui: '#C6C6C6',
+                            guiDark: '#2C2C2C',
+                            borderLight: '#FFFFFF',
+                            borderDark: '#555555',
+                            textYellow: '#FFFF55',
+                            textGreen: '#55FF55',
+                            textShadow: '#3F3F3F'
                         }
                     },
                     fontFamily: {
-                        sans: ['Gothic A1', 'sans-serif'],
-                        mono: ['Share Tech Mono', 'monospace'],
+                        sans: ['Galmuri11', 'sans-serif'],
+                        pixel: ['"Press Start 2P"', 'monospace'],
                     }
                 }
             }
@@ -35,14 +37,15 @@
     </script>
     <style>
         body {
-            font-family: 'Gothic A1', sans-serif;
-            color: #1E293B;
+            font-family: 'Galmuri11', sans-serif;
+            color: #FFFFFF;
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
+            background-color: #141414;
         }
 
-        /* [배경 최적화] 건설 현장 고화질 전체 배경화면 */
+        /* [배경 최적화] 마인크래프트 고화질 배경화면 적용 */
         body::before {
             content: "";
             position: fixed;
@@ -57,7 +60,7 @@
             z-index: -2;
         }
 
-        /* 텍스트 가독성과 입체감을 위한 암막 마스크 필터 */
+        /* 마인크래프트 게임 속 블러 및 어두운 레이어 느낌 구현 */
         body::after {
             content: "";
             position: fixed;
@@ -65,48 +68,63 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(15, 23, 42, 0.75); 
-            backdrop-filter: blur(4px); 
+            background: rgba(16, 20, 30, 0.7); 
+            backdrop-filter: blur(5px); 
             z-index: -1;
         }
 
+        /* 마인크래프트 GUI Item Slot 스타일 커스텀 카드 */
         .card-custom {
-            background-color: rgba(255, 255, 255, 0.85);
-            border: 1.5px solid rgba(226, 232, 240, 0.3);
-            border-radius: 16px;
-            backdrop-filter: blur(8px);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #8B8B8B;
+            border: 4px solid #373737;
+            border-top-color: #FFF;
+            border-left-color: #FFF;
+            image-rendering: pixelated;
+            transition: all 0.15s ease-in-out;
+            box-shadow: inset -4px -4px 0px #555555;
         }
+        
+        /* 마인크래프트 인벤토리 슬롯 호버/선택 효과 */
         .card-custom:hover {
-            border-color: #2563EB;
-            background-color: #FFFFFF;
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.3);
+            background-color: #C6C6C6;
+            border-color: #FFFFFF;
+            border-top-color: #373737;
+            border-left-color: #373737;
+            box-shadow: inset -4px -4px 0px #8B8B8B, 0px 0px 12px #FFFF55;
+            transform: scale(1.02);
+        }
+
+        /* 마인크래프트 버튼 텍스트 그림자 효과 */
+        .mc-shadow {
+            text-shadow: 2px 2px 0px #3F3F3F;
+        }
+        .mc-shadow-yellow {
+            text-shadow: 2px 2px 0px #3F3F00;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
 
-    <!-- HUD Header -->
-    <header class="border-b border-slate-700/50 bg-slate-900/90 backdrop-blur-md sticky top-0 z-40 py-3 px-6 flex justify-between items-center shadow-md">
+    <!-- HUD Header (마인크래프트 상단바 스타일) -->
+    <header class="border-b-4 border-black bg-neutral-900 sticky top-0 z-40 py-3 px-6 flex justify-between items-center shadow-lg">
         <div class="flex items-center space-x-3">
-            <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-blue-600 to-sky-500 flex items-center justify-center text-white font-black text-xl shadow-md">5</div>
+            <div class="h-10 w-10 bg-gradient-to-br from-green-600 to-emerald-800 border-2 border-black flex items-center justify-center text-white font-pixel text-xl shadow-[inset_2px_2px_0px_rgba(255,255,255,0.4)]">5</div>
             <div>
-                <h1 class="font-sans font-extrabold tracking-tight text-lg text-white flex items-center gap-2">
-                    5조 '건설재해사례조사' <span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold font-mono">DIGITAL TWIN v5.0</span>
+                <h1 class="font-sans font-bold tracking-tight text-lg text-white flex items-center gap-2 mc-shadow">
+                    5조 '건설재해사례조사' <span class="text-[10px] bg-yellow-500 text-black font-pixel font-bold px-2 py-0.5 border border-black shadow-[1px_1px_0px_#000]">v5.0</span>
                 </h1>
-                <p class="text-[10px] text-slate-400 uppercase tracking-widest font-mono">Construction Safety Interactive Simulator</p>
+                <p class="text-[10px] text-zinc-400 uppercase tracking-widest font-pixel">SAFETY INTERACTIVE SIMULATOR</p>
             </div>
         </div>
         
         <!-- 오른쪽 상단 연동 컴포넌트 -->
         <div class="flex items-center space-x-4">
-            <div class="text-xs font-mono bg-blue-955/50 border border-blue-800 rounded-xl px-4 py-2 text-blue-400 font-bold">
+            <div class="text-xs font-pixel border-4 border-neutral-700 bg-black px-4 py-2 text-mc-textGreen mc-shadow">
                 <span id="system-time">00:00:00</span>
             </div>
             <!-- QR 코드 이미지 버튼 -->
-            <div onclick="openQrModal()" class="bg-white p-1 rounded-lg shadow-sm border border-slate-700/60 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
-                <img src="qrcode.png" alt="System QR" class="h-9 w-9 object-contain" onerror="this.style.display='none';">
+            <div onclick="openQrModal()" class="bg-zinc-300 p-1 border-4 border-zinc-600 shadow-[inset_-2px_-2px_0px_#555,inset_2px_2px_0px_#fff] flex items-center justify-center cursor-pointer hover:bg-white active:translate-y-0.5 transition-all">
+                <img src="qrcode.png" alt="System QR" class="h-8 w-8 object-contain" onerror="this.style.display='none';">
             </div>
         </div>
     </header>
@@ -114,131 +132,133 @@
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
         
         <!-- Introduction Header -->
-        <div class="text-center max-w-3xl mx-auto space-y-2 pt-4">
-            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest bg-blue-950/60 border border-blue-800/60 px-3 py-1 rounded-full shadow-sm">건설현장 핵심 10대 재해 사례 연구</span>
-            <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight drop-shadow-md">
+        <div class="text-center max-w-3xl mx-auto space-y-3 pt-4">
+            <span class="text-xs font-bold text-mc-textYellow uppercase tracking-widest bg-zinc-900 border-2 border-zinc-700 px-3 py-1 shadow-md mc-shadow-yellow">
+                [ 건설현장 핵심 10대 재해 사례 연구 ]
+            </span>
+            <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tight mc-shadow">
                 과거의 실패에서 배우는 안전 인프라 시뮬레이션
             </h2>
-            <p class="text-sm text-slate-300 font-medium">
-                원하는 재해 사례 카드를 클릭하면 전체화면 진단 검사 콘솔이 실시간으로 개방됩니다.
+            <p class="text-sm text-zinc-300">
+                원하는 재해 사례 블록을 클릭하면 안전 검사 콘솔이 인벤토리 창처럼 개방됩니다.
             </p>
         </div>
 
-        <!-- 1~10 Clickable Cards Grid -->
+        <!-- 1~10 Clickable Cards Grid (마인크래프트 인벤토리 슬롯 느낌) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div onclick="navigateToPage(1)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
-                <span class="text-3xl mb-2">⚡</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">1. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span>
+            <div onclick="navigateToPage(1)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
+                <span class="text-3xl mb-2 drop-shadow">⚡</span>
+                <span class="font-bold text-xs text-black tracking-tight leading-snug">1. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span>
             </div>
-            <div onclick="navigateToPage(2)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
-                <span class="text-3xl mb-2">🌉</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">2. 세종 안성 고속도로 청용천교 붕괴</span>
+            <div onclick="navigateToPage(2)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
+                <span class="text-3xl mb-2 drop-shadow">🌉</span>
+                <span class="font-bold text-xs text-black tracking-tight leading-snug">2. 세종 안성 고속도로 청용천교 붕괴</span>
             </div>
-            <div onclick="navigateToPage(3)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
-                <span class="text-3xl mb-2">⛏️</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">3. 터널 및 흙막이 지반 붕괴 사고</span>
+            <div onclick="navigateToPage(3)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
+                <span class="text-3xl mb-2 drop-shadow">⛏️</span>
+                <span class="font-bold text-xs text-black tracking-tight leading-snug">3. 터널 및 흙막이 지반 붕괴 사고</span>
             </div>
-            <div onclick="navigateToPage(4)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
-                <span class="text-3xl mb-2">🏗️</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">4. 경기 고양 현장 철근다발 낙하 사망 사고</span>
+            <div onclick="navigateToPage(4)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
+                <span class="text-3xl mb-2 drop-shadow">🏗️</span>
+                <span class="font-bold text-xs text-black tracking-tight leading-snug">4. 경기 고양 현장 철근다발 낙하 사망 사고</span>
             </div>
-            <div onclick="navigateToPage(5)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
-                <span class="text-3xl mb-2">🔥</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">5. 부산 기장군 리조트 현장 대형 화재 사고</span>
+            <div onclick="navigateToPage(5)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
+                <span class="text-3xl mb-2 drop-shadow">🔥</span>
+                <span class="font-bold text-xs text-black tracking-tight leading-snug">5. 부산 기장군 리조트 현장 대형 화재 사고</span>
             </div>
-            <div onclick="navigateToPage(6)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
-                <span class="text-3xl mb-2">⚡</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">6. 철근 절단기 조작 중 감전 사망 사고 (상세)</span>
+            <div onclick="navigateToPage(6)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
+                <span class="text-3xl mb-2 drop-shadow">⚡</span>
+                <span class="font-bold text-xs text-black tracking-tight leading-snug">6. 철근 절단기 조작 중 감전 사망 사고 (상세)</span>
             </div>
-            <div onclick="navigateToPage(7)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
-                <span class="text-3xl mb-2">🚜</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">7. 충남 아산시 하수관로 정비공사 현장</span>
+            <div onclick="navigateToPage(7)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
+                <span class="text-3xl mb-2 drop-shadow">🚜</span>
+                <span class="font-bold text-xs text-black tracking-tight leading-snug">7. 충남 아산시 하수관로 정비공사 현장</span>
             </div>
-            <div onclick="navigateToPage(8)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
-                <span class="text-3xl mb-2">🪜</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">8. 김해 고소작업차 추락사고</span>
+            <div onclick="navigateToPage(8)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
+                <span class="text-3xl mb-2 drop-shadow">🪜</span>
+                <span class="font-bold text-xs text-black tracking-tight leading-snug">8. 김해 고소작업차 추락사고</span>
             </div>
-            <div onclick="navigateToPage(9)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
-                <span class="text-3xl mb-2">☣️</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">9. 경기 파주 아파트 현장 질식 사고</span>
+            <div onclick="navigateToPage(9)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
+                <span class="text-3xl mb-2 drop-shadow">☣️</span>
+                <span class="font-bold text-xs text-black tracking-tight leading-snug">9. 경기 파주 아파트 현장 질식 사고</span>
             </div>
-            <div onclick="navigateToPage(10)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
-                <span class="text-3xl mb-2">🚨</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">10. 국내 사망재해 현황, 중대재해법 도입 배경</span>
+            <div onclick="navigateToPage(10)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
+                <span class="text-3xl mb-2 drop-shadow">🚨</span>
+                <span class="font-bold text-xs text-black tracking-tight leading-snug">10. 국내 사망재해 현황, 중대재해법 도입 배경</span>
             </div>
         </div>
 
         <!-- [하단 시스템 배너 영역] -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-            <div onclick="openQrModal()" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[60px]">
+            <div onclick="openQrModal()" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[65px]">
                 <span class="text-2xl">📋</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight">11. QR 코드 피드백 & 설문조사 시스템 연동</span>
+                <span class="font-bold text-xs text-black tracking-tight">11. QR 코드 피드백 & 설문조사 시스템 연동</span>
             </div>
             
             <!-- [수정 완료] 12번 자유 게시판 패들렛 직접 연동 (새 창으로 열기) -->
-            <a href="https://padlet.com/sseunghyoo/padlet-6nkmjbeyavcltsi6" target="_blank" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[60px]">
+            <a href="https://padlet.com/sseunghyoo/padlet-6nkmjbeyavcltsi6" target="_blank" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[65px]">
                 <span class="text-2xl">💬</span>
-                <span class="font-extrabold text-xs text-slate-800 tracking-tight">12. 자유 의견 교환 및 안전 소통 게시판</span>
+                <span class="font-bold text-xs text-black tracking-tight">12. 자유 의견 교환 및 안전 소통 게시판</span>
             </a>
         </div>
         
     </main>
 
-    <!-- FULL-SCREEN INTERACTIVE VIEWER OVERLAY -->
-    <div id="fullscreen-overlay" class="fixed inset-0 bg-slate-955/65 backdrop-blur-md z-50 flex items-center justify-center p-0 hidden">
-        <div class="bg-white w-full h-full md:w-[95vw] md:h-[92vh] md:rounded-3xl flex flex-col justify-between shadow-2xl overflow-hidden border border-slate-200">
+    <!-- FULL-SCREEN INTERACTIVE VIEWER OVERLAY (마인크래프트 보관함/상자 UI 콘솔 스타일) -->
+    <div id="fullscreen-overlay" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-0 hidden">
+        <div class="bg-zinc-400 w-full h-full md:w-[95vw] md:h-[92vh] border-4 border-neutral-800 flex flex-col justify-between shadow-2xl overflow-hidden shadow-[inset_4px_4px_0px_#fff,inset_-4px_-4px_0px_#555]">
             <!-- Top Status Nav Bar -->
-            <div class="py-4 px-6 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+            <div class="py-4 px-6 border-b-4 border-neutral-600 flex justify-between items-center bg-zinc-500 shadow-[inset_0px_2px_0px_#fff]">
                 <div class="flex items-center gap-3">
-                    <span class="px-3 py-1 bg-blue-600 text-white font-mono text-xs font-bold rounded-lg uppercase shadow-sm">BIM-SAFE CONSOLE</span>
-                    <span id="overlay-title-node" class="text-sm font-black text-slate-800">연결 시스템 분석 중...</span>
+                    <span class="px-3 py-1 bg-neutral-800 text-mc-textYellow border-2 border-black font-pixel text-[10px] font-bold uppercase shadow-[1px_1px_0px_rgba(255,255,255,0.2)]">BIM-SAFE CONSOLE</span>
+                    <span id="overlay-title-node" class="text-sm font-bold text-white mc-shadow">연결 시스템 분석 중...</span>
                 </div>
-                <button onclick="closeFullscreenOverlay()" class="h-9 w-9 rounded-full bg-slate-200 hover:bg-red-500 hover:text-white text-slate-700 flex items-center justify-center transition-all shadow-inner">
+                <button onclick="closeFullscreenOverlay()" class="h-9 w-9 border-4 border-zinc-700 bg-zinc-300 hover:bg-red-600 hover:text-white text-zinc-800 flex items-center justify-center shadow-[inset_2px_2px_0px_#fff,inset_-2px_-2px_0px_#555] active:translate-y-0.5 transition-all">
                     <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
             <!-- Embedded Iframe Viewport -->
-            <div class="flex-1 w-full bg-slate-100 overflow-hidden relative">
-                <iframe id="fullscreen-frame" src="" class="w-full h-full border-none" title="BIM-Safe Core Page Viewer"></iframe>
+            <div class="flex-1 w-full bg-black overflow-hidden relative p-1">
+                <iframe id="fullscreen-frame" src="" class="w-full h-full border-4 border-neutral-700 bg-stone-900" title="BIM-Safe Core Page Viewer"></iframe>
             </div>
             <!-- Bottom Close Navigation -->
-            <div class="p-3.5 bg-slate-50 border-t border-slate-200 text-right">
-                <button onclick="closeFullscreenOverlay()" class="px-5 py-2 bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs rounded-xl transition-all shadow-md">
+            <div class="p-3.5 bg-zinc-500 border-t-4 border-neutral-600 text-right">
+                <button onclick="closeFullscreenOverlay()" class="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-900 border-4 border-black text-white font-bold text-xs shadow-[inset_2px_2px_0px_rgba(255,255,255,0.3)] active:translate-y-0.5 transition-all mc-shadow">
                     <i class="fa-solid fa-right-from-bracket mr-1"></i> 검증 콘솔 닫기
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- QR CODE POPUP MODAL -->
-    <div id="qr-modal" class="fixed inset-0 bg-slate-955/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-200">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-2">
-                <h3 class="font-extrabold text-sm text-slate-800 flex items-center gap-1.5">
-                    <i class="fa-solid fa-qrcode text-blue-600"></i> 사이트 연결 QR
+    <!-- QR CODE POPUP MODAL (마인크래프트 상자 보관함 팝업 스타일) -->
+    <div id="qr-modal" class="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-400 border-4 border-neutral-800 w-full max-w-sm p-6 text-center space-y-4 shadow-[inset_3px_3px_0px_#fff,inset_-3px_-3px_0px_#555]">
+            <div class="flex justify-between items-center border-b-2 border-zinc-600 pb-2">
+                <h3 class="font-bold text-sm text-neutral-900 flex items-center gap-1.5">
+                    <i class="fa-solid fa-qrcode text-neutral-800"></i> 사이트 연결 QR
                 </h3>
-                <button onclick="closeQrModal()" class="text-slate-400 hover:text-slate-600 text-sm">
+                <button onclick="closeQrModal()" class="text-neutral-700 hover:text-black text-sm">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            <div class="bg-white p-3 border border-slate-200 rounded-xl flex justify-center items-center shadow-inner mx-auto w-52 h-52">
+            <div class="bg-stone-800 p-3 border-4 border-neutral-700 flex justify-center items-center shadow-inner mx-auto w-52 h-52">
                 <img src="qrcode.png" alt="System QR Code" class="w-full h-full object-contain">
             </div>
-            <p class="text-xs text-slate-500 leading-relaxed font-medium">
+            <p class="text-xs text-neutral-800 leading-relaxed font-bold">
                 스마트폰 카메라로 QR 코드를 스캔하여<br>5조 건설재해사례조사를 확인해보세요!
             </p>
-            <button onclick="closeQrModal()" class="w-full py-2 bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs rounded-xl transition-all shadow-md">
+            <button onclick="closeQrModal()" class="w-full py-2 bg-zinc-800 hover:bg-zinc-900 border-4 border-black text-white font-bold text-xs shadow-[inset_2px_2px_0px_rgba(255,255,255,0.3)] mc-shadow">
                 닫기
             </button>
         </div>
     </div>
 
     <!-- Web Footer -->
-    <footer class="border-t border-slate-800 bg-slate-900 text-slate-400 py-4 px-6 text-center text-xs font-mono mt-auto">
+    <footer class="border-t-4 border-black bg-neutral-900 text-zinc-500 py-4 px-6 text-center text-xs font-pixel mt-auto">
         <p>© 2026 5조 건설재해사례조사 Digital Twin. All Rights Reserved.</p>
     </footer>
 
-    <!-- INTERACTIVE SCRIPT CONTROLLERS -->
+    <!-- INTERACTIVE SCRIPT CONTROLLERS (기존 기능 로직 유지) -->
     <script>
         function updateTime() {
             const now = new Date();
