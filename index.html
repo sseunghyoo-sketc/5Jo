@@ -144,60 +144,71 @@
             </p>
         </div>
 
-        <!-- 1~10 Clickable Cards Grid (마인크래프트 인벤토리 슬롯 느낌) -->
+        <!-- 1~10 Clickable Cards Grid (마인크래프트 인벤토리 슬롯 및 캐릭터/아이템 매칭) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- 1번: 감전 -> 크리퍼(번개 충전/폭발 이미지) -->
             <div onclick="navigateToPage(1)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
-                <span class="text-3xl mb-2 drop-shadow">⚡</span>
+                <span class="text-3xl mb-2 drop-shadow">💣</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">1. 하청 근로자 철근 절단기 조작 중 감전 사망 사고</span>
             </div>
+            <!-- 2번: 교량 붕괴 -> 부서지는 모래블록/자갈(모래시계) -->
             <div onclick="navigateToPage(2)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
-                <span class="text-3xl mb-2 drop-shadow">🌉</span>
+                <span class="text-3xl mb-2 drop-shadow">⏳</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">2. 세종 안성 고속도로 청용천교 붕괴</span>
             </div>
+            <!-- 3번: 터널 흙막이 지반 붕괴 -> 철 곡괭이/좀비 동굴 작업 -->
             <div onclick="navigateToPage(3)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">⛏️</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">3. 터널 및 흙막이 지반 붕괴 사고</span>
             </div>
+            <!-- 4번: 낙하 사고 -> 위에서 떨어지는 블록/철창 -->
             <div onclick="navigateToPage(4)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
-                <span class="text-3xl mb-2 drop-shadow">🏗️</span>
+                <span class="text-3xl mb-2 drop-shadow">⛓️</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">4. 경기 고양 현장 철근다발 낙하 사망 사고</span>
             </div>
+            <!-- 5번: 대형 화재 -> 네더랙/지옥 불꽃 -->
             <div onclick="navigateToPage(5)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">🔥</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">5. 부산 기장군 리조트 현장 대형 화재 사고</span>
             </div>
+            <!-- 6번: 감전 상세 -> 레드스톤 회로 오작동(지지직) -->
             <div onclick="navigateToPage(6)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
-                <span class="text-3xl mb-2 drop-shadow">⚡</span>
+                <span class="text-3xl mb-2 drop-shadow">🔴</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">6. 철근 절단기 조작 중 감전 사망 사고 (상세)</span>
             </div>
+            <!-- 7번: 관로 공사 현장 -> 스티브의 흙 파내기(삽) -->
             <div onclick="navigateToPage(7)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
-                <span class="text-3xl mb-2 drop-shadow">🚜</span>
+                <span class="text-3xl mb-2 drop-shadow">🪓</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">7. 충남 아산시 하수관로 정비공사 현장</span>
             </div>
+            <!-- 8번: 추락 사고 -> 비계/사다리에서 떨어짐 -->
             <div onclick="navigateToPage(8)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
                 <span class="text-3xl mb-2 drop-shadow">🪜</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">8. 김해 고소작업차 추락사고</span>
             </div>
+            <!-- 9번: 질식 사고 -> 물속 산소 게이지 부족/포션 디버프 -->
             <div onclick="navigateToPage(9)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
-                <span class="text-3xl mb-2 drop-shadow">☣️</span>
+                <span class="text-3xl mb-2 drop-shadow">🧪</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">9. 경기 파주 아파트 현장 질식 사고</span>
             </div>
+            <!-- 10번: 중대재해법 도입 -> 하트/체력 바 고갈 경고 -->
             <div onclick="navigateToPage(10)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[130px]">
-                <span class="text-3xl mb-2 drop-shadow">🚨</span>
+                <span class="text-3xl mb-2 drop-shadow">💔</span>
                 <span class="font-bold text-xs text-black tracking-tight leading-snug">10. 국내 사망재해 현황, 중대재해법 도입 배경</span>
             </div>
         </div>
 
         <!-- [하단 시스템 배너 영역] -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <!-- 11번: 서베이 -> 책과 깃펜(기록) -->
             <div onclick="openQrModal()" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[65px]">
-                <span class="text-2xl">📋</span>
+                <span class="text-2xl">✒️</span>
                 <span class="font-bold text-xs text-black tracking-tight">11. QR 코드 피드백 & 설문조사 시스템 연동</span>
             </div>
             
-            <!-- [수정 완료] 12번 자유 게시판 패들렛 직접 연동 (새 창으로 열기) -->
+            <!-- 12번: 소통 게시판 -> 마인크래프트 표지판(Sign) -->
             <a href="https://padlet.com/sseunghyoo/padlet-6nkmjbeyavcltsi6" target="_blank" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[65px]">
-                <span class="text-2xl">💬</span>
+                <span class="text-2xl">🪧</span>
                 <span class="font-bold text-xs text-black tracking-tight">12. 자유 의견 교환 및 안전 소통 게시판</span>
             </a>
         </div>
@@ -258,7 +269,7 @@
         <p>© 2026 5조 건설재해사례조사 Digital Twin. All Rights Reserved.</p>
     </footer>
 
-    <!-- INTERACTIVE SCRIPT CONTROLLERS (기존 기능 로직 유지) -->
+    <!-- INTERACTIVE SCRIPT CONTROLLERS -->
     <script>
         function updateTime() {
             const now = new Date();
