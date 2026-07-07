@@ -92,7 +92,6 @@
         <div class="flex items-center space-x-3">
             <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-blue-600 to-sky-500 flex items-center justify-center text-white font-black text-xl shadow-md">5</div>
             <div>
-                <!-- 로고 문구 수정 -->
                 <h1 class="font-sans font-extrabold tracking-tight text-lg text-white flex items-center gap-2">
                     5조 '건설재해사례조사' <span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold font-mono">DIGITAL TWIN v5.0</span>
                 </h1>
@@ -102,17 +101,17 @@
         
         <!-- 오른쪽 상단 연동 컴포넌트 -->
         <div class="flex items-center space-x-4">
-            <div class="text-xs font-mono bg-blue-950/50 border border-blue-800 rounded-xl px-4 py-2 text-blue-400 font-bold">
+            <div class="text-xs font-mono bg-blue-955/50 border border-blue-800 rounded-xl px-4 py-2 text-blue-400 font-bold">
                 <span id="system-time">00:00:00</span>
             </div>
             <!-- QR 코드 이미지 버튼 (클릭 시 팝업 열림) -->
             <div onclick="openQrModal()" class="bg-white p-1 rounded-lg shadow-sm border border-slate-700/60 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
-                <img src="qrcode.png" alt="System QR" class="h-9 w-9 object-contain" onerror="this.style.display='none'; console.warn('QR코드가 경로에 없습니다. qrcode.png 파일명을 확인하세요.');">
+                <img src="qrcode.png" alt="System QR" class="h-9 w-9 object-contain" onerror="this.style.display='none';">
             </div>
         </div>
     </header>
 
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-8">
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
         
         <!-- Introduction Header -->
         <div class="text-center max-w-3xl mx-auto space-y-2 pt-4">
@@ -125,7 +124,7 @@
             </p>
         </div>
 
-        <!-- Clickable Cards Grid -->
+        <!-- 1~10 Clickable Cards Grid (색상 및 스타일 완전 통일) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             <div onclick="navigateToPage(1)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">⚡</span>
@@ -163,17 +162,20 @@
                 <span class="text-3xl mb-2">☣️</span>
                 <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">9. 경기 파주 아파트 현장 질식 사고</span>
             </div>
-            <div onclick="navigateToPage(10)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px] bg-blue-900/40 border-blue-500/40 text-white hover:bg-white hover:text-slate-800">
+            <div onclick="navigateToPage(10)" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px]">
                 <span class="text-3xl mb-2">🚨</span>
-                <span class="font-extrabold text-xs tracking-tight leading-snug">10. 국내 사망재해 현황, 중대재해법 도입 배경</span>
-            </div>
-            <!-- 추가된 11번째 QR 연동 카드 -->
-            <div onclick="openQrModal()" class="card-custom p-5 flex flex-col justify-center items-center text-center cursor-pointer min-h-[120px] bg-amber-500/30 border-amber-500/50 text-amber-200 hover:bg-amber-500 hover:text-white sm:col-span-2 lg:col-span-2">
-                <span class="text-3xl mb-2">📋</span>
-                <span class="font-extrabold text-xs tracking-tight leading-snug">11. QR</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight leading-snug">10. 국내 사망재해 현황, 중대재해법 도입 배경</span>
             </div>
         </div>
-    
+
+        <!-- [레이아웃 하단 이전] 11번 와이드 배치 (디자인 통일 및 시각 밸런스 확보) -->
+        <div class="pt-2">
+            <div onclick="openQrModal()" class="card-custom p-4 flex items-center justify-center gap-3 cursor-pointer min-h-[60px] w-full text-center">
+                <span class="text-2xl">📋</span>
+                <span class="font-extrabold text-xs text-slate-800 tracking-tight">11. QR 코드 피드백 & 설문조사 시스템 연동</span>
+            </div>
+        </div>
+        
     </main>
 
     <!-- FULL-SCREEN INTERACTIVE VIEWER OVERLAY -->
@@ -202,8 +204,8 @@
         </div>
     </div>
 
-    <!-- QR CODE POPUP MODAL (첨부된 QR이 팝업으로 나타나는 구역) -->
-    <div id="qr-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <!-- QR CODE POPUP MODAL -->
+    <div id="qr-modal" class="fixed inset-0 bg-slate-955/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-200">
             <div class="flex justify-between items-center border-b border-slate-100 pb-2">
                 <h3 class="font-extrabold text-sm text-slate-800 flex items-center gap-1.5">
@@ -263,7 +265,6 @@
             }
         }
 
-        // QR 모달 핸들러 함수
         function openQrModal() {
             document.getElementById('qr-modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
