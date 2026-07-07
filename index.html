@@ -45,7 +45,7 @@
             background-color: #141414;
         }
 
-        /* [배경 최적화] 마인크래프트 인게임 청명한 숲 배경화면 */
+        /* [배경 복구] 요청하신 건설 현장 고화질 전체 배경화면으로 복구 */
         body::before {
             content: "";
             position: fixed;
@@ -53,14 +53,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('https://images.unsplash.com/photo-1607988795691-3d0147b43231?q=80&w=2070&auto=format&fit=crop');
+            background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             z-index: -2;
         }
 
-        /* 마인크래프트 게임 속 UI 투명 레이어 느낌 구현 (가독성 확보) */
+        /* 마인크래프트 게임 감성을 얹은 암막 마스크 필터 (글자 가독성 확보) */
         body::after {
             content: "";
             position: fixed;
@@ -68,8 +68,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(16, 25, 16, 0.6); 
-            backdrop-filter: blur(3px); 
+            background: rgba(15, 23, 42, 0.75); 
+            backdrop-filter: blur(4px); 
             z-index: -1;
         }
 
@@ -259,29 +259,29 @@
 
     <!-- INTERACTIVE SCRIPT CONTROLLERS -->
     <script>
-        // [사운드 엔진] 마인크래프트 스타일의 귀여운 인벤토리 클릭 효과음 생성 함수
+        // [사운드 엔진 업그레이드] 볼륨과 타격 피치를 크게 올려 확실하게 들리는 레트로 클릭 사운드 생성
         function playClickSound() {
             try {
                 const AudioContext = window.AudioContext || window.webkitAudioContext;
                 if (!AudioContext) return;
                 const ctx = new AudioContext();
                 
-                // 단기 주파수 제어로 '또각'하는 픽셀 타격음 구현
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
                 
-                osc.type = 'triangle'; // 부드러운 복고풍 오락실 소리
-                osc.frequency.setValueAtTime(150, ctx.currentTime); 
-                osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.04);
+                // 더 쨍하고 확실하게 들리는 사각파(square) 및 단단한 타격감 연출
+                osc.type = 'square'; 
+                osc.frequency.setValueAtTime(300, ctx.currentTime); // 주파수 상승
+                osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.05);
                 
-                gain.gain.setValueAtTime(0.15, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.4, ctx.currentTime); // 볼륨 증폭 (0.15 -> 0.4)
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12); // 잔향 지속시간 증가
                 
                 osc.connect(gain);
                 gain.connect(ctx.destination);
                 
                 osc.start();
-                osc.stop(ctx.currentTime + 0.08);
+                osc.stop(ctx.currentTime + 0.12);
             } catch (e) {
                 console.log("Audio play blocked by browser policy before user interaction.");
             }
