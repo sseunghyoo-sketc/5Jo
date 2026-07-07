@@ -261,9 +261,7 @@
 
     <!-- INTERACTIVE SCRIPT CONTROLLERS -->
     <script>
-        // 글로벌 오디오 컨텍스트 정의 (효과음 & 배경음 공용)
         let audioCtx = null;
-        let bgmNode = null;
         let isBgmPlaying = false;
 
         function initAudio() {
@@ -278,19 +276,18 @@
             }
         }
 
-        // 사용자의 첫 터치/클릭을 감지하여 안전하게 오디오 엔진 활성화 및 BGM 구동
         window.addEventListener('click', initAudio, { once: false });
 
-        // [배경음악 엔진] 마인크래프트 특유의 평화롭고 몽환적인 스케일의 BGM 무한 실시간 생성
+        // 더 발랄한 느낌의 멜로디 구성 (Major Chord Arpeggio)
         function playMinecraftBGM() {
             if (isBgmPlaying) return;
             isBgmPlaying = true;
 
             const chords = [
-                [196.00, 246.94, 293.66, 392.00], // G Major (G3, B3, D4, G4)
-                [220.00, 261.63, 329.63, 440.00], // A minor (A3, C4, E4, A4)
-                [174.61, 220.00, 261.63, 349.23], // F Major (F3, A3, C4, F4)
-                [164.81, 196.00, 246.94, 329.63]  // E minor (E3, G3, B3, E4)
+                [261.63, 329.63, 392.00, 523.25], // C Major
+                [329.63, 392.00, 493.88, 659.25], // E minor
+                [349.23, 440.00, 523.25, 698.46], // F Major
+                [392.00, 493.88, 587.33, 783.99]  // G Major
             ];
             let chordIndex = 0;
 
@@ -299,35 +296,31 @@
                 const now = audioCtx.currentTime;
                 const currentChord = chords[chordIndex];
 
-                // 코드 내 음들을 부드럽게 아르페지오 느낌으로 재생
                 currentChord.forEach((freq, i) => {
                     const osc = audioCtx.createOscillator();
                     const gain = audioCtx.createGain();
 
-                    osc.type = 'sine'; // 마인크래프트 음악 특유의 깨끗하고 부드러운 사인파
-                    osc.frequency.setValueAtTime(freq, now + (i * 0.4)); // 시간 차 아르페지오
+                    osc.type = 'triangle'; // 사인파보다 더 톡톡 튀는 삼각형파 사용
+                    osc.frequency.setValueAtTime(freq, now + (i * 0.15));
 
-                    // 매우 은은하고 편안한 볼륨 페이드 인/아웃 제어
                     gain.gain.setValueAtTime(0, now);
-                    gain.gain.linearRampToValueAtTime(0.04, now + 1.5 + (i * 0.2));
-                    gain.gain.exponentialRampToValueAtTime(0.0001, now + 6.0);
+                    gain.gain.linearRampToValueAtTime(0.06, now + 0.1 + (i * 0.15));
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + 2.0);
 
                     osc.connect(gain);
                     gain.connect(audioCtx.destination);
 
-                    osc.start(now);
-                    osc.stop(now + 6.5);
+                    osc.start(now + (i * 0.15));
+                    osc.stop(now + 2.0);
                 });
 
                 chordIndex = (chordIndex + 1) % chords.length;
-                // 7초 주기로 다음 코드 하모니 진행
-                setTimeout(playNextChord, 7000);
+                setTimeout(playNextChord, 3000); // 더 빠른 템포로 변경
             }
 
             playNextChord();
         }
 
-        // [효과음 엔진] 더 쨍하고 확실하게 들리는 마인크래프트 타격음 클릭 사운드
         function playClickSound() {
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             if (audioCtx.state === 'suspended') audioCtx.resume();
