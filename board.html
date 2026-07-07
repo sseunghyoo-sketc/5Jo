@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 p-6 font-sans">
+
+    <div class="max-w-3xl mx-auto space-y-6">
+        <!-- 게시판 헤더 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h2 class="text-xl font-black text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-comments text-blue-600"></i> 자유 안전 소통 게시판
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">건설현장 위해요소 제보나 시스템에 대한 자유로운 피드백 및 의견을 남겨주세요.</p>
+        </div>
+
+        <!-- 글 작성 양식 -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <form id="board-form" onsubmit="savePost(event)" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-500 mb-1">작성자 닉네임</label>
+                        <input type="text" id="post-author" required placeholder="예: 홍길동" class="w-full text-xs rounded-lg border border-slate-300 p-2.5 focus:border-blue-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-500 mb-1">비밀번호 (삭제용)</label>
+                        <input type="password" id="post-pw" required placeholder="숫자 4자리" class="w-full text-xs rounded-lg border border-slate-300 p-2.5 focus:border-blue-500 focus:outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-500 mb-1">내용 기술</label>
+                    <textarea id="post-content" rows="3" required placeholder="현장의 소중한 피드백을 기록해주세요." class="w-full text-xs rounded-lg border border-slate-300 p-2.5 focus:border-blue-500 focus:outline-none"></textarea>
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg transition-all shadow-sm">
+                    <i class="fa-solid fa-pen mr-1"></i> 의견 등록하기
+                </button>
+            </form>
+        </div>
+
+        <!-- 피드 리스트 구역 -->
+        <div class="space-y-3" id="posts-container">
+            <!-- 자바스크립트로 렌더링 -->
+        </div>
+    </div>
+
+    <script>
+        // 로컬스토리지에서 기존 데이터 불러오기
+        let posts = JSON.parse(localStorage.getItem('bim_safe_posts')) || [];
+
+        function renderPosts() {
+            const container = document.getElementById('posts-container');
+            container.innerHTML = '';
+
+            if (posts.length === 0) {
+                container.innerHTML = `<div class="text-center p-8 text-xs text-slate-400 bg-white rounded-2xl border border-slate-200 border-dashed">등록된 의견이 없습니다. 첫 의견을 남겨보세요!</div>`;
+                return;
+            }
+
+            posts.forEach((post, index) => {
+                const item = document.createElement('div');
+                item.className = "bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between gap-2 transition-all";
+                item.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-xs text-slate-700"><i class="fa-solid fa-user text-slate-400 mr-1"></i>${post.author}</span>
+                            <span class="text-[10px] text-slate-400 font-mono">${post.date}</span>
+                        </div>
+                        <button onclick="deletePost(${index})" class="text-[10px] text-rose-500 hover:underline font-bold"><i class="fa-solid fa-trash-can"></i> 삭제</button>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed whitespace-pre-wrap">${post.content}</p>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function savePost(e) {
+            e.preventDefault();
+            const author = document.getElementById('post-author').value;
+            const password = document.getElementById('post-pw').value;
+            const content = document.getElementById('post-content').value;
+            
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+
+            posts.unshift({ author, password, content, date: dateStr });
+            localStorage.setItem('bim_safe_posts', JSON.stringify(posts));
+
+            // 양식 리셋 및 갱신
+            document.getElementById('post-author').value = '';
+            document.getElementById('post-pw').value = '';
+            document.getElementById('post-content').value = '';
+            renderPosts();
+        }
+
+        function deletePost(index) {
+            const pw = prompt("글 작성시 입력했던 비밀번호를 입력하세요:");
+            if (pw === posts[index].password) {
+                posts.splice(index, 1);
+                localStorage.setItem('bim_safe_posts', JSON.stringify(posts));
+                renderPosts();
+            } else if (pw !== null) {
+                alert("비밀번호가 일치하지 않습니다.");
+            }
+        }
+
+        // 초기 로드
+        renderPosts();
+    </script>
+</body>
+</html>
