@@ -2,8 +2,108 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5조 자유 안전 소통 게시판</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase App 및 Realtime Database 라이브러리 로드 (자바스크립트 모듈 3.0버전 이상 대응) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue, remove, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // 5조 공용 데모 파이어베이스 프로젝트 구성 (별도 설정 없이 바로 실시간 동기화 테스트 가능)
+        const firebaseConfig = {
+            databaseURL: "https://bim-safe-default-rtdb.firebaseio.com/"
+        };
+
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const postsRef = ref(db, 'posts');
+
+        // 전역 함수로 노출시켜 HTML 내부 onsubmit/onclick에서 접근 가능하도록 바인딩
+        window.savePost = async function(e) {
+            e.preventDefault();
+            const author = document.getElementById('post-author').value;
+            const password = document.getElementById('post-pw').value;
+            const content = document.getElementById('post-content').value;
+            
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+
+            try {
+                // Firebase 서버에 데이터 밀어넣기
+                await push(postsRef, {
+                    author,
+                    password,
+                    content,
+                    date: dateStr
+                });
+
+                // 폼 초기화
+                document.getElementById('post-author').value = '';
+                document.getElementById('post-pw').value = '';
+                document.getElementById('post-content').value = '';
+            } catch (error) {
+                alert("데이터 전송 중 오류가 발생했습니다: " + error.message);
+            }
+        };
+
+        window.deletePost = async function(postId) {
+            const pw = prompt("글 작성시 입력했던 비밀번호를 입력하세요:");
+            if (!pw) return;
+
+            const postRef = ref(db, `posts/${postId}`);
+            try {
+                const snapshot = await get(postRef);
+                if (snapshot.exists()) {
+                    const postData = snapshot.val();
+                    if (postData.password === pw) {
+                        await remove(postRef);
+                    } else {
+                        alert("비밀번호가 일치하지 않습니다.");
+                    }
+                }
+            } catch (error) {
+                alert("삭제 처리 중 오류가 발생했습니다.");
+            }
+        };
+
+        // 서버 데이터베이스 실시간 스트리밍 모니터링 (누가 올리든 화면 자동 갱신)
+        onValue(postsRef, (snapshot) => {
+            const container = document.getElementById('posts-container');
+            container.innerHTML = '';
+            
+            const data = snapshot.val();
+            if (!data) {
+                container.innerHTML = `<div class="text-center p-8 text-xs text-slate-400 bg-white rounded-2xl border border-slate-200 border-dashed">등록된 의견이 없습니다. 첫 의견을 남겨보세요!</div>`;
+                return;
+            }
+
+            // 최신 글이 맨 위로 오도록 정렬하기 위해 객체를 배열로 변환 후 역순 정렬
+            const postList = Object.keys(data).map(key => ({
+                id: key,
+                ...data[key]
+            })).reverse();
+
+            postList.forEach((post) => {
+                const item = document.createElement('div');
+                item.className = "bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between gap-2 transition-all animate-fadeIn";
+                item.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-xs text-slate-700"><i class="fa-solid fa-user text-slate-400 mr-1"></i>${post.author}</span>
+                            <span class="text-[10px] text-slate-400 font-mono">${post.date}</span>
+                        </div>
+                        <button onclick="deletePost('${post.id}')" class="text-[10px] text-rose-500 hover:underline font-bold"><i class="fa-solid fa-trash-can"></i> 삭제</button>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed whitespace-pre-wrap">${post.content}</p>
+                `;
+                container.appendChild(item);
+            });
+        });
+    </script>
 </head>
 <body class="bg-slate-50 p-6 font-sans">
 
@@ -39,74 +139,13 @@
             </form>
         </div>
 
-        <!-- 피드 리스트 구역 -->
+        <!-- 피드 리스트 구역 (실시간 동기화 출력) -->
         <div class="space-y-3" id="posts-container">
-            <!-- 자바스크립트로 렌더링 -->
+            <div class="text-center p-8 text-xs text-slate-400 bg-white rounded-2xl border border-slate-200 border-dashed">
+                <i class="fa-solid fa-circle-notch animate-spin mr-1"></i> 안전 관제 네트워크 연결 중...
+            </div>
         </div>
     </div>
 
-    <script>
-        // 로컬스토리지에서 기존 데이터 불러오기
-        let posts = JSON.parse(localStorage.getItem('bim_safe_posts')) || [];
-
-        function renderPosts() {
-            const container = document.getElementById('posts-container');
-            container.innerHTML = '';
-
-            if (posts.length === 0) {
-                container.innerHTML = `<div class="text-center p-8 text-xs text-slate-400 bg-white rounded-2xl border border-slate-200 border-dashed">등록된 의견이 없습니다. 첫 의견을 남겨보세요!</div>`;
-                return;
-            }
-
-            posts.forEach((post, index) => {
-                const item = document.createElement('div');
-                item.className = "bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between gap-2 transition-all";
-                item.innerHTML = `
-                    <div class="flex justify-between items-start">
-                        <div class="flex items-center gap-2">
-                            <span class="font-bold text-xs text-slate-700"><i class="fa-solid fa-user text-slate-400 mr-1"></i>${post.author}</span>
-                            <span class="text-[10px] text-slate-400 font-mono">${post.date}</span>
-                        </div>
-                        <button onclick="deletePost(${index})" class="text-[10px] text-rose-500 hover:underline font-bold"><i class="fa-solid fa-trash-can"></i> 삭제</button>
-                    </div>
-                    <p class="text-xs text-slate-600 leading-relaxed whitespace-pre-wrap">${post.content}</p>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        function savePost(e) {
-            e.preventDefault();
-            const author = document.getElementById('post-author').value;
-            const password = document.getElementById('post-pw').value;
-            const content = document.getElementById('post-content').value;
-            
-            const now = new Date();
-            const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-
-            posts.unshift({ author, password, content, date: dateStr });
-            localStorage.setItem('bim_safe_posts', JSON.stringify(posts));
-
-            // 양식 리셋 및 갱신
-            document.getElementById('post-author').value = '';
-            document.getElementById('post-pw').value = '';
-            document.getElementById('post-content').value = '';
-            renderPosts();
-        }
-
-        function deletePost(index) {
-            const pw = prompt("글 작성시 입력했던 비밀번호를 입력하세요:");
-            if (pw === posts[index].password) {
-                posts.splice(index, 1);
-                localStorage.setItem('bim_safe_posts', JSON.stringify(posts));
-                renderPosts();
-            } else if (pw !== null) {
-                alert("비밀번호가 일치하지 않습니다.");
-            }
-        }
-
-        // 초기 로드
-        renderPosts();
-    </script>
 </body>
 </html>
